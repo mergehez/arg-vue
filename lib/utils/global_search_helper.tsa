@@ -1,0 +1,177 @@
+
+import {computed, reactive, ref} from "vue";
+import {useDebounceFn} from "@vueuse/core";
+import {router} from "@inertiajs/vue3";
+// import {TSearchResult} from "./models";
+import TextInput from "../Components/Form/TextInput.vue";
+import {arrToObj, uniqueId} from "./helpers";
+import {api} from "./api_helpers";
+
+type TSearchResult = Record<string, any>
+
+const allRecentVisits = ref<TSearchResult[]>([]);
+
+type TSearchResultSpecifics = Record<string, {
+    route: string | ((t: TSearchResult) => string);
+    ic: string;
+    match: (t: TSearchResult) => boolean;
+    selectLabel?: string;
+    // selectValue?: string;
+}>;
+const searchResultSpecifics = ref<TSearchResultSpecifics>({})
+const selectOptions = ref({} as Record<string, string>);
+
+function getSearchResultIcon(res: TSearchResult){
+    return Object.values(searchResultSpecifics.value)
+        .find(t => t.match(res))?.ic ?? '';
+}
+
+const refSearchInput = ref<InstanceType<typeof TextInput> | null>();
+
+const defaultOnSelected = (res: TSearchResult) => {
+    for (const v of Object.values(searchResultSpecifics.value)) {
+        if(v.match(res))
+            return router.visit(typeof v.route === 'string' ? route(v.route, res.id) : v.route(res));
+    }
+
+    // fallback
+    return router.visit(route('page.topic', res.id));
+};
+const globalSearchState = reactive({
+    key: uniqueId(),
+    _show: false,
+    show: computed({
+        get: (): boolean => globalSearchState._show,
+        set: (val) => {
+            if (globalSearchState._show !== val) {
+                globalSearchState._show = val;
+                if (val) {
+                    setTimeout(() => refSearchInput.value?.focus(), 500);
+                    setSearchResults(undefined);
+                }else{
+                    setTimeout(() => {
+                        globalSearchState.query = '';
+                        setSearchResults(undefined);
+                        globalSearchState.selectedRow = 0;
+                        globalSearchState.readonlyInclude = false;
+                        globalSearchState.onSelected = defaultOnSelected;
+                    }, 500);
+                }
+            }
+        }
+    }),
+    query: '',
+    results: [] as TSearchResult[]|undefined,
+    resultsToShow: [] as TSearchResult[],
+    recentVisits: [] as TSearchResult[],
+    selectedRow: -1,
+    warningText: '',
+    _include: 'all',
+    include: computed<string>({
+        get: () => globalSearchState._include,
+        set: (newVal: string) => {
+            globalSearchState._include = newVal;
+            if(newVal =='all') {
+                globalSearchState.recentVisits = allRecentVisits.value.slice(0, 9);
+            }else{
+                globalSearchState.recentVisits = allRecentVisits.value
+                    .filter(t => {
+                        return Object.keys(searchResultSpecifics.value).some(key => {
+                            return key == newVal && searchResultSpecifics.value[key].match(t);
+                        })
+                    })
+                    .slice(0, 9);
+            }
+            executeGlobalSearch();
+        },
+    }),
+    readonlyInclude: false,
+    showSelect: false,
+    onSelected: defaultOnSelected,
+})
+
+function initGlobalSearch(opts: {searchResultSpecifics: TSearchResultSpecifics, dropdown: boolean}){
+    searchResultSpecifics.value = opts.searchResultSpecifics;
+    selectOptions.value = {
+        'all': 'all',
+        ...arrToObj(Object.keys(searchResultSpecifics.value), t => searchResultSpecifics.value[t].selectLabel ?? t)
+    };
+    globalSearchState.showSelect = opts.dropdown;
+
+    allRecentVisits.value = JSON.parse(localStorage.getItem('search_recent_visits') ?? '[]') as TSearchResult[];
+    // state.recentVisits = allRecentVisits.value.splice(0, 9)
+    globalSearchState.include = 'all';
+    setSearchResults(undefined);
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+        if (e.key === 'k' && (e.ctrlKey || e.metaKey)) {
+            globalSearchState.include = 'all';
+            globalSearchState.show = true;
+        } else if (e.key == 'Escape')
+            globalSearchState.show = false;
+    })
+}
+
+function setSearchResults(val?: TSearchResult[]) {
+    globalSearchState.results = val;
+    globalSearchState.resultsToShow = val == null ? [...globalSearchState.recentVisits] : [...(globalSearchState.results ?? [])];
+}
+const debouncedSearch = (ms?: number) => useDebounceFn(async () => {
+    const q = globalSearchState.query;
+    if (!q.trim().length) {
+        // state.warningText = __('peyvdivherikem3tipbe');
+        return;
+    }
+    globalSearchState.warningText = '';
+    return await api.get<TSearchResult[]>(route('api.search', {
+        query: globalSearchState.query,
+        include: globalSearchState.include,
+    })).then((res) => {
+        setSearchResults(res.data || []);
+        globalSearchState.selectedRow = 0;
+    }).catch(_ => [] as TSearchResult[]);
+}, ms)();
+
+async function executeGlobalSearch() {
+    const q = globalSearchState.query;
+    if (q.trim().length == 0) {
+        globalSearchState.warningText = '';
+        setSearchResults(undefined);
+        return;
+    }
+    await debouncedSearch(q.length < 3 ? undefined : 500);
+}
+
+function goToSearchResult(res: TSearchResult) {
+    if (!res) return;
+
+    globalSearchState.onSelected(res);
+
+    const existingIndex = allRecentVisits.value.findIndex(t => t.id == res.id && t.title == res.title);
+    if(existingIndex > 0)
+        allRecentVisits.value.splice(existingIndex, 1);
+    if (existingIndex !== 0 && allRecentVisits.value.unshift(res) > 20)
+        allRecentVisits.value.splice(20);
+    localStorage.setItem('search_recent_visits', JSON.stringify(allRecentVisits.value));
+
+    globalSearchState.show = false;
+}
+
+type TConfig = {
+    onSelected?: typeof defaultOnSelected,
+    include: string,
+    readonlyInclude?: boolean,
+}
+function openSearchPopup(options?: TConfig){
+    if(options){
+        if(!options.include || Object.keys(selectOptions).findIndex(t => t !== options.include) == -1){
+            options.include = 'all';
+        }
+        if(options.onSelected)
+            globalSearchState.onSelected = options.onSelected;
+        globalSearchState.include = options.include;
+        globalSearchState.readonlyInclude = options.readonlyInclude ?? false;
+    }
+    globalSearchState.key = uniqueId();
+    globalSearchState.show = true;
+    console.log('openSearchPopup', globalSearchState);
+}

@@ -1,0 +1,82 @@
+{
+  "version": "0.0.21",
+  "files": [
+    "lib/*"
+  ],
+  "types": "./lib/index.d.ts",
+  "exports": {
+    "./Components": {
+      "import": "./lib/Components/index.js",
+      "require": "./lib/Components/index.js"
+    },
+    "./utils": {
+      "import": "./lib/utils/index.js",
+      "require": "./lib/utils/index.js"
+    },
+    "./theme_setup": {
+      "import": "./lib/theme_setup.js",
+      "require": "./lib/theme_setup.js"
+    }
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@mergehez"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mergehez/argvue"
+  },
+  "scripts": {
+    "buildy": "rimraf dist/ && vite build && vue-tsc --emitDeclarationOnly",
+    "buildx": "node g.mjs && rimraf dist && cp -R lib/ dist && cp -R public/ dist && vue-tsc --emitDeclarationOnly ",
+    "build": "node g.mjs && rimraf dist ",
+    "dev": "vite",
+    "build3": "node g.mjs && vite build && vue-tsc --emitDeclarationOnly -p tsconfig.build-dts.json",
+    "build2": "node g.mjs && vite build && vue-tsc --emitDeclarationOnly -p tsconfig.build-dts.json",
+    "upbuild": "node g.mjs && node up.mjs && vite build && vue-tsc --emitDeclarationOnly -p tsconfig.build-dts.json",
+    "preserve": "vite build",
+    "serve": "vite preview --port 5050",
+    "typecheck": "vue-tsc --noEmit",
+    "preview": "vite preview",
+    "test": "exit 0"
+  },
+  "name": "argvue",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@formkit/auto-animate": "^0.8.2",
+    "@iconify-json/mdi": "^1.1.67",
+    "@iconify/tailwind": "^1.1.2",
+    "@inertiajs/vue3": "^1.2.0",
+    "@popperjs/core": "^2.11.8",
+    "@vueuse/components": "^10.11.0",
+    "@vueuse/core": "^10.11.0",
+    "dayjs": "^1.11.12",
+    "idb-keyval": "^6.2.1",
+    "latinize": "^2.0.0",
+    "pinia": "^2.2.2",
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss": "^3.4.6",
+    "vue": "^3.4.31",
+    "vue-advanced-cropper": "^2.8.9"
+  },
+  "devDependencies": {
+    "@types/latinize": "^0.2.18",
+    "@types/node": "^20.14.11",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "autoprefixer": "^10.4.19",
+    "path": "^0.12.7",
+    "postcss": "^8.4.39",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "sass": "^1.77.8",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.4",
+    "vite-plugin-dts": "^4.0.3",
+    "vite-plugin-sass-dts": "^1.3.25",
+    "vite-plugin-static-copy": "^1.0.6",
+    "vue-tsc": "^2.0.24"
+  },
+  "peerDependencies": {
+    "@iconify-json/mdi": "^1.1.67",
+    "@iconify/tailwind": "^1.1.2"
+  }
+}
