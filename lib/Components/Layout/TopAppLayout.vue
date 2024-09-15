@@ -8,6 +8,10 @@ import GlobalSearchPopup from "../Overlays/GlobalSearchPopup.vue";
 import NotificationToast from "../Overlays/NotificationToast.vue";
 import ConfirmationModal from "../Overlays/ConfirmationModal.vue";
 
+const props = defineProps<{
+    contentClass?: string
+}>()
+
 const emit = defineEmits<{
     routeChanged: [route: string]
 }>();
@@ -35,7 +39,7 @@ onBeforeUnmount(globalKeyDownListener.onLayoutUnmounted)
 </script>
 
 <template>
-    <div>
+    <div :class="contentClass ?? 'w-screen h-screen flex flex-col'">
         <Head>
             <link rel="canonical" :href="currUrl" />
         </Head>
