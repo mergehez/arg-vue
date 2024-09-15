@@ -15,3 +15,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import "reset";
+
+
+body {
+  //noinspection CssInvalidPropertyValue
+  min-height: -webkit-fill-available;
+}
+html {
+  //noinspection CssInvalidPropertyValue
+  height: -webkit-fill-available;
+}
+
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 500ms ease-out;
+}
+
+#nprogress .bar{
+  background: theme('colors.indigo.600') !important;
+  height: 5px !important;
+}

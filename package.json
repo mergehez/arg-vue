@@ -25,6 +25,10 @@
       "require": "./lib/utils/index.js",
       "types": "./lib/utils/index.d.ts"
     },
+    "./lib/sass/*.scss": {
+      "import": "./lib/sass/*.scss",
+      "require": "./lib/sass/*.scss"
+    },
     "./theme_setup": {
       "import": "./lib/theme_setup.js",
       "require": "./lib/theme_setup.js"
@@ -46,6 +50,7 @@
     "publishX": "npm publish --access public"
   },
   "dependencies": {
+    "@fontsource/roboto": "^5.0.14",
     "@formkit/auto-animate": "^0.8.2",
     "@iconify-json/mdi": "^1.1.67",
     "@iconify/tailwind": "^1.1.2",

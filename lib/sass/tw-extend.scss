@@ -1,0 +1,19 @@
+
+.h-screen{
+  max-height: 100vh;
+  max-height: 100dvh;
+  //max-height: -webkit-fill-available;
+}
+
+.text-2xs {
+  font-size: 0.625rem /* 10px */;
+  line-height: 0.75rem/* 12px */;
+}
+.text-3xs {
+  font-size: 0.25rem;
+  line-height: 0.3rem;
+}
+.text-4xs {
+  font-size: 0.125rem;
+  line-height: 0.15rem;
+}
