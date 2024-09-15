@@ -1,0 +1,45 @@
+import { defineConfig } from 'vite';
+import laravel from 'laravel-vite-plugin';
+import vue from '@vitejs/plugin-vue'
+import { mdi } from '@mergehez/build'
+import * as path from 'path';
+
+export default defineConfig({
+    plugins: [
+        mdi.vitePlugin([
+            {
+                target: 'resources/sass/ics.scss',
+                mdiIcons: [], // don't include any icons (obsolete)
+                watch: {
+                    directory: 'resources/svg', // svg files will be converted to css classes
+                    extensions: ['svg'],
+                },
+            }
+        ] ),
+        laravel({
+            input: [
+                'resources/css/app.css',
+                'resources/js/app.js',
+                'resources/js/theme_setup.js',
+                './node_modules/argvue/lib/Components/index.ts',
+                './node_modules/argvue/lib/utils/index.ts',
+            ],
+            refresh: true,
+        }),
+        vue(),
+    ],
+
+    resolve: {
+        alias: {
+            ziggy: path.resolve('vendor/tightenco/ziggy/dist/vue.es.js'),
+            '@': path.resolve(__dirname, "resources/js/"),
+            // '@argvue': path.resolve(__dirname, "../argvue/lib/"),
+            '@argvue': path.resolve(__dirname, "node_modules/argvue/lib/"),
+        },
+        extensions: ['.js', '.ts', '.tsx', '.jsx', '.vue'],
+    },
+
+    build: {
+        minify: true,
+    }
+});

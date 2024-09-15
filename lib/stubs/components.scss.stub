@@ -1,0 +1,31 @@
+@import "arg-vue/lib/sass/buttons.scss";
+@import "arg-vue/lib/sass/alerts.scss";
+
+@layer components{
+    .divide-light{
+        @apply divide-gray-200 dark:divide-gray-800;
+    }
+    .border-light{
+        @apply border-gray-200 dark:border-gray-800 focus:border-gray-400 dark:focus:border-gray-600 focus:ring-0;
+    }
+    .ring-light{
+        @apply ring-gray-400 dark:ring-gray-600;
+    }
+
+    .form-control{
+        @apply text-sm btn bg-x1 dark:text-white border border-x4 focus:ring-x4 focus:border-x4 font-normal;
+    }
+    .form-control:not(:disabled){
+        @apply hover:border-x4;
+    }
+    .btn:disabled{
+        @apply border-opacity-70 opacity-90 cursor-not-allowed;
+    }
+    .form-control:disabled{
+        @apply bg-x2;
+    }
+    .striped-list > div:nth-child(even) {
+        background-color: rgb(var(--bg2) / 60%);
+    }
+}
+

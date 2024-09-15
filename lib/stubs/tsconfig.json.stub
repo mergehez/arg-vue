@@ -1,0 +1,42 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "strict": true,
+        "jsx": "preserve",
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "allowJs": true,
+        "lib": ["esnext", "dom"],
+        "types": ["@types/node"],
+        "paths": {
+            "@/*": ["./resources/js/*"],
+//            "@argvue/*": ["../argvue/lib/*"],
+            "@argvue/*": ["./node_modules/argvue/lib/*"],
+        },
+        "outDir": "./public/build/assets",
+        "typeRoots": [
+            "./node_modules/@types",
+            "resources/js/Types",
+            "./node_modules/argvue/lib/utils",
+            "./node_modules/argvue/lib/utils/app.d.ts"
+        ]
+    },
+    "typeRoots": [
+        "./node_modules/@types",
+        "resources/js/Types",
+        "./node_modules/argvue/lib/utils/app.d.ts"
+    ],
+    "include": [
+        "resources/js/**/*.ts",
+        "resources/js/**/*.d.ts",
+        "resources/js/**/*.vue",
+        "./node_modules/argvue/lib/**/*.ts",
+        "./node_modules/argvue/lib/**/*.d.ts",
+        "./node_modules/argvue/lib/**/*.vue",
+        "public/translations.js",
+    ],
+    "exclude": ["node_modules", "public"]
+}

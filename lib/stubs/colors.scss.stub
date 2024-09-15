@@ -1,0 +1,32 @@
+@layer components{
+    :root{
+        --bg-reverse: 18 18 18;
+        --bg0: 255 255 255; // #ffffff
+        --bg1: 250 250 250;
+        --bg2: 242 242 242;
+        --bg3: 235 235 235;
+        --bg4: 228 228 228;
+        --bg5: 221 221 221;
+        --bg6: 214 214 214;
+        --bg7: 207 207 207;
+        --bg8: 200 200 200;
+
+        --clr-default: 58 58 58 ;
+
+        --blue: 0 122 255;
+    }
+    .dark{
+        --bg-reverse: 255 255 255;
+
+        --clr-default: 204 204 204;
+        --bg0: 10 20 22;            // #0a1416
+        --bg1: 15 23 28;
+        --bg2: 21 31 39;
+        --bg3: 31 41 55;
+        --bg4: 43 50 60;            // only for border around bg1 and bg2
+        //--bg5: 50 60 60;          // never used
+        --bg6: 53 60 60;            // only for border around
+        //--bg7: 94 94 94;          // never used
+        //--bg8: 106 106 106;       // never used
+    }
+}

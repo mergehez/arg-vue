@@ -1,0 +1,27 @@
+
+export {};
+
+declare module 'argvue/lib/utils/inertia_helpers' {
+    // export interface TInertiaPageProps{
+    //     auth: {
+    //         user?: TUser
+    //     },
+    // }
+}
+// declare module '@argvue/utils/inertia_helpers' {
+//     export interface TInertiaPageProps{
+//         auth: {
+//             user?: TUser
+//             // activeUsers: TSession[],
+//         },
+//         menu: TMenu,
+//         localization: {
+//             locale: string,
+//             locales: Record<string, string>,
+//             translations: Record<string, string>,
+//         },
+//         session_lifetime: number,
+//         info: Record<KeyValueKey, string>,
+//         navStats: Record<string, number>,
+//     }
+// }

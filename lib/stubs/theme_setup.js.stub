@@ -1,0 +1,3 @@
+import 'argvue/theme_setup'
+
+window.themeManager._init();

@@ -1,0 +1,18 @@
+<script setup lang="ts">
+import { Link } from '@inertiajs/vue3';
+import { twMerge } from 'tailwind-merge'
+
+defineProps<{
+    href: string,
+    active: boolean,
+}>()
+
+</script>
+
+<template>
+    <Link :href="href" :class="twMerge('font-medium bg-reverse flex-1 py-2 text-center text-white hover:opacity-90 uppercase', active ? 'active': '', $attrs.class as string)">
+        <h2>
+            <slot />
+        </h2>
+    </Link>
+</template>

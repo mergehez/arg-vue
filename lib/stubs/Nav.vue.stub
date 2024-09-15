@@ -1,0 +1,124 @@
+<script setup lang="ts">
+import {computed,} from 'vue';
+import {Link, router} from '@inertiajs/vue3';
+import globalState from "@/Helpers/globalState";
+import {TMenu, TMenuItem, TUser} from "@/Types/Models";
+import {__} from "@/Helpers/inertia_helpers";
+import NavLink from "@/Components/NavLink.vue";
+import NavButton from "@/Components/NavButton.vue";
+import {useGlobalSearch} from "@argvue/utils";
+import {ILink} from "@argvue/Components";
+import Logo from "@/Components/Logo.vue";
+import {usePage} from "@argvue/utils";
+
+defineProps({
+    title: String,
+});
+
+const page = usePage();
+const menu = computed(() => page.props.menu as TMenu);
+
+const goTo = (url: string, newTopic?: boolean) => {
+    router.visit(url, {
+        onFinish: () => {
+            globalState.showNavDropdown = false;
+        }
+    });
+}
+
+function currentRoute(routeName: string) {
+    return globalState.currentRoute === routeName;
+}
+
+function currentMenuItem(menuItem: TMenuItem) {
+    return window.location.href.split('?')[0].endsWith(menuItem.url || 'zzz');
+}
+
+const globalSearch = useGlobalSearch();
+</script>
+
+<template>
+    <nav class="w-full z-50 shadow dark:shadow-stone-800 relative bg-x0" id="nav">
+        <!-- Primary Navigation Menu -->
+        <div class="content relative">
+            <div class="flex pt-3 justify-center relative max-md:pb-3">
+                <Link :href="route('page.home')">
+                    <Logo style="width: max(20vw, 300px)" class="max-md:hidden pointer-events-none select-none"/>
+                    <Logo style="width: min(50vw, 300px)" class="md:hidden pointer-events-none select-none"/>
+                </Link>
+
+                <NavButton as="button"
+                           class="py-2 px-1.5 md:px-2 absolute top-3 right-1 md:right-4"
+                           @click="globalSearch.openSearchPopup" :title="__('search')">
+                    <i class="ic ic-lg ic-search before:text-black"></i>
+                </NavButton>
+
+                <NavButton v-if="page.props.auth?.user"
+                           class="py-2 px-1.5 md:px-2 absolute top-12 md:top-3 right-1 md:right-14"
+                           :href="route('panel.settings')" :title="__('admin_panel')">
+                    <span class="icon icon-[mdi--settings] text-xl"></span>
+                </NavButton>
+            </div>
+
+            <div class="flex justify-between max-md:hidden h-16 px-4">
+                <div class="flex flex-grow items-center">
+                    <!-- Logo -->
+                    <div class="shrink-0 flex items-center">
+                        <button @click="goTo(route('page.index'))" aria-label="Go to home page">
+                            <!--<img src="/logo.jpg" alt="logoya tirşik.netê" width="55" height="35" />-->
+                        </button>
+                    </div>
+
+                    <div class="flex-grow flex w-full">
+                        <!-- Navigation Links -->
+                        <div class="hidden space-x-4 -my-px md:flex w-full">
+                            <template v-for="mi in menu.items">
+                                <NavLink
+                                    :href="mi.url || '#'"
+                                    :active="currentMenuItem(mi)"
+                                >
+                                    {{ mi.title }}
+                                </NavLink>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="absolute top-3 left-2 py-2 px-1.5 md:hidden right-2"
+            >
+                <button @click="() => globalState.showNavDropdown = !globalState.showNavDropdown">
+                    <svg class="h-6 w-6 cursor-pointer hover:opacity-70" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                        <path :class="{'hidden': globalState.showNavDropdown, 'inline-flex': ! globalState.showNavDropdown }"
+                              stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        <path :class="{'hidden': ! globalState.showNavDropdown, 'inline-flex': globalState.showNavDropdown }"
+                              stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div
+                :style="{
+                    translate: globalState.showNavDropdown ? '0' : '-100vw',
+                    opacity: globalState.showNavDropdown ? '1' : '0',
+                    transition: 'all 0.3s ease-in-out',
+                    'box-shadow': '#0000008f 0px 0px 20px 15px',
+                 }"
+                class="absolute top-16 left-2 right-2 rounded-md bg-x0 border-2 border-x3 ease-in-out">
+                <div class="grid w-full divide-y">
+                    <template v-for="mi in menu.items">
+                        <ILink
+                            :href="mi.url!"
+                            :on-click="() => globalState.showNavDropdown = false"
+                            class="hover:bg-x2 transition-colors uppercase text-lg text-center font-bold px-7 py-2 pt-2">
+                            {{ mi.title }}
+                        </ILink>
+                    </template>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+</template>

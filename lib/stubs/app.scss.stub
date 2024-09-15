@@ -1,0 +1,21 @@
+@import "arg-vue/lib/sass/app.scss";
+
+@import "colors";
+@import "components";
+
+:root, * {
+  scroll-behavior: smooth !important;
+}
+
+@layer components{
+  .content{
+    @apply px-2 md:px-3 lg:px-4 xl:px-5;
+    @media screen and (min-width: 900px) {
+      --px: calc(max(3rem, calc(100vw - 900px)) / 2);
+      padding-left: var(--px);
+      padding-right: var(--px);
+    }
+  }
+}
+
+@import "arg-vue/lib/sass/tw-extend.scss";

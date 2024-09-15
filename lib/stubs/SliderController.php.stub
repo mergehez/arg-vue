@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Slider;
+use App\Models\SliderItem;
+use Illuminate\Http\Request;
+
+class SliderController extends Controller
+{
+    public function panelIndex()
+    {
+        $items = Slider::orderByDesc('updated_at')->get();
+        return $this->inertia('Panel/PanelSliders', compact('items'));
+    }
+
+    public function panelEdit($id)
+    {
+        return $this->inertia('Panel/PanelSlider', [
+            'item' => Slider::with([
+                'items' => fn($q) => $q->orderBy('sequence')
+            ])->findOrFail($id),
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'title' => ['required', 'string'],
+
+        ]);
+
+        return Slider::create($data);
+    }
+
+    public function update(Request $request, int $id)
+    {
+        $item = Slider::findOrFail($id);
+        $data = $request->validate([
+            'title' => ['required', 'string'],
+        ]);
+
+        $item->update($data);
+
+        return $item;
+    }
+}

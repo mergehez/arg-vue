@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Providers;
+
+use App\Enums\KeyValueKey;
+use App\Models\KeyValue;
+use Arg\Laravel\Providers\ArgAppServiceProvider;
+use Illuminate\Support\Facades\View;
+
+class AppServiceProvider extends ArgAppServiceProvider
+{
+    public function register(): void
+    {
+    }
+
+    public function argBoot(): void
+    {
+        View::composer('app', function ($view) {
+            $info = KeyValue::whereIn('key', [KeyValueKey::siteTitle, KeyValueKey::siteDesc])->get()->mapWithKeys(fn($item) => [$item->key => $item->value]);
+            return $view
+                ->with('websiteInfo', $info);
+        });
+    }
+}

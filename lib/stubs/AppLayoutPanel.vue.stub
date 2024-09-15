@@ -1,0 +1,65 @@
+<script setup lang="ts">
+import TopAppLayout from "@argvue/Components/Layout/TopAppLayout.vue";
+import globalState from "@/Helpers/globalState";
+import {initializeArgVue} from "@/Helpers/argvue_helper";
+import NavPanel from "@/Components/NavPanel.vue";
+import {MediaLibrary, ILink} from "@argvue/Components";
+import {__} from "@/Helpers/inertia_helpers";
+import {usePage} from "@argvue/utils";
+
+initializeArgVue();
+
+const page = usePage<{
+}>()
+
+const menus = {
+    'general': ['settings', false, 'icon-[mdi--view-dashboard]'],
+    'posts': ['posts', 'posts', 'icon-[fluent--document-text-24-filled]'],
+    'pages': ['pages', 'pages', 'icon-[fluent--document-one-page-multiple-20-filled]'],
+    'material': ['material', 'documents', 'icon-[mdi--file-link]'],
+    'sliders': ['sliders', 'sliders', 'icon-[mdi--view-carousel]'],
+    'menus': ['menus', 'menus', 'icon-[fluent--list-bar-tree-16-filled] scale-x-[-1]'],
+    'media_library': ['media-library', false, 'icon-[mdi--perm-media]'],
+} as const
+</script>
+
+<template>
+    <TopAppLayout @route-changed="r => globalState.currentRoute = r">
+        <div class="h-screen flex flex-col bg-x0 relative overflow-y-auto">
+            <NavPanel/>
+
+            <div class="flex overflow-y-auto flex-1">
+                <div class="flex flex-col overflow-y-auto bg-x0 shadow-xl shadow-x5 dark:shadow-x3 relative py-1 px-2">
+                    <template v-for="(arr, k) in menus">
+                        <ILink
+                            class="p-2 flex items-center font-bold gap-1 hover:text-green-400 border border-transparent"
+                            :class="{
+                                'text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-900 rounded-md': globalState.currentRoute == `panel.${arr[0]}`,
+                            }"
+                            :href="route(`panel.${arr[0]}`)"
+                        >
+                            <span class="icon" :class="arr[2]"></span>
+                            <span>{{ __(k) }}</span>
+                            <span class="text-2xs ml-auto pl-1">{{ page.props.navStats[arr[1] || k] }}</span>
+                        </ILink>
+                    </template>
+                </div>
+
+                <div class="flex-1 pb-5 pl-2 overflow-y-auto">
+                    <slot />
+                </div>
+            </div>
+        </div>
+
+        <MediaLibrary
+            v-model:visible="globalState.mediaLibrary.visible"
+            :config="globalState.mediaLibrary.config"
+            @selected="t => globalState.mediaLibrary.onSelect(t)"
+        />
+        <MediaLibrary
+            v-model:visible="globalState.mediaLibraryWithPdf.visible"
+            :config="globalState.mediaLibraryWithPdf.config"
+            @selected="t => globalState.mediaLibraryWithPdf.onSelect(t)"
+        />
+    </TopAppLayout>
+</template>

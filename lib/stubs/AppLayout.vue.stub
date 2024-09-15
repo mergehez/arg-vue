@@ -1,0 +1,54 @@
+<script setup lang="ts">
+import {usePage} from "@argvue/utils";
+import Nav from "@/Components/Nav.vue";
+import {TopAppLayout} from "@argvue/Components";
+import globalState from "@/Helpers/globalState";
+import {initializeArgVue} from "@/Helpers/argvue_helper";
+import {computed} from "vue";
+
+initializeArgVue();
+
+const page = usePage();
+const info = computed(() => page.props.info);
+
+const socials = {
+    'email': ["E-Mail", info.value.contactEmail ? "mailto:" + info.value.contactEmail : undefined],
+    'instagram': ["Instagram", info.value.instagramUrl],
+    'facebook': ["Facebook", info.value.facebookUrl],
+    'youtube': ["YouTube", info.value.youtubeUrl],
+    'telegram': ["Telegram", info.value.telegramNumber ? "https://t.me/+" + info.value.telegramNumber : undefined],
+    'whatsapp': ["Whatsapp", info.value.whatsappNumber ? "https://wa.me/" + info.value.whatsappNumber : undefined],
+    'twitter': ["Twitter", info.value.twitterUrl],
+};
+</script>
+
+<template>
+    <TopAppLayout @route-changed="r => globalState.currentRoute = r">
+        <div class="h-screen flex flex-col bg-x0 relative overflow-y-auto" scroll-region
+             style="background-image: url('/background.jpg'); background-size: cover; background-position: center;">
+            <Nav />
+
+            <div class="flex-1 w-full" style="padding-bottom: 60px;">
+                <slot />
+            </div>
+
+            <div class="py-5 md:py-2 w-full fixed bottom-0 left-0 right-0 border-t-2 flex justify-center" style="background: white;" id="footer">
+                <div class="container">
+                    <div class="flex items-center justify-center space-x-6">
+                        <template v-for="(v, k) in socials">
+                            <a
+                                v-if="v[1]"
+                                :href="v[1]"
+                                target="_blank"
+                                :aria-label="k"
+                               :class="'ic-' + k"
+                               class="inline-flex items-center justify-center rounded px-3 py-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 ic ic-space-2 ic-lg max-md:scale-150">
+                                <span class="hidden md:block">{{v[0]}}</span>
+                            </a>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </TopAppLayout>
+</template>

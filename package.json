@@ -1,6 +1,6 @@
 {
   "name": "arg-vue",
-  "version": "0.0.3",
+  "version": "0.0.10",
   "description": "Arg-Vue utilities",
   "author": "mergehez <argesozdogan@gmail.com>",
   "type": "module",
@@ -34,7 +34,11 @@
       "require": "./lib/theme_setup.js"
     }
   },
+  "bin": {
+    "argvue-install": "lib/install.mjs"
+  },
   "scripts": {
+    "build-cli": "node build-cli.mjs",
     "buildy": "rimraf dist/ && vite build && vue-tsc --emitDeclarationOnly",
     "buildx": "node g.mjs && rimraf dist && cp -R lib/ dist && cp -R public/ dist && vue-tsc --emitDeclarationOnly ",
     "build": "node g.mjs && rimraf dist ",

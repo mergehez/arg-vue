@@ -1,0 +1,40 @@
+import '../sass/app.scss';
+
+import axios from 'axios';
+(window.axios = axios).defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+import { createApp, h} from 'vue';
+import { createInertiaApp } from '@inertiajs/vue3';
+import { createPinia } from 'pinia'
+import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.es.js';
+import {resolvePageComponent} from "laravel-vite-plugin/inertia-helpers";
+
+const pinia = createPinia()
+createInertiaApp({
+    title: (title) => `${title}`,
+    resolve: name => {
+        return resolvePageComponent(
+            `./Pages/${name}.vue`,
+            import.meta.glob("./Pages/**/*.vue")
+        );
+    },
+    setup({ el, App, props, plugin }) {
+        document.querySelector('html').style.borderTop = 'none'
+        const app = createApp({ render: () => h(App, props) })
+            .use(pinia)
+            .use(plugin)
+            // .use(CKEditor)
+            .use(ZiggyVue)
+            .mixin({
+                methods: {
+                    // __,
+                }
+            })
+        window.pinia = pinia
+        return app.mount(el);
+    },
+
+    progress: {
+        color: '#4B5563',
+    },
+});

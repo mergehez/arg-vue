@@ -1,0 +1,58 @@
+import {TBaseModel, TModelForm} from "@/Types/Models";
+import {InertiaForm, useForm} from "@inertiajs/vue3";
+import {watch} from "vue";
+import {api, handleFormValidationErrors, TAxiosError} from "@argvue/utils";
+import {showNotificationOpts} from "@argvue/Components";
+import {__} from "@/Helpers/inertia_helpers";
+
+export function _createForm<TModel>(
+    itemGetter: () => TModel|undefined,
+    formGetter: (item:TModel|undefined) => TModelForm<TModel>
+) {
+    const form = useForm<TModelForm<TModel>>(() => {
+        const item = itemGetter();
+        return formGetter(item);
+    });
+
+    watch(itemGetter, (_) => {
+        form.reset();
+    })
+
+    return form;
+}
+
+export async function _formSubmitFn<TModel extends {id: any}>(
+    form: InertiaForm<TModelForm<TModel>>,
+    original: TModel|undefined,
+    routeGroup: string,
+    throwError = false
+) {
+    try {
+        form.clearErrors()
+        const res = await api.request<TModel>({
+            method: form.id ? 'put' : 'post',
+            url: form.id ? route(`api.${routeGroup}.update`, form.id) : route(`api.${routeGroup}.store`),
+            data: form.data()
+        });
+
+        showNotificationOpts({
+            type: 'success',
+            message: __('saved_successfully')
+        })
+
+        if(original){
+            for(const key in res.data){
+                if(res.data[key] !== original[key]){
+                    original[key] = res.data[key];
+                }
+            }
+        }
+
+        return res.data;
+    } catch (e) {
+        handleFormValidationErrors(form, e as TAxiosError);
+        if(throwError)
+            throw e;
+        return undefined;
+    }
+}

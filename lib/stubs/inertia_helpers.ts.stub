@@ -1,0 +1,11 @@
+import {__base, usePage as usePageBase} from "@argvue/utils/inertia_helpers";
+import {TrKey as TrKeyOriginal} from "@/Helpers/tr_keys";
+
+const page = usePageBase();
+
+export type TrKey = TrKeyOriginal;
+export const __ = (key: TrKey, replace?: Record<string, string> | undefined) => __base<TrKey>(key, replace);
+
+// window.__ = (key: TrKey, replace?: Record<string, string> | undefined) => __base<TrKey>(key, replace);
+
+export const loggedUser = () => page.props?.auth?.user;

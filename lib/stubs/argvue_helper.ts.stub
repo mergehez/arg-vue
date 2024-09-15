@@ -1,0 +1,24 @@
+import {confirmModalState} from "@argvue/Components";
+import {__} from "@/Helpers/inertia_helpers";
+import {initGlobalSearch} from "@argvue/utils";
+import {usePage as inertiaUsePage} from "@inertiajs/vue3";
+
+type TRes = Record<string, any>;
+export function initializeArgVue(){
+    window.__ = __;
+    window.usePage = inertiaUsePage;
+    // window.pinia = window.pinia
+
+    confirmModalState.defaultTitle ??= __('warning');
+    confirmModalState.defaultTextConfirm ??= __('yes');
+    confirmModalState.defaultTextCancel ??= __('no');
+
+    initGlobalSearch({
+        searchResultSpecifics: {
+            'post': {ic: 'ic-notes', route: (t: TRes) => route('page.post', {slug: t.slug}), match: (t: TRes) => t.type === 'post'},
+            'page': {ic: 'ic-home', route: (t: TRes) => t.slug, match: (t: TRes) => t.type === 'page'},
+            'special_page': {ic: 'ic-home', route: (t: TRes) => t.slug, match: (t: TRes) => t.type === 'special'},
+        },
+        dropdown: true,
+    })
+}

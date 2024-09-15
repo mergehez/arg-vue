@@ -1,0 +1,30 @@
+<script setup lang="ts">
+import {twMerge} from "tailwind-merge";
+import {usePage} from "@argvue/utils/inertia_helpers";
+import {IHead} from "@argvue/Components";
+
+defineProps<{
+    contentClass?: string,
+    class?: string,
+    title?: string,
+    description?: string,
+    image?: string,
+}>()
+
+const page = usePage()
+</script>
+
+<template>
+    <main :class="twMerge('h-full content flex flex-col md:flex-row gap-8 md:gap-5 overflow-y-auto', $props.class)">
+        <IHead
+            :title="title || page.props.info.siteTitle"
+            :description="description || page.props.info.siteDesc"
+            :image="image" />
+
+        <slot name="content">
+            <div :class="twMerge('flex flex-col p-9', $props.contentClass)">
+                <slot />
+            </div>
+        </slot>
+    </main>
+</template>

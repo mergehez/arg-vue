@@ -1,0 +1,9 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Arg\Laravel\Controllers\ArgBaseController;
+
+abstract class Controller extends ArgBaseController
+{
+}

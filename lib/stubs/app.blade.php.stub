@@ -1,0 +1,41 @@
+<?php
+$lang = app()->getLocale();
+$lang = $lang == 'en' ? 'en' : 'ku';
+$title = $websiteInfo[\App\Enums\KeyValueKey::siteTitle];
+$description = $websiteInfo[\App\Enums\KeyValueKey::siteDesc];
+$url = url()->current();
+?>
+
+        <!DOCTYPE html>
+<html lang="{{ $lang }}" class="{{ $theme }}" data-cls="{{ $theme }}"
+      style="{{ $theme == 'dark' ? 'background: #121212;' : '' }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
+    <meta https-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta https-equiv="X-UA-Compatible" content="IE=edge">
+    {{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
+
+    <link rel="shortcut" type="image/x-icon" href="/wene/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#da532c">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="themexx" content="{{$theme}}">
+
+    @vite(['resources/js/theme_setup.js'])
+    <!-- last update 2024-08-23 12:48:09 -->
+    <script src="{{url('translations.js')}}?v=1724417289"></script>
+
+    @routes
+    @vite(['resources/js/app.js'])
+        @inertiaHead
+    </head>
+    <body class="antialiased">
+        @inertia
+    </body>
+</html>
