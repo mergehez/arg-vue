@@ -1,0 +1,14 @@
+<script setup lang="ts">
+
+import {defaultMediaLibraryConfigWithPdf, MediaLibrary} from "@argvue/Components";
+import AppLayoutPanel from "@/Components/AppLayoutPanel.vue";
+import IHead from "@argvue/Components/Layout/IHead.vue";
+import {__} from "@/Helpers/inertia_helpers";
+
+defineOptions({layout: AppLayoutPanel});
+</script>
+
+<template>
+    <IHead :title="__('media_library')"/>
+    <MediaLibrary visible embed :config="defaultMediaLibraryConfigWithPdf"></MediaLibrary>
+</template>

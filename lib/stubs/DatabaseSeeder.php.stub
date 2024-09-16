@@ -1,0 +1,162 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Enums\KeyValueKey;
+use App\Models\KeyValue;
+use App\Models\Slider;
+use App\Models\User;
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+        $this->createHomeSlider();
+        // $this->createMenu();
+        $this->createKeyValues();
+
+        User::create([
+            'name' => 'mergehez',
+            'email' => 'mergehez@gmail.com',
+            'password' => bcrypt('pppp'),
+        ]);
+    }
+
+    private function createHomeSlider(): void
+    {
+        $slider = Slider::create([
+            'title' => 'Home',
+        ]);
+
+        $sliderItems = [
+            [
+                'image_url' => 'https://images.unsplash.com/photo-1524591431555-cc7876d14adf?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            ],
+            [
+                'image_url' => 'https://images.unsplash.com/photo-1518972458649-b0f242a400ff?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            ],
+            [
+                'image_url' => 'https://images.unsplash.com/photo-1531376653594-e9bcf0f0c65b?q=80&w=3031&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            ],
+            [
+                'image_url' => 'https://images.unsplash.com/photo-1605272916205-bb5945a0f49c?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            ],
+        ];
+        for ($i = 0; $i < count($sliderItems); $i++){
+            $sliderItems[$i]['sequence'] = $i;
+            $sliderItems[$i]['title'] = '';
+            $sliderItems[$i]['subtitle'] = '';
+            $sliderItems[$i]['url'] = '';
+            $sliderItems[$i]['text_color'] = '#ea580c';
+            $sliderItems[$i]['bg_color'] = '#ffffff55';
+        }
+        $slider->items()->createMany($sliderItems);
+    }
+
+    // private function createMenu(): void
+    // {
+    //     $menu = Menu::create([
+    //         'title' => 'Main',
+    //     ]);
+    //
+    //     $menu->items()->createMany([
+    //         [
+    //             'menu_id' => $menu->id,
+    //             'title' => 'Aktuelles',
+    //             'type' => MenuItemType::special_page,
+    //             'url' => '/news',
+    //             'sequence' => 0,
+    //         ],
+    //         [
+    //             'menu_id' => $menu->id,
+    //             'title' => 'Über uns',
+    //             'type' => MenuItemType::page,
+    //             'post_id' => Post::where('slug', 'ueber-uns')->first()->id,
+    //             'sequence' => 1,
+    //         ],
+    //         [
+    //             'menu_id' => $menu->id,
+    //             'title' => 'Material',
+    //             'type' => MenuItemType::special_page,
+    //             'url' => '/material',
+    //             'sequence' => 2,
+    //         ],
+    //         [
+    //             'menu_id' => $menu->id,
+    //             'title' => 'Aktiv Werden',
+    //             'type' => MenuItemType::post,
+    //             'post_id' => Post::where('slug', 'kontakt')->first()->id,
+    //             'sequence' => 3,
+    //         ],
+    //     ]);
+    //
+    //     $menu->save();
+    // }
+
+    private function createKeyValues(): void
+    {
+        KeyValue::create([
+            'key' => KeyValueKey::siteTitle,
+            'value' => "LOTTA",
+        ]);
+
+        KeyValue::create([
+            'key' => KeyValueKey::siteDesc,
+            'value' => "Lotta ist eine revolutionäre, basisdemokratische Organisation aus Basel.",
+        ]);
+
+        KeyValue::create([
+            'key' => KeyValueKey::mainMenu,
+            'value' => 1, //Menu::first('id')->id,
+        ]);
+
+        KeyValue::create([
+            'key' => KeyValueKey::mobileMenu,
+            'value' => 1, //Menu::first('id')->id,
+        ]);
+
+        KeyValue::create([
+            'key' => KeyValueKey::homeSlider,
+            'value' => Slider::first('id')->id,
+        ]);
+
+        KeyValue::create([
+            'key' => KeyValueKey::instagramUrl,
+            'value' => 'https://www.instagram.com/mergehez',
+        ]);
+
+        KeyValue::create([
+            'key' => KeyValueKey::twitterUrl,
+            'value' => 'https://twitter.com/mergehez',
+        ]);
+
+        KeyValue::create([
+            'key' => KeyValueKey::facebookUrl,
+            'value' => 'https://www.facebook.com/mergehez',
+        ]);
+
+        KeyValue::create([
+            'key' => KeyValueKey::youtubeUrl,
+            'value' => 'https://www.youtube.com/@MergeSoft',
+        ]);
+
+        KeyValue::create([
+            'key' => KeyValueKey::whatsappNumber,
+            'value' => '+41 78 123 45 67',
+        ]);
+
+        KeyValue::create([
+            'key' => KeyValueKey::telegramNumber,
+            'value' => '+41 78 123 45 67',
+        ]);
+
+        KeyValue::create([
+            'key' => KeyValueKey::contactEmail,
+            'value' => 'mergehez@gmail.com',
+        ]);
+    }
+}

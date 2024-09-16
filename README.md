@@ -1,5 +1,86 @@
-# Vue 3 + TypeScript + Vite
+# Arg-Vue
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Steps
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+### 1. Add `argvue` to `package.json`
+
+```
+    "arg-vue": "file:../argvue",
+```
+
+### 2. Add `arg-laravel` to `composer.json`
+
+```
+...
+"repositories": [
+    {
+        "type": "path",
+        "url": "../arg-laravel"
+    }
+],
+"require": {
+    "arg/laravel": "*",
+...
+
+```
+
+### 3. Run following commands
+
+```bash
+bun install -D tailwindcss postcss autoprefixer sass typescript @iconify/tailwind @iconify-icons/mdi @iconify-icons/ic @iconify-icons/fluent @iconify-icons/fa6-solid vue @vitejs/plugin-vue
+
+bun install dayjs pinia @vueuse/core @vueuse/components tailwind-merge latinize @formkit/auto-animate @inertiajs/vue3
+
+bunx tailwindcss init -p
+
+composer require inertiajs/inertia-laravel ralphjsmit/laravel-seo tightenco/ziggy
+
+composer require -D barryvdh/laravel-debugbar
+```
+
+
+### 4. `tailwind.config.js`
+
+```js
+import defaultTheme from 'tailwindcss/defaultTheme';
+import {addDynamicIconSelectors} from "@iconify/tailwind";
+
+
+/** @type {import('tailwindcss').Config} */
+export default {
+    content: [
+        './storage/framework/views/*.php',
+        './resources/views/app.blade.php',
+        './resources/js/**/*.{vue,js,ts}',
+        './node_modules/argvue/lib/**/*.{vue,js,ts}',
+    ],
+
+    theme: {
+        extend: {
+            colors: {
+                'x0': 'rgb(var(--bg0) / <alpha-value>)',
+                'x1': 'rgb(var(--bg1) / <alpha-value>)',
+                'x2': 'rgb(var(--bg2) / <alpha-value>)',
+                'x3': 'rgb(var(--bg3) / <alpha-value>)',
+                'x4': 'rgb(var(--bg4) / <alpha-value>)',
+                'x5': 'rgb(var(--bg5) / <alpha-value>)',
+                'x6': 'rgb(var(--bg6) / <alpha-value>)',
+                'x7': 'rgb(var(--bg7) / <alpha-value>)',
+                'x8': 'rgb(var(--bg8) / <alpha-value>)',
+                'reverse': 'rgb(var(--bg-reverse) / <alpha-value>)',
+                'surface0': 'rgb(var(--clr-default) / <alpha-value>)',
+            },
+        },
+        screens: {
+            'xs': '475px',
+            'laptop': '992px',
+            ...defaultTheme.screens,
+        },
+    },
+    darkMode: 'class',
+    plugins: [
+        addDynamicIconSelectors(),
+    ],
+};
+
+```

@@ -10,7 +10,7 @@ defineProps<{
 </script>
 
 <template>
-    <Link :href="href" :class="twMerge('font-medium bg-reverse flex-1 py-2 text-center text-white hover:opacity-90 uppercase', active ? 'active': '', $attrs.class as string)">
+    <Link :href="href" :class="twMerge('font-medium bg-x4 flex-1 py-2 text-center hover:opacity-90 uppercase', active ? 'active': '', $attrs.class as string)">
         <h2>
             <slot />
         </h2>

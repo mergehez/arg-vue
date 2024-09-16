@@ -14,11 +14,11 @@ const page = usePage<{
 
 const menus = {
     'general': ['settings', false, 'icon-[mdi--view-dashboard]'],
-    'posts': ['posts', 'posts', 'icon-[fluent--document-text-24-filled]'],
-    'pages': ['pages', 'pages', 'icon-[fluent--document-one-page-multiple-20-filled]'],
-    'material': ['material', 'documents', 'icon-[mdi--file-link]'],
+    // 'posts': ['posts', 'posts', 'icon-[fluent--document-text-24-filled]'],
+    // 'pages': ['pages', 'pages', 'icon-[fluent--document-one-page-multiple-20-filled]'],
+    // 'material': ['material', 'documents', 'icon-[mdi--file-link]'],
     'sliders': ['sliders', 'sliders', 'icon-[mdi--view-carousel]'],
-    'menus': ['menus', 'menus', 'icon-[fluent--list-bar-tree-16-filled] scale-x-[-1]'],
+    // 'menus': ['menus', 'menus', 'icon-[fluent--list-bar-tree-16-filled] scale-x-[-1]'],
     'media_library': ['media-library', false, 'icon-[mdi--perm-media]'],
 } as const
 </script>
@@ -40,7 +40,7 @@ const menus = {
                         >
                             <span class="icon" :class="arr[2]"></span>
                             <span>{{ __(k) }}</span>
-                            <span class="text-2xs ml-auto pl-1">{{ page.props.navStats[arr[1] || k] }}</span>
+                            <!--<span class="text-2xs ml-auto pl-1">{{ page.props.navStats[arr[1] || k] }}</span>-->
                         </ILink>
                     </template>
                 </div>
@@ -56,10 +56,10 @@ const menus = {
             :config="globalState.mediaLibrary.config"
             @selected="t => globalState.mediaLibrary.onSelect(t)"
         />
-        <MediaLibrary
-            v-model:visible="globalState.mediaLibraryWithPdf.visible"
-            :config="globalState.mediaLibraryWithPdf.config"
-            @selected="t => globalState.mediaLibraryWithPdf.onSelect(t)"
-        />
+        <!--<MediaLibrary-->
+        <!--    v-model:visible="globalState.mediaLibraryWithPdf.visible"-->
+        <!--    :config="globalState.mediaLibraryWithPdf.config"-->
+        <!--    @selected="t => globalState.mediaLibraryWithPdf.onSelect(t)"-->
+        <!--/>-->
     </TopAppLayout>
 </template>

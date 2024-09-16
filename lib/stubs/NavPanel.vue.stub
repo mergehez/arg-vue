@@ -1,0 +1,36 @@
+<script setup lang="ts">
+import {computed} from 'vue';
+import {__} from "@/Helpers/inertia_helpers";
+import NavButton from "@/Components/NavButton.vue";
+import {usePage} from "@argvue/utils";
+
+
+defineProps({
+    title: String,
+});
+
+const $page = usePage();
+const user = computed(() => $page.props.auth.user);
+
+</script>
+
+<template>
+    <nav class="w-full z-50 shadow dark:shadow-stone-800 relative bg-x0" id="nav">
+        <div class="px-3 relative flex py-2 gap-1">
+            <div class="flex items-center gap-1 text-indigo-800 font-bold pr-4 border-r border-x5 pl-1">
+                <span class="icon icon-[mdi--settings] text-lg"></span>Panel
+            </div>
+            <NavButton :href="route('page.home')"
+                       class="py-1 px-1.5 md:px-2 gap-1 text-gray-700"
+                       title="frontend">
+                <span class="icon icon-[mdi--home] text-lg"></span>Frontend
+            </NavButton>
+
+            <NavButton :href="route('api.logout')"
+                       class="py-1 px-1.5 md:px-2 gap-1 text-gray-700 ml-auto"
+                       title="frontend">
+                <span class="icon icon-[mdi--logout] text-lg"></span>{{ __('logout') }}
+            </NavButton>
+        </div>
+    </nav>
+</template>

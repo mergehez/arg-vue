@@ -335,7 +335,38 @@ function deleteFolder(dir: IM.Directory){
     });
 }
 
+function uploadFiles(name: string){
+    const file = uploadModalData.file!;
+    const formData = new FormData();
+    formData.append('path', getCurrentPath() ?? '');
+    formData.append(`files[0]`, file);
+    formData.append('settings', JSON.stringify([{
+        name: name,
+        format: file.name.split('.').pop(),
+    }]));
 
+    const inputFile = document.getElementById('filePickerInput') as HTMLInputElement;
+    state.apiPost('upload-files', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+    }).then(() => {
+        inputFile.value = '';
+        showMessage('success', `Files has been uploaded to directory: ${getCurrentPath()}`)
+        uploadModalData.visible = false;
+        init(true);
+    }).catch((r) => {
+        inputFile.value = '';
+        state.handleApiError(r);
+    });
+
+
+    // state.apiPost<string>('upload-files', data).then((res) => {
+    //     showMessage('success', `Image has been uploaded.`)
+    //     init(false, res.data).then(() => {
+    //         const renamedDir = state.directories.find(d => d.directory == res.data);
+    //         changePath(renamedDir!);
+    //     });
+    // }).catch(e => state.handleApiError(e, 'Couldn\'t upload!'));
+}
 
 const hostname = window.location.protocol + '//' + window.location.hostname;
 
@@ -360,7 +391,7 @@ function triggerFileInput(){
         content-class="flex flex-col bg-x0"
         :closeOnOutside="false"
     >
-        <div class="flex items-center px-5 pt-3 border-b pb-2">
+        <div class="flex items-center px-5 pt-3 border-b border-x2 pb-2">
             <h5 class="text-xl font-bold">
                 Arg Media Library
                 <span class="inline ml-2" role="status" v-if="state.loading">
@@ -499,6 +530,7 @@ function triggerFileInput(){
             :file="uploadModalData.file"
             :file-as-str="uploadModalData.fileAsStr"
             :size="uploadModalData.size"
+            @submit="uploadFiles"
         >
         </MediaLibraryUploadModal>
 

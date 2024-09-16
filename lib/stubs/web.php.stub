@@ -1,0 +1,40 @@
+<?php
+
+use App\Http\Controllers\IndexController;
+use App\Http\Controllers\PanelController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SliderController;
+use App\Http\Controllers\SliderItemController;
+use App\Models\SliderItem;
+use Arg\Laravel\Controllers\ArgMediaLibraryController;
+use Arg\Laravel\Support\ArgRoute;
+use Illuminate\Support\Facades\Route;
+
+Route::group(['as' => 'page.'], function () {
+    Route::get('/', [IndexController::class, 'index'])->name('home');
+    Route::inertia('/login', 'Auth/PageLogin')->name('login');
+    // Route::get('/kontakt', fn() => (new PostController())->show('kontakt'))->name('contact');
+});
+
+Route::group(['as' => 'api.', 'prefix' => 'api/'], function () {
+    ArgRoute::apiAuth();
+
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
+    Route::put('/key_values/{id}', [PanelController::class, 'updateSettings'])->name('key_values.update');
+
+    ArgRoute::apiGroup('sliders', SliderController::class);
+    ArgRoute::apiGroup('slider_items', SliderItemController::class, SliderItem::class);
+});
+
+
+Route::group(['as' => 'panel.', 'prefix' => 'panel/', 'middleware' => ['auth:web']], function () {
+    Route::get('/', [PanelController::class, 'settings'])->name('settings');
+    Route::redirect('/settings', '/panel')->name('home');
+    Route::get('/info', [PanelController::class, 'home'])->name('info');
+    Route::get('/sliders', [SliderController::class, 'panelIndex'])->name('sliders');
+    Route::get('/sliders/create', [SliderController::class, 'panelCreate'])->name('sliders.create');
+    Route::get('/slider/{id}', [SliderController::class, 'panelEdit'])->name('slider');
+    Route::inertia('/media-library', 'Panel/PanelMediaLibrary')->name('media-library');
+});
+
+ArgMediaLibraryController::registerRoutes([]);

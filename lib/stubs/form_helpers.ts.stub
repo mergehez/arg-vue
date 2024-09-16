@@ -1,7 +1,6 @@
-import {TBaseModel, TModelForm} from "@/Types/Models";
 import {InertiaForm, useForm} from "@inertiajs/vue3";
 import {watch} from "vue";
-import {api, handleFormValidationErrors, TAxiosError} from "@argvue/utils";
+import {api, handleFormValidationErrors, TAxiosError, TModelForm} from "@argvue/utils";
 import {showNotificationOpts} from "@argvue/Components";
 import {__} from "@/Helpers/inertia_helpers";
 

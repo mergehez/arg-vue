@@ -2,18 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Document;
 use App\Models\KeyValue;
-use App\Models\Menu;
-use App\Models\Post;
 use App\Models\Slider;
-use DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
-use Throwable;
-use Intervention\Image\Laravel\Facades\Image;
 
 class PanelController extends Controller
 {
@@ -29,7 +22,7 @@ class PanelController extends Controller
         return Inertia::render('Panel/PanelSettings', [
             'pageData' => [
                 'keyValues' => KeyValue::all(['key', 'value'])->mapWithKeys(fn($item) => [$item['key'] => $item['value']]),
-                'menus' => Menu::all(['id', 'title'])->mapWithKeys(fn($item) => [$item['id'] => $item['title']]),
+                // 'menus' => Menu::all(['id', 'title'])->mapWithKeys(fn($item) => [$item['id'] => $item['title']]),
                 'sliders' => Slider::all(['id', 'title'])->mapWithKeys(fn($item) => [$item['id'] => $item['title']]),
             ]
         ]);

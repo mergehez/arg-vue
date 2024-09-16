@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Slider;
-use App\Models\SliderItem;
 use Illuminate\Http\Request;
 
 class SliderController extends Controller
@@ -17,10 +16,17 @@ class SliderController extends Controller
     public function panelEdit($id)
     {
         return $this->inertia('Panel/PanelSlider', [
-            'item' => Slider::with([
+            'item' => $id === -1 ? [
+                'title' => '',
+                'items' => []
+            ] : Slider::with([
                 'items' => fn($q) => $q->orderBy('sequence')
             ])->findOrFail($id),
         ]);
+    }
+    public function panelCreate()
+    {
+        return $this->panelEdit(-1);
     }
 
     public function store(Request $request)

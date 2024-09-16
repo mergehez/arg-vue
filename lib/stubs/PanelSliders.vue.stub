@@ -1,0 +1,72 @@
+<script setup lang="ts">
+
+import AppLayoutPanel from "@/Components/AppLayoutPanel.vue";
+import {TSlider} from "@/Types/Models";
+import {__} from "@/Helpers/inertia_helpers";
+import PanelTable from "@/Components/PanelTable.vue";
+import {openConfirmationDialog, showNotification, showNotificationFromAxiosError} from "@argvue/Components";
+import {computed} from "vue";
+import {api, usePage} from "@argvue/utils";
+import {router} from "@inertiajs/vue3";
+import {IHead} from "@argvue/Components";
+
+defineOptions({layout: AppLayoutPanel});
+
+const page = usePage<{
+    items: TSlider[]
+}>()
+
+const items = computed(() => page.props.pageData.items)
+
+function askToDelete(p: TSlider){
+    router.reload({
+        only: ['info'],
+        onSuccess: () => {
+            if(page.props.info.homeSlider == ''+p.id){
+                showNotification(__('this_slider_cant_be_deleted_because_main'), 'danger')
+                return
+            }
+
+            openConfirmationDialog({
+                message: `<b>${p.title}</b><br/>`  + __('delete_slider_confirm_message'),
+                onConfirm: () => {
+                    api.delete(route('api.sliders.destroy', p.id))
+                        .then(() => router.reload())
+                        .catch(showNotificationFromAxiosError)
+                }
+            })
+        }
+    })
+}
+</script>
+
+<template>
+    <div class="flex h-full overflow-y-auto">
+        <IHead :title="__('sliders')"/>
+        <PanelTable
+            :title="__('sliders')"
+            :items="items"
+            route-group="sliders"
+            @edit="item => router.visit(route('panel.slider', item.id))"
+            @addNew="router.visit(route('panel.sliders.create'))"
+            @askToDelete="askToDelete"
+        >
+            <template #head>
+                <div class="flex w-full mt-2 border-b border-x1 pb-1">
+                    <span
+                        class="text-left font-bold px-3 whitespace-nowrap flex items-center gap-1 mr-auto">
+                        {{ __('title') }}
+                    </span>
+                    <span
+                        class="text-left font-bold whitespace-nowrap flex items-center gap-1" style="width: 173px">
+                        {{ __('last_modified') }}
+                    </span>
+                    <div class="text-left font-bold whitespace-nowrap" style="width: 70px">-</div>
+                </div>
+            </template>
+
+            <template #buttons="{item}: {item: TSlider}">
+            </template>
+        </PanelTable>
+    </div>
+</template>

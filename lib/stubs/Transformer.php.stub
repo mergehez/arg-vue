@@ -3,12 +3,13 @@
 namespace App\Console\Commands;
 
 use App\Enums\AppDisplayLang;
+use App\Enums\KeyValueKey;
 use Arg\Laravel\Commands\ArgTransformer;
 use Arg\Laravel\Commands\EnumDef;
 
 class Transformer extends ArgTransformer
 {
-    protected $signature = 'arg:json-to-php {--force}';
+    protected $signature = 'arg:trs {--force}';
     protected function getDisplayLangKeys(): array
     {
         return AppDisplayLang::getValues();
@@ -18,6 +19,7 @@ class Transformer extends ArgTransformer
     {
         $this->_handle([
             EnumDef::fromBaseEnum(AppDisplayLang::class),
+            EnumDef::fromBaseEnum(KeyValueKey::class),
         ]);
     }
 }

@@ -1,5 +1,6 @@
 export { default as AsyncButton } from './AsyncButton.vue';
 export { default as CollapsibleButton } from './CollapsibleButton.vue';
+export { default as ColorBox } from './ColorBox.vue';
 export { default as FlyingThings } from './FlyingThings.vue';
 export { default as HeightTransition } from './HeightTransition.vue';
 export { default as ILink } from './ILink.vue';

@@ -1,3 +1,4 @@
+import {InertiaForm} from "@inertiajs/vue3";
 
 export type PaginatedData<T> = {
     current_page: number;
@@ -45,4 +46,10 @@ export type TAxiosError = {
 
 export interface TSearchResult {
     [key: string]: any
+}
+
+export type TModelForm<TModel> = Omit<TModel, 'updated_at'|'created_at'> & {updated_at?: string, created_at?: string};
+export type TModelFormHelpers<TModel> = {
+    form: InertiaForm<TModelForm<TModel>>,
+    submit: () => Promise<TModel|undefined>
 }

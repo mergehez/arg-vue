@@ -2,6 +2,7 @@
 
 @import "colors";
 @import "components";
+@import "../../storage/app/generated-icons.scss";
 
 :root, * {
   scroll-behavior: smooth !important;

@@ -14,8 +14,8 @@ class Seo extends Model
         'image_url',
     ];
 
-    public function posts(): HasMany
-    {
-        return $this->hasMany(Post::class);
-    }
+    // public function posts(): HasMany
+    // {
+    //     return $this->hasMany(Post::class);
+    // }
 }

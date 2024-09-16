@@ -1,0 +1,38 @@
+import {TSlider, TSliderItem} from "@/Types/Models";
+import {_createForm, _formSubmitFn} from "@/Helpers/form_helpers";
+import {TModelForm, TModelFormHelpers} from "@argvue/utils/models";
+
+export type TSliderForm = TModelForm<TSlider>;
+export type TSliderItemForm = TModelForm<TSliderItem>;
+export function createSliderForm(itemGetter: () => TSlider|undefined): TModelFormHelpers<TSlider>{
+    const form = _createForm(itemGetter, (item) => ({
+        id: item?.id || 0,
+        title: item?.title || '',
+        items: [],
+    } satisfies TSliderForm))
+
+    return {
+        form,
+        submit: () => _formSubmitFn(form, itemGetter(), 'sliders')
+    }
+}
+
+export function createSliderItemForm(itemGetter: () => TSliderItem|undefined, slider: TSlider): TModelFormHelpers<TSliderItem>{
+    const form = _createForm(itemGetter, (item) => ({
+        id: item?.id || 0,
+        title: item?.title || '',
+        subtitle: item?.subtitle || '',
+        sequence: item?.sequence || slider.items.reduce((max, i) => Math.max(max, i.sequence), 0) + 1,
+        slider_id: item?.slider_id || slider.id,
+        url: item?.url || '',
+        image_url: item?.image_url || '',
+        text_color: item?.text_color || '',
+        bg_color: item?.bg_color || '',
+        is_active: item?.is_active || true
+    } satisfies TSliderItemForm));
+
+    return {
+        form,
+        submit: () => _formSubmitFn(form, itemGetter(), 'slider_items')
+    }
+}

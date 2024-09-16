@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import * as IM from "./media-library-types";
 import {confirmModalState as state, onConfirmationPromptValueChange, openConfirmationDialog, showNotificationOpts} from "../Overlays";
-import {MediaLibraryState} from "./media_library_utils";
+import {MediaLibraryState, useMediaLibrary} from "./media_library_utils";
 import {computed, ref, watch} from "vue";
 import CenteredModal from "../Overlays/CenteredModal.vue";
 import ImageCropper from "../ImageCropper.vue";
 import {InputError, TextInput} from "../Form";
 import {useForm} from "@inertiajs/vue3";
+import {defaultMediaLibraryConfig} from "./media-library-types";
 
 const visible = defineModel('visible', {
     default: false,
@@ -23,7 +24,7 @@ const originalName = computed(() => props.file?.name.substring(0, props.file.nam
 // const isImage = computed(() => ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext.value.toLowerCase()))
 
 const emit = defineEmits<{
-
+    'submit': [name: string],
 }>();
 
 const form = useForm({
@@ -38,6 +39,8 @@ watch(() => props.file, (nv) => {
 
 function submit(){
     console.log('submit', form.data())
+    emit('submit', form.name)
+
 }
 
 const __ = window.__;

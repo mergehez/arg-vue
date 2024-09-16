@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Enums\KeyValueKey;
+use App\Models\KeyValue;
+use App\Models\Slider;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+
+class IndexController extends Controller
+{
+    public function index(Request $request)
+    {
+        // $query = $request->get('s', '');
+        // $q = Post::query()
+        //     ->where('status', PostStatus::published)
+        //     ->where('type', PostType::post)
+        //     ->orderByDesc('published_at');
+        //
+        // if($query){
+        //     $posts = $q->where('title', 'like', "%$query%")->limit(10)->get();
+        //
+        //     if($posts->count() < 10){
+        //         $posts = $q->where('content', 'like', "%$query%")->limit(10 - $posts->count())->get();
+        //     }
+        // }else{
+        //     $posts = $q->limit(10)->get();
+        // }
+        //
+        // $posts->each(fn($p) => $p->styleForListing());
+
+        $homeSliderId = KeyValue::where('key', KeyValueKey::homeSlider)->first()->value;
+        $slider = Slider::query()
+            ->where('id', $homeSliderId)
+            ->with(['items' => fn($q) => $q->orderBy('sequence')])
+            ->first();
+
+        return Inertia::render('Frontend/PageIndex', [
+            'pageData' => [
+                // 'posts' => $posts,
+                'slider' => $slider
+            ]
+        ]);
+    }
+}

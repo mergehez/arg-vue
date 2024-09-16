@@ -1,0 +1,58 @@
+<script setup lang="ts">
+import layout from "@/Components/AppLayout.vue";
+// import {TPost, TSlider} from "@/Types/Models";
+// import {__} from "@/Helpers/inertia_helpers";
+// import {computed, ref} from "vue";
+// import {Slider, ILink} from "@argvue/Components";
+import AppLayoutMain from "@/Components/AppLayoutMain.vue";
+import {usePage} from "@argvue/utils";
+
+defineOptions({layout});
+
+const page = usePage<{
+    // posts: TPost[],
+    // slider: TSlider,
+}>()
+// const posts = computed(() => page.props.pageData.posts);
+// const sliderItems = computed(() => page.props.pageData.slider.items);
+// const currentSlide = ref(0)
+</script>
+
+<template>
+    <AppLayoutMain>
+        <template #content>
+            <div class="flex flex-col md:px-4 pt-2 md:pt-4 pb-9">
+                Index Page
+                <!--<Slider v-model="currentSlide" :count="sliderItems.length" class="mb-4">-->
+                <!--    <template #item="{index}">-->
+                <!--        <img :src="sliderItems[index].image_url" alt="..." class="w-full h-full">-->
+                <!--        <div class="absolute inset-0 flex flex-col justify-end items-center pb-10 px-3 gap-1">-->
+                <!--            <div-->
+                <!--                class="text-2xl px-5 rounded text-center leading-tight"-->
+                <!--                :style="{-->
+                <!--                    color: sliderItems[index].text_color,-->
+                <!--                    backgroundColor: sliderItems[index].bg_color-->
+                <!--                }">-->
+                <!--                {{ sliderItems[index].title }}-->
+                <!--            </div>-->
+                <!--            <div-->
+                <!--                class="text-base px-2 rounded text-center leading-tight"-->
+                <!--                :style="{-->
+                <!--                    color: sliderItems[index].text_color,-->
+                <!--                    backgroundColor: sliderItems[index].bg_color-->
+                <!--                }">-->
+                <!--                {{ sliderItems[index].subtitle }}-->
+                <!--            </div>-->
+                <!--        </div>-->
+                <!--    </template>-->
+                <!--</Slider>-->
+
+                <!--<PostBox v-for="p in posts" :key="p.id" :post="p" minimal/>-->
+
+                <!--<div class="text-center mt-7">-->
+                <!--    <ILink :href="route('page.news')" class="font-medium btn btn-red text-lg px-5">{{ __('see_all_posts') }}</ILink>-->
+                <!--</div>-->
+            </div>
+        </template>
+    </AppLayoutMain>
+</template>

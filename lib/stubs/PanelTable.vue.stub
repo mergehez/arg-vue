@@ -1,0 +1,185 @@
+<script setup lang="ts" generic="TModel extends TModelWithTitle">
+
+import {api, dt, search, TModelFormHelpers} from "@argvue/utils";
+import {__} from "@/Helpers/inertia_helpers";
+import {vAutoAnimate} from "@formkit/auto-animate";
+import {computed, reactive, ref} from "vue";
+import {showNotification, TextInput} from "@argvue/Components";
+import {TModelWithTitle} from "@/Types/Models";
+import {router} from "@inertiajs/vue3";
+
+const props = defineProps<{
+    title: string,
+    items: TModel[],
+    routeGroup: 'docs' | 'posts' | 'menus' | 'menu_items' | 'sliders' | 'slider_items',
+    overflowAuto?: boolean,
+    sequenced?: boolean,
+    inline?: boolean,
+    hideCreateButton?: boolean,
+    createFormCreator?: () => TModelFormHelpers<TModel>,
+    editFormCreator?: (item: TModel) => TModelFormHelpers<TModel>,
+}>()
+
+const emit = defineEmits<{
+    addNew: [],
+    askToDelete: [TModel],
+    edit: [TModel],
+}>();
+
+const tableOpts = reactive({
+    search: '',
+    // toEdit: undefined as TModelFormHelpers<TModel> & {id: number} | undefined,
+})
+
+const filteredItems = computed(() => props.items.filter(i => search(i.title, tableOpts.search)))
+
+function changeSequence(p: TModel, direction: 'up' | 'down'){
+    const index = props.items.indexOf(p);
+    const otherIndex = direction === 'up' ? index - 1 : index + 1;
+    const other = props.items[otherIndex];
+    api.put(route(`api.${props.routeGroup}.swap-sequence`, {id1: p.id, id2: other.id}))
+        .then(() => {
+            router.reload({only: ['pageData']})
+        })
+        .catch((e) => {
+            if(e.message == 'CSRF token mismatch.'){
+                showNotification("please_reload_page_and_try_again", 'danger');
+                return;
+            }
+            showNotification(__('something_went_wrong'), 'danger');
+        })
+}
+
+const toEdit = ref(undefined as TModelFormHelpers<TModel> | undefined);
+function onEditClicked(item: TModel){
+    console.log(toEdit.value)
+    if(props.editFormCreator){
+        if((toEdit.value?.form as any)?.id === item.id){
+            toEdit.value = undefined;
+            return;
+        }
+        toEdit.value = {
+            ...props.editFormCreator(item) as any,
+            id: item.id,
+        };
+    }else{
+        emit('edit', item);
+    }
+}
+const toCreate = ref(undefined as TModelFormHelpers<TModel> | undefined);
+function onCreateClicked(){
+    if(props.createFormCreator){
+        if(toCreate.value){
+            toCreate.value = undefined;
+            return;
+        }
+        toCreate.value = {
+            ...props.createFormCreator() as any,
+        };
+    }else{
+        emit('addNew');
+    }
+}
+</script>
+
+<template>
+    <div class="flex flex-col h-full w-full" :class="overflowAuto ? 'overflow-y-auto' : ''" v-auto-animate>
+        <div class="flex items-center gap-3 py-2 px-3">
+            <h1 class="font-bold text-2xl py-1">{{ title }}</h1>
+
+            <button v-if="!hideCreateButton" class="btn btn-light px-2 py-1 gap-2" @click="onCreateClicked">
+                <span class="icon icon-[mdi--plus-bold]"></span>
+                {{ __('create') }}
+            </button>
+
+            <i class="flex-1"></i>
+
+            <div class="relative flex items-center group">
+                <TextInput v-model="tableOpts.search" :placeholder="__('search')" class="w-40 pr-6"/>
+                <button
+                    @click="tableOpts.search = ''"
+                    class="cursor-pointer absolute right-0 top-0 bottom-0 pl-0.5 pr-2 opacity-30 group-hover:opacity-50 group-hover:hover:opacity-70 grid place-items-center">
+                    <span class="icon icon-[mdi--close]"></span>
+                </button>
+            </div>
+        </div>
+
+        <template v-if="toCreate">
+            <div class="w-full text-sm px-2">
+                <div class="bg-x3 p-3 rounded">
+                    <slot name="form" :data="toCreate!" :cancel="() => toCreate = undefined"></slot>
+                </div>
+            </div>
+        </template>
+
+        <slot name="head"></slot>
+
+        <div class="flex-1 w-full flex flex-col"
+             :class="overflowAuto ? 'overflow-y-auto' : ''"
+             style="scrollbar-gutter: stable"
+             v-auto-animate
+        >
+            <template v-for="(item, i) in filteredItems" :key="item.id">
+                <div
+                    class="even:bg-x1 hover:bg-x2 text-sm flex items-center"
+                    :class="inline ? 'pr-3' : ''">
+                    <slot name="cols-start" :item="item"></slot>
+
+                    <span class="rounded-none py-2 leading-tight w-full text-left px-3 flex-1" :class="!item.title ? 'italic opacity-70' : ''">
+                        {{ item.title || __('no_title')+'...' }}
+                    </span>
+
+                    <slot name="cols-between" :item="item"></slot>
+
+                    <div class="whitespace-nowrap">
+                        <div class="px-3" style="width: 170px">
+                            {{ dt.toString(item.updated_at) }}
+                        </div>
+                    </div>
+                    <div class="whitespace-nowrap">
+                        <div class="flex gap-2 py-1 pl-3" :class="inline ? '': 'px-3'">
+
+                            <template v-if="sequenced">
+                                <button
+                                    title="change sequence up"
+                                    class="btn btn-secondary bg-opacity-80 px-1 py-1 aspect-square"
+                                    :class="{ '!opacity-25': i == 0 }"
+                                    :disabled="i == 0"
+                                    @click="changeSequence(item, 'up')"
+                                >
+                                    <span class="icon icon-[mdi--arrow-up] text-base text-reverse"></span>
+                                </button>
+                                <button
+                                    title="change sequence down"
+                                    class="btn btn-secondary bg-opacity-80 px-1 py-1 aspect-square"
+                                    :class="{ '!opacity-25': i == items.length - 1 }"
+                                    :disabled="i == items.length - 1"
+                                    @click="changeSequence(item, 'down')"
+                                >
+                                    <span class="icon icon-[mdi--arrow-down] text-base text-reverse"></span>
+                                </button>
+                            </template>
+
+                            <slot name="buttons" :item="item" :index="i"></slot>
+
+                            <button class="btn btn-success bg-opacity-80 px-1 py-1 aspect-square" title="full edit"  @click="onEditClicked(item)">
+                                <span class="icon icon-[mdi--pencil] text-base"></span>
+                            </button>
+                            <button class="btn btn-danger bg-opacity-80 px-1 py-1 aspect-square" title="delete" @click="$emit('askToDelete', item)">
+                                <span class="icon icon-[mdi--delete] text-base"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <template v-if="item.id == (toEdit?.form as any)?.id">
+                    <div class="w-full text-sm px-2">
+                        <div class="bg-x3 p-3 rounded">
+                            <slot name="form" :data="toEdit" :cancel="() => toEdit = undefined"></slot>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+</template>

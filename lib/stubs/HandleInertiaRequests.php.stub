@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use App\Enums\AppDisplayLang;
+use App\Models\KeyValue;
+use Arg\Laravel\Contracts\IUser;
+use Arg\Laravel\Middleware\ArgHandleInertiaRequests;
+use Illuminate\Http\Request;
+
+class HandleInertiaRequests extends ArgHandleInertiaRequests
+{
+    public function __construct()
+    {
+        parent::__construct(AppDisplayLang::class);
+    }
+
+    public function shareCustom(array &$base, Request $request, bool $isPanel, ?IUser $user): array
+    {
+        $navStats = [];
+        if ($user && $isPanel) {
+            // $chatController = new ChatController();
+            // $chats = $chatController->getChatList($auth->id);
+            $navStats = [
+                // 'menus' => Menu::count(),
+                // 'sliders' => Slider::count(),
+                // 'keyValues' => KeyValue::count(),
+                // 'posts' => Post::where('type', PostType::post)->count(),
+                // 'pages' => Post::where('type', PostType::page)->count(),
+                // 'documents' => Document::count(),
+            ];
+        }
+
+        return [
+            ...$base,
+            'info' => function () {
+                $keyVals = KeyValue::all();
+                $info = [];
+                foreach ($keyVals as $keyVal) {
+                    $info[$keyVal->key] = $keyVal->value;
+                }
+                return $info;
+            },
+            'navStats' => $navStats,
+        ];
+    }
+}

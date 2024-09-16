@@ -13,29 +13,29 @@
         "types": ["@types/node"],
         "paths": {
             "@/*": ["./resources/js/*"],
-//            "@argvue/*": ["../argvue/lib/*"],
-            "@argvue/*": ["./node_modules/argvue/lib/*"],
+//            "@argvue/*": ["../arg-vue/lib/*"],
+            "@argvue/*": ["./node_modules/arg-vue/lib/*"],
         },
         "outDir": "./public/build/assets",
         "typeRoots": [
             "./node_modules/@types",
             "resources/js/Types",
-            "./node_modules/argvue/lib/utils",
-            "./node_modules/argvue/lib/utils/app.d.ts"
+            "./node_modules/arg-vue/lib/utils",
+            "./node_modules/arg-vue/lib/utils/app.d.ts"
         ]
     },
     "typeRoots": [
         "./node_modules/@types",
         "resources/js/Types",
-        "./node_modules/argvue/lib/utils/app.d.ts"
+        "./node_modules/arg-vue/lib/utils/app.d.ts"
     ],
     "include": [
         "resources/js/**/*.ts",
         "resources/js/**/*.d.ts",
         "resources/js/**/*.vue",
-        "./node_modules/argvue/lib/**/*.ts",
-        "./node_modules/argvue/lib/**/*.d.ts",
-        "./node_modules/argvue/lib/**/*.vue",
+        "./node_modules/arg-vue/lib/**/*.ts",
+        "./node_modules/arg-vue/lib/**/*.d.ts",
+        "./node_modules/arg-vue/lib/**/*.vue",
         "public/translations.js",
     ],
     "exclude": ["node_modules", "public"]

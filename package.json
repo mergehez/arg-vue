@@ -32,13 +32,16 @@
     "./theme_setup": {
       "import": "./lib/theme_setup.js",
       "require": "./lib/theme_setup.js"
+    },
+    "./tailwind-config": {
+      "import": "./lib/tailwind-config.js",
+      "require": "./lib/tailwind-config.js"
     }
   },
   "bin": {
     "argvue-install": "lib/install.mjs"
   },
   "scripts": {
-    "build-cli": "node build-cli.mjs",
     "buildy": "rimraf dist/ && vite build && vue-tsc --emitDeclarationOnly",
     "buildx": "node g.mjs && rimraf dist && cp -R lib/ dist && cp -R public/ dist && vue-tsc --emitDeclarationOnly ",
     "build": "node g.mjs && rimraf dist ",
@@ -80,7 +83,7 @@
     "postcss": "^8.4.39",
     "rollup-plugin-typescript2": "^0.36.0",
     "sass": "^1.77.8",
-    "typescript": "^5.2.2",
+    "typescript": "^5.6.2",
     "vite": "^5.3.4",
     "vite-plugin-dts": "^4.0.3",
     "vite-plugin-sass-dts": "^1.3.25",

@@ -65,15 +65,6 @@ function createSubfolder(dir: Directory) {
                     @click="selectFolder(dir)"
                 >
                     <div class="flex-1 text-left truncate">{{ dir.path.basename }}</div>
-                    <!--<button-->
-                    <!--    v-if="!dir.inner.length"-->
-                    <!--    title="Delete folder"-->
-                    <!--    @click.prevent.stop="askToDeleteFolder(dir)"-->
-                    <!--    class=" p-0.5 flex justify-center items-center bg-green-100 hover:bg-green-200"-->
-                    <!--    :class="dir.id === active.id ? 'visible' : 'invisible'"-->
-                    <!--&gt;-->
-                    <!--    <span class="icon icon-[mdi&#45;&#45;delete] text-reverse"></span>-->
-                    <!--</button>-->
                     <MenuPopper class="p-0 !border-0 !m-0" customTrigger>
                         <template #trigger="{toggle}">
                             <span

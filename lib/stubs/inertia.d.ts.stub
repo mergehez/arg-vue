@@ -1,27 +1,16 @@
+import {KeyValueKey} from "@/Helpers/generated_enums";
 
 export {};
 
-declare module 'argvue/lib/utils/inertia_helpers' {
+declare module 'arg-vue/lib/utils/inertia_helpers' {
     // export interface TInertiaPageProps{
     //     auth: {
     //         user?: TUser
     //     },
     // }
+    export interface TInertiaPageProps{
+        // menu: TMenu,
+        info: Record<KeyValueKey, string>,
+        // navStats: Record<string, number>,
+    }
 }
-// declare module '@argvue/utils/inertia_helpers' {
-//     export interface TInertiaPageProps{
-//         auth: {
-//             user?: TUser
-//             // activeUsers: TSession[],
-//         },
-//         menu: TMenu,
-//         localization: {
-//             locale: string,
-//             locales: Record<string, string>,
-//             translations: Record<string, string>,
-//         },
-//         session_lifetime: number,
-//         info: Record<KeyValueKey, string>,
-//         navStats: Record<string, number>,
-//     }
-// }

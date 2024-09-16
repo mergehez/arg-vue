@@ -1,0 +1,7 @@
+<script setup lang="ts">
+
+</script>
+
+<template>
+    <img :src="'/logo.png'" alt="logo">
+</template>

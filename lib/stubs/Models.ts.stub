@@ -1,0 +1,60 @@
+import {KeyValueKey} from "@/Helpers/generated_enums";
+import {InertiaForm} from "@inertiajs/vue3";
+
+export type TBaseModel = {
+    id: number;
+}
+export type TModelWithTitle = TBaseModel & {
+    title: string;
+    created_at: number;
+    updated_at: number;
+}
+
+export type TUser = {
+    id: number;
+    name: string;
+    email: string;
+}
+
+export type TSliderItem = {
+    id: number;
+    title: string;
+    subtitle: string;
+    image_url: string;
+    url: string;
+    sequence: number;
+    is_active: boolean;
+    slider_id: number;
+    text_color: string;
+    bg_color: string;
+
+    created_at: number;
+    updated_at: number;
+}
+
+export type TSlider = {
+    id: number;
+    title: string;
+    created_at: number;
+    updated_at: number;
+
+    items: TSliderItem[];
+}
+
+export type TKeyVal = {
+    key: KeyValueKey;
+    value: string;
+
+    created_at: number;
+    updated_at: number;
+}
+
+export type TSeo = {
+    id: number;
+    title: string;
+    description: string;
+    keywords: string;
+    image_url: string;
+    created_at: number;
+    updated_at: number;
+}
