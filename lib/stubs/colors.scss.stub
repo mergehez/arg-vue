@@ -29,4 +29,9 @@
         //--bg7: 94 94 94;          // never used
         //--bg8: 106 106 106;       // never used
     }
+    *[class*="bg-"], *[class*="border-"], *[class*="shadow"], *[class*="fill-"], .form-control{
+        transition-property: background-color, border-color, fill, box-shadow, stroke !important;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 500ms !important;
+    }
 }

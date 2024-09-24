@@ -15,6 +15,7 @@
             "@/*": ["./resources/js/*"],
 //            "@argvue/*": ["../arg-vue/lib/*"],
             "@argvue/*": ["./node_modules/arg-vue/lib/*"],
+            "ziggy-js": ["./vendor/tightenco/ziggy"]
         },
         "outDir": "./public/build/assets",
         "typeRoots": [
@@ -24,11 +25,6 @@
             "./node_modules/arg-vue/lib/utils/app.d.ts"
         ]
     },
-    "typeRoots": [
-        "./node_modules/@types",
-        "resources/js/Types",
-        "./node_modules/arg-vue/lib/utils/app.d.ts"
-    ],
     "include": [
         "resources/js/**/*.ts",
         "resources/js/**/*.d.ts",

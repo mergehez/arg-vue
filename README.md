@@ -2,10 +2,10 @@
 
 ## Steps
 
-### 1. Add `argvue` to `package.json`
+### 1. Add `arg-vue` to `package.json`
 
 ```
-    "arg-vue": "file:../argvue",
+    "arg-vue": "file:../arg-vue",
 ```
 
 ### 2. Add `arg-laravel` to `composer.json`
@@ -52,7 +52,7 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/app.blade.php',
         './resources/js/**/*.{vue,js,ts}',
-        './node_modules/argvue/lib/**/*.{vue,js,ts}',
+        './node_modules/arg-vue/lib/**/*.{vue,js,ts}',
     ],
 
     theme: {

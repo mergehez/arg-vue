@@ -1,13 +1,13 @@
 import dayjs from "dayjs";
-import DayjsTimezone from "dayjs/plugin/timezone";
+// import DayjsTimezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import "dayjs/locale/de";
 import {reactive, Ref, ref, UnwrapRef} from "vue";
 import latinizeFn from "latinize";
 dayjs.extend(utc)
-dayjs.extend(DayjsTimezone)
-dayjs.tz.setDefault('Europe/Zurich')
-dayjs.locale('de')
+// dayjs.extend(DayjsTimezone)
+// dayjs.tz.setDefault('Europe/Zurich')
+// dayjs.locale('de')
 
 export const latinize = (str: string) => latinizeFn(str);
 

@@ -31,9 +31,9 @@ export default defineConfig({
 
     resolve: {
         alias: {
-            ziggy: path.resolve('vendor/tightenco/ziggy'),
+            'ziggy-js': path.resolve('vendor/tightenco/ziggy'),
             '@': path.resolve(__dirname, "resources/js/"),
-            // '@argvue': path.resolve(__dirname, "../argvue/lib/"),
+            // '@argvue': path.resolve(__dirname, "../arg-vue/lib/"),
             '@argvue': path.resolve(__dirname, "node_modules/arg-vue/lib/"),
         },
         extensions: ['.js', '.ts', '.tsx', '.jsx', '.vue'],
