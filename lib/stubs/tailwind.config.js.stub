@@ -37,6 +37,8 @@ export default {
     darkMode: 'class',
     plugins: [
         forms,
-        addDynamicIconSelectors(),
+        addDynamicIconSelectors({
+            overrideOnly: true,
+        }),
     ],
 };
