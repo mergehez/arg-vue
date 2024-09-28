@@ -13,7 +13,6 @@ import {twMerge} from "tailwind-merge";
 import {createPopper, Instance} from "@popperjs/core/lib/popper-lite.js";
 import preventOverflow from "@popperjs/core/lib/modifiers/preventOverflow.js";
 import flip from "@popperjs/core/lib/modifiers/flip.js";
-import {Placement} from "@popperjs/core";
 import {PopperProps} from "./overlay_utils";
 
 const emit = defineEmits(["opened", "closed"]);
@@ -34,14 +33,8 @@ onMounted(() => {
     if(slots.trigger === undefined)
         return console.error("[Popper]: The Popper component expects a child element with the slot name 'trigger'.");
 
-    // console.log(slots.trigger())
-    // const children = slots.trigger?.();
-    //
-    // if (children && children.length > 1) {
-    //     return console.error(
-    //         `[Popper]: The Popper component expects only one child element at its root. You passed ${children.length} child nodes.`,
-    //     );
-    // }
+    if(!props.disableClickAway)
+        onClickOutside(popperContainerNode.value, () => closePopper());
 });
 
 const { isOpen, open, close } = usePopperX();
@@ -65,11 +58,6 @@ const openPopper = async () => {
 };
 
 const closePopper = async (shouldClose = true) => {
-    // if (manualMode.value) {
-    //     return;
-    // }
-
-    // openPopperDebounce.clear();
     if(shouldClose)
         close();
 };
@@ -79,19 +67,13 @@ const togglePopper = () => {
         closePopper();
     else
         openPopper();
-    // isOpen.value ? closePopper() : openPopper();
 };
-
-if(!props.disableClickAway)
-    onClickOutside(popperContainerNode.value, () => closePopper());
 
 /**
  * If Popper is open, we automatically close it if it becomes
  * disabled or without content.
  */
-// watch([hasContent, () => props.disabled], ([hasContent, disabled]) => {
 watch(() => props.disabled, (val) => {
-    // if (isOpen.value && (!hasContent || disabled)) {
     if (isOpen.value && val) {
         close();
     }
