@@ -10,6 +10,7 @@ const props = defineProps<{
     selected: string,
     indicatorOnMobile?: boolean,
     updateQuery?: boolean,
+    tabClass?: string
 }>()
 const emit = defineEmits<{
     'update:selected': [t: string]
@@ -54,16 +55,21 @@ function changeTab(val: string){
 <template>
     <div class="flex w-full rounded bg-gray-100 dark:bg-gray-900 dark:border-gray-600 mb-2 relative" :style="{gap:gap+'px'}">
         <span class="absolute h-full bg-indigo-200/60 dark:bg-indigo-900 rounded-md transition-[left] duration-300 "
-              :class="{'md:hidden': indicatorOnMobile}"
+              :class="[{'md:hidden': indicatorOnMobile}, tabClass]"
               :style="{
                 left: `calc(${i * w}% + ${i*gap/cnt}px)`,
                 width: `calc(${w}% - ${((cnt-1)*gap)/cnt}px)`
               }"></span>
+
         <template v-for="(trKey, cat) in categories" :key="cat">
             <span
-                   class="flex-1 cursor-pointer rounded-md text-center text-sm z-10 p-1 select-none truncate"
-                   :class="{'font-bold': !indicatorOnMobile && selected == cat}"
-                  @click="changeTab(cat)" v-text="trans(trKey as any)" />
+                   class="flex-1 cursor-pointer rounded-md text-center text-sm z-10 p-1 select-none truncate relative flex items-center justify-center"
+                   :class="[{'font-bold': !indicatorOnMobile && selected == cat}, tabClass]"
+                  @click="changeTab(cat)" >
+                <slot name="item" :text="trans(trKey as any)">
+                    {{ trans(trKey as any) }}
+                </slot>
+            </span>
         </template>
     </div>
 </template>
