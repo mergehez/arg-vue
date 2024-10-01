@@ -94,7 +94,6 @@ const trans = window.__;
         >
                 <span class="truncate pl-2 w-full">
                     {{ getSearchResultText(res) }}
-                    {{ 'tr' in res && res.tr ? trans(res.title) : res.title }}
                 </span>
         </button>
     </div>
