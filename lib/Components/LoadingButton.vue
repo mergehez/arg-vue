@@ -14,7 +14,7 @@ withDefaults(defineProps<{
 
 <template>
     <button :class="twMerge('gap-2', $attrs.class as any)">
-        <template v-if="hideIcOnLoad">
+        <template v-if="icClass && hideIcOnLoad">
             <span class="relative inline-flex justify-center items-center">
                 <i v-if="icClass" :style="!hideIcOnLoad || !loading ? 'opacity:1' : 'opacity:0'" :class="icClass"></i>
                 <Spinner :loading="loading" :svg-size="svgSize" :class="loading ? 'absolute' : ''" />
