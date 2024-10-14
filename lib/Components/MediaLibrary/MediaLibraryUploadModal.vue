@@ -1,13 +1,7 @@
 <script setup lang="ts">
-import * as IM from "./media-library-types";
-import {confirmModalState as state, onConfirmationPromptValueChange, openConfirmationDialog, showNotificationOpts} from "../Overlays";
-import {MediaLibraryState, useMediaLibrary} from "./media_library_utils";
 import {computed, ref, watch} from "vue";
 import CenteredModal from "../Overlays/CenteredModal.vue";
-import ImageCropper from "../ImageCropper.vue";
 import {InputError, TextInput} from "../Form";
-import {useForm} from "@inertiajs/vue3";
-import {defaultMediaLibraryConfig} from "./media-library-types";
 
 const visible = defineModel('visible', {
     default: false,
@@ -27,7 +21,7 @@ const emit = defineEmits<{
     'submit': [name: string],
 }>();
 
-const form = useForm({
+const form = window.useForm({
     name: originalName.value,
     image: props.fileAsStr,
 })

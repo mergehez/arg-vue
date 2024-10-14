@@ -1,5 +1,5 @@
 import {TArgVueTrKeys} from "./required_tr_keys";
-import {usePage} from "@inertiajs/vue3";
+import type {Page, PageProps, Router} from "@inertiajs/core";
 import { route as routeFn } from 'ziggy-js';
 
 export {};
@@ -22,7 +22,9 @@ declare global {
             _init: () => void;
         };
         __: (key: TArgVueTrKeys, replace?: Record<string, string>) => string;
-        usePage: typeof usePage;
+        usePage: <SharedProps extends PageProps>() => Page<SharedProps>;
+        useForm: <TForm extends FormDataType>(data: TForm | (() => TForm)) => InertiaForm<TForm>;
+        router: Router;
     }
 }
 

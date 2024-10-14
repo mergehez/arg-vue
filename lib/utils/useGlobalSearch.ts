@@ -1,6 +1,5 @@
 import {computed, reactive, ref} from "vue";
 import {useDebounceFn} from "@vueuse/core";
-import {router} from "@inertiajs/vue3";
 import TextInput from "../Components/Form/TextInput.vue";
 import {arrToObj, uniqueId} from "./helpers";
 import {api} from "./api_helpers";
@@ -26,11 +25,11 @@ export const useGlobalSearch = defineStore('globalSearch', () => {
     const defaultOnSelected = (res: TSearchResult) => {
         for (const v of Object.values(searchResultSpecifics.value)) {
             if (v.match(res))
-                return router.visit(typeof v.route === 'string' ? route(v.route, res.id) : v.route(res));
+                return window.router.visit(typeof v.route === 'string' ? route(v.route, res.id) : v.route(res));
         }
 
         // fallback
-        return router.visit(route('page.topic', res.id));
+        return window.router.visit(route('page.topic', res.id));
     };
 
     function setSearchResults(val?: TSearchResult[]) {

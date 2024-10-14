@@ -1,9 +1,9 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
 // import globalState from "@/Helpers/globalState";
-import {InertiaForm} from "@inertiajs/vue3";
+import type {InertiaForm} from "@inertiajs/vue3";
 import type {Router} from "@inertiajs/core";
-import {VisitOptions} from "@inertiajs/core";
-import {TApiResponse, TAxiosError} from "./models";
+import type {VisitOptions} from "@inertiajs/core";
+import type {TApiResponse, TAxiosError} from "./models";
 import {changeLanguage, usePage} from "./inertia_helpers";
 
 type axConfig = AxiosRequestConfig;

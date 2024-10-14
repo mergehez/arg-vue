@@ -2,13 +2,12 @@
 import {onBeforeUnmount, onMounted} from "vue";
 import {ref} from "vue";
 import {Head} from "@inertiajs/vue3";
-import {router} from "@inertiajs/vue3";
 import {globalKeyDownListener} from "../../utils";
 import GlobalSearchPopup from "../Overlays/GlobalSearchPopup.vue";
 import NotificationToast from "../Overlays/NotificationToast.vue";
 import ConfirmationModal from "../Overlays/ConfirmationModal.vue";
 
-const props = defineProps<{
+defineProps<{
     contentClass?: string
 }>()
 
@@ -16,18 +15,18 @@ const emit = defineEmits<{
     routeChanged: [route: string]
 }>();
 
-emit('routeChanged', route().current());
+emit('routeChanged', route().current() as string);
 
 const isLoading = ref(false);
 let timeout: any = undefined;
-router.on('start', () => {
+window.router.on('start', () => {
     timeout = setTimeout(() => isLoading.value = true, 1000)
 })
 const currUrl = ref(window.location.href.replace('www.',''));
-router.on('finish', () => {
+window.router.on('finish', () => {
     clearTimeout(timeout)
     isLoading.value = false;
-    emit('routeChanged', route().current());
+    emit('routeChanged', route().current() as string);
 
     currUrl.value = window.location.href.replace('www.','');
 })

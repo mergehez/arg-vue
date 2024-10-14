@@ -9,7 +9,7 @@ import {__} from "@/Helpers/inertia_helpers";
 import {vAutoAnimate} from "@formkit/auto-animate";
 import {IHead} from "@argvue/Components";
 import PanelTable from "@/Components/PanelTable.vue";
-import {router, Link} from "@inertiajs/vue3";
+import {router, Link, Head} from "@inertiajs/vue3";
 import {createSliderForm, createSliderItemForm} from "@/Helpers/slider_helpers";
 import SliderItemFormInline from "@/Parts/SliderItemFormInline.vue";
 

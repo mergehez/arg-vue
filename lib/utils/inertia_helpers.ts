@@ -1,15 +1,12 @@
-import {ErrorBag, Errors} from "@inertiajs/core/types/types";
-import {Link as InertiaLink, usePage as usePageInertia} from '@inertiajs/vue3'
-import {Page as InertiaPage} from "@inertiajs/core";
+import type {Page as InertiaPage} from "@inertiajs/core";
 import {computed} from "vue";
 import {TArgVueTrKeys} from "./required_tr_keys";
 
 let page: TInertiaPage;
+
 export function changeLanguage(langKey: string) {
     usePage().props.localization.locale = langKey;
 }
-
-export const Link = InertiaLink;
 
 const __getByLocale: (locale: string) => Record<string, string> = (window as any).__getByLocale;
 const translations = computed(() => __getByLocale(page.props?.localization.locale ?? 'en'));
@@ -58,7 +55,7 @@ export interface TInertiaPageProps {
     app_version: string,
     php_version: string,
 
-    errors: Errors & ErrorBag;
+    errors: InertiaPage["props"]['errors'] // Errors & ErrorBag;
 }
 
 export interface TInertiaPage<TPageData = never> extends Omit<InertiaPage, 'props'> {
@@ -68,6 +65,6 @@ export interface TInertiaPage<TPageData = never> extends Omit<InertiaPage, 'prop
 }
 
 export function usePage<TPageData = never>(): TInertiaPage<TPageData>{
-    const fn = (window.usePage ?? usePageInertia) as <T>() => TInertiaPage<T>;
-    return fn<TPageData>()
+    const fn = window.usePage as <T>() => TInertiaPage<T>;
+    return fn?.<TPageData>()
 }

@@ -1,6 +1,5 @@
 <script setup lang="ts" generic="T">
 import {computed} from "vue";
-import {router} from "@inertiajs/vue3";
 import {twMerge} from "tailwind-merge";
 import {PaginatedData} from "../utils";
 
@@ -98,7 +97,7 @@ const isCurrent = (num:string|number) => currPage.value === num ;
 const changePage = (page:number) => {
     const uri = new URL(props.pagination.last_page_url);
     uri.searchParams.set(props.queryParam, ''+page);
-    router.visit(uri.toString(), {
+    window.router.visit(uri.toString(), {
         only: ['pageData'],
         onStart: () => {
             // document.querySelector('#app main:first-of-type')?.scrollTo({top: 0, behavior: 'smooth'});

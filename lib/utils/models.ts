@@ -1,4 +1,4 @@
-import {InertiaForm} from "@inertiajs/vue3";
+import type {InertiaForm} from "@inertiajs/vue3";
 
 export type PaginatedData<T> = {
     data: T[];

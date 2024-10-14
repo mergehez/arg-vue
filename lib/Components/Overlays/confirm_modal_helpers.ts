@@ -33,6 +33,11 @@ type TState = Required<Omit<TOptions, 'data'|'prompt'>> & {
     defaultTextConfirm?: string,
     defaultTextCancel?: string,
 }
+export type ConfirmModalConfigurable = {
+    defaultTitle?: string,
+    defaultTextConfirm?: string,
+    defaultTextCancel?: string,
+}
 
 export const confirmModalState = reactive<TState>({
     prompt: undefined,
