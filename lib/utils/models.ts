@@ -1,23 +1,23 @@
 import {InertiaForm} from "@inertiajs/vue3";
 
 export type PaginatedData<T> = {
-    current_page: number;
     data: T[];
-    first_page_url: string;
+    per_page: number;
+    total: number;
     from: number;
+    to: number;
+    current_page: number;
     last_page: number;
+    first_page_url?: string;
+    prev_page_url?: null;
+    next_page_url?: string;
     last_page_url: string;
     links: {
         url?: string | null;
         label: string;
         active: boolean;
     }[]
-    next_page_url: string;
     path: string;
-    per_page: number;
-    prev_page_url?: null;
-    to: number;
-    total: number;
 }
 
 

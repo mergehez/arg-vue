@@ -26,60 +26,82 @@ const maxNumCount = 8;
 01 02 03 ... 13 '14' 15 ... 33 34 35
 01 02 03 ... 30 31 '32' 33 34 35
 */
-let pageCount = Math.ceil(props.pagination.total / props.pagination.per_page);
+let pageCount = props.pagination.last_page;
 const pagesNumber = computed(() =>  {
     const curr = currPage.value;
-    let pageNums = new Array<{num:any, pageTarget:any}>();
-    const addPageNum = (num:any, pageTarget?:number) => pageNums.push({num, pageTarget: pageTarget || num});
-    const addNumsToArr = (num:number) => {
-        for (let i = 1; i < num+1; i++)
-            pageNums.push({num:i, pageTarget: i});
-    };
-    if (pageCount <= maxNumCount) {	// all pages
-        if(curr > 1)
-            addNumsToArr(curr-1);
-        addPageNum(curr);
-        if(curr < pageCount)
-            for(let $i = curr + 1 ; $i <= pageCount; $i++)
-                addPageNum($i);
-    }else {
-        const sideCount = Math.ceil((maxNumCount-2)/3); // 5
-        const middleSideCount = Math.ceil((sideCount-1)/2); // 2
-        const minDiffForBoth = Math.ceil(sideCount+middleSideCount+2); // 9
 
-        if(curr > minDiffForBoth && curr <= pageCount - minDiffForBoth){
-            addNumsToArr(sideCount);
-            addPageNum("...",  curr-middleSideCount-1);
-            for (let i = curr-middleSideCount; i < curr+middleSideCount+1; i++)
-                addPageNum(i);
-            addPageNum("...", curr+middleSideCount+1);
-            for(let $i = pageCount - sideCount+1; $i <= pageCount; $i++)
-                addPageNum($i);
-        }else if(curr <= pageCount / 2){
-            const left = maxNumCount-sideCount-1;
-            addNumsToArr(left);
-            addPageNum("...", left+1);
-            for(let $i = pageCount - sideCount+1; $i <= pageCount; $i++)
-                addPageNum($i);
-        }else{
-            const right = maxNumCount-sideCount-1;
-            addNumsToArr(sideCount-1);
-            addPageNum("...", pageCount-right-1);
-            for(let $i = pageCount - right; $i <= pageCount; $i++)
-                addPageNum($i);
-        }
+
+    if (pageCount <= maxNumCount) {	// all pages
+        return Array.from({length: pageCount}, (_, i) => i+1)
+            .map(num => ({num, pageTarget: num}));
     }
-    return pageNums;
+
+
+    const all = {
+        beforeDots: [] as number[],
+        dotBefore: {num: -1},
+        beforeCurr: curr > 1 ? [curr-1] : [],
+        afterCurr: curr < pageCount ? [curr+1] : [],
+        dotAfter: {num: -1},
+        afterDots: [] as number[],
+
+        toResult: () => [
+            ...all.beforeDots,
+            all.dotBefore,
+            ...all.beforeCurr,
+            curr,
+            ...all.afterCurr,
+            all.dotAfter,
+            ...all.afterDots
+        ].map(target => ({
+            num: typeof target === 'object' ? "..." : target,
+            pageTarget: typeof target === 'object' ? target.num : target
+        })).filter(({pageTarget}) => pageTarget !== -1)
+    }
+    const minDotsSide = 2;
+
+    const hasLeftDots = curr >= maxNumCount - minDotsSide;
+    const hasRightDots = curr <= pageCount - maxNumCount + minDotsSide;
+
+    if(hasLeftDots){
+        all.beforeDots = [1, 2];
+    }
+    if(hasRightDots){
+        all.afterDots = [pageCount-1, pageCount];
+    }
+
+    if(hasLeftDots && hasRightDots) {
+        all.dotBefore.num = curr - 2;
+        all.dotAfter.num = curr + 2;
+
+        return all.toResult();
+    }
+
+    const sideRemain = maxNumCount - minDotsSide - 1;
+
+    if(!hasLeftDots){
+        all.beforeCurr = Array.from({length: curr - 1}, (_, i) => i+1);
+        if(curr < sideRemain - 1)
+            all.afterCurr = Array.from({length: sideRemain - curr}, (_, i) => curr + i + 1);
+        all.dotAfter.num = sideRemain + 1;
+    }else{
+        all.afterCurr = Array.from({length: pageCount - curr}, (_, i) => curr + i + 1);
+        if(curr > pageCount - sideRemain)
+            all.beforeCurr = Array.from({length: sideRemain - (pageCount - curr)}, (_, i) => curr - i - 1).reverse();
+        all.dotBefore.num = pageCount - sideRemain - 1;
+    }
+
+    return all.toResult();
 });
 
 const isCurrent = (num:string|number) => currPage.value === num ;
 const changePage = (page:number) => {
-    const uri = new URL(props.pagination.first_page_url);
+    const uri = new URL(props.pagination.last_page_url);
     uri.searchParams.set(props.queryParam, ''+page);
     router.visit(uri.toString(), {
         only: ['pageData'],
         onStart: () => {
-            document.querySelector('#app main:first-of-type')?.scrollTo({top: 0, behavior: 'smooth'});
+            // document.querySelector('#app main:first-of-type')?.scrollTo({top: 0, behavior: 'smooth'});
         }
 
     })
