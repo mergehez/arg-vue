@@ -3,9 +3,10 @@ import TopAppLayout from "@argvue/Components/Layout/TopAppLayout.vue";
 import globalState from "@/Helpers/globalState";
 import {initializeArgVue} from "@/Helpers/argvue_helper";
 import NavPanel from "@/Components/NavPanel.vue";
-import {MediaLibrary, ILink} from "@argvue/Components";
+import {MediaLibrary} from "@argvue/Components";
 import {__} from "@/Helpers/inertia_helpers";
 import {usePage} from "@argvue/utils";
+import {Link} from "@inertiajs/vue3";
 
 initializeArgVue();
 
@@ -32,7 +33,7 @@ const menus = {
                <div class="p-3 pr-0">
                    <div class="flex flex-col h-full overflow-y-auto bg-x0 shadow-xl shadow-x5 dark:shadow-x3 relative py-2 px-3 rounded-lg">
                        <template v-for="(arr, k) in menus">
-                           <ILink
+                           <Link
                                class="p-2 flex items-center font-bold gap-1 hover:text-green-400 border border-transparent"
                                :class="{
                                 'text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-900 rounded-md': globalState.currentRoute == `panel.${arr[0]}`,
@@ -42,8 +43,11 @@ const menus = {
                                <span class="icon" :class="arr[2]"></span>
                                <span>{{ __(k) }}</span>
                                <!--<span class="text-2xs ml-auto pl-1">{{ page.props.navStats[arr[1] || k] }}</span>-->
-                           </ILink>
+                           </Link>
                        </template>
+                    <i class="flex-1"></i>
+                    <div class="text-center text-sm">{{page.props.app_version}}</div>
+                    <div class="text-center text-sm">PHP v{{page.props.php_version}}</div>
                    </div>
                </div>
 

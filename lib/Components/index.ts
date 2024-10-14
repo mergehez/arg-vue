@@ -3,7 +3,6 @@ export { default as CollapsibleButton } from './CollapsibleButton.vue';
 export { default as ColorBox } from './ColorBox.vue';
 export { default as FlyingThings } from './FlyingThings.vue';
 export { default as HeightTransition } from './HeightTransition.vue';
-export { default as ILink } from './ILink.vue';
 export { default as ImageCropper } from './ImageCropper.vue';
 export { default as LoadingButton } from './LoadingButton.vue';
 export { default as Pagination } from './Pagination.vue';

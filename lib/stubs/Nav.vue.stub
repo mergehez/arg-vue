@@ -5,7 +5,6 @@ import {__} from "@/Helpers/inertia_helpers";
 import NavLink from "@/Components/NavLink.vue";
 import NavButton from "@/Components/NavButton.vue";
 import {useGlobalSearch} from "@argvue/utils";
-import {ILink} from "@argvue/Components";
 import Logo from "@/Components/Logo.vue";
 import {usePage} from "@argvue/utils";
 
@@ -114,12 +113,12 @@ const globalSearch = useGlobalSearch();
                 class="absolute top-16 left-2 right-2 rounded-md bg-x0 border-2 border-x3 ease-in-out">
                 <div class="grid w-full divide-y">
                     <template v-for="mi in menu.items">
-                        <ILink
+                        <Link
                             :href="mi.url!"
                             :on-click="() => globalState.showNavDropdown = false"
                             class="hover:bg-x2 transition-colors uppercase text-lg text-center font-bold px-7 py-2 pt-2">
                             {{ mi.title }}
-                        </ILink>
+                        </Link>
                     </template>
                 </div>
             </div>

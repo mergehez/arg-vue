@@ -7,9 +7,9 @@ import {TSlider, TSliderItem} from "@/Types/Models";
 import {computed, ref} from "vue";
 import {__} from "@/Helpers/inertia_helpers";
 import {vAutoAnimate} from "@formkit/auto-animate";
-import {IHead, ILink} from "@argvue/Components";
+import {IHead} from "@argvue/Components";
 import PanelTable from "@/Components/PanelTable.vue";
-import {router} from "@inertiajs/vue3";
+import {router, Link} from "@inertiajs/vue3";
 import {createSliderForm, createSliderItemForm} from "@/Helpers/slider_helpers";
 import SliderItemFormInline from "@/Parts/SliderItemFormInline.vue";
 
@@ -55,10 +55,10 @@ function askToDelete(p: TSliderItem){
         <IHead :title="item.id ? __('edit_slider') : __('add_new_slider')"/>
         <form @submit.prevent="() => submit" class="flex flex-col pb-10 gap-3" v-auto-animate>
             <div class="pt-2 flex justify-between gap-3 items-center px-3">
-                <ILink :href="route('panel.sliders')" class="btn btn-secondary py-px gap-1">
+                <Link :href="route('panel.sliders')" class="btn btn-secondary py-px gap-1">
                     <span class="icon icon-[mdi--arrow-back] text-lg"></span>
                     <span class="py-1">{{ __('back_to_all_sliders') }}</span>
-                </ILink>
+                </Link>
                 <i class="flex-1"></i>
             </div>
             <div v-if="Object.keys(form.errors).length" class="alert alert-danger leading-tight px-3">

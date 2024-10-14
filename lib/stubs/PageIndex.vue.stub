@@ -3,7 +3,7 @@ import layout from "@/Components/AppLayout.vue";
 // import {TPost, TSlider} from "@/Types/Models";
 // import {__} from "@/Helpers/inertia_helpers";
 // import {computed, ref} from "vue";
-// import {Slider, ILink} from "@argvue/Components";
+// import {Slider} from "@argvue/Components";
 import AppLayoutMain from "@/Components/AppLayoutMain.vue";
 import {usePage} from "@argvue/utils";
 
@@ -50,7 +50,7 @@ const page = usePage<{
                 <!--<PostBox v-for="p in posts" :key="p.id" :post="p" minimal/>-->
 
                 <!--<div class="text-center mt-7">-->
-                <!--    <ILink :href="route('page.news')" class="font-medium btn btn-red text-lg px-5">{{ __('see_all_posts') }}</ILink>-->
+                <!--    <Link :href="route('page.news')" class="font-medium btn btn-red text-lg px-5">{{ __('see_all_posts') }}</Link>-->
                 <!--</div>-->
             </div>
         </template>
