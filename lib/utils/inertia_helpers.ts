@@ -55,7 +55,8 @@ export interface TInertiaPageProps {
         translations: Record<string, string>,
     },
     session_lifetime: number,
-    abc: string,
+    app_version: string,
+    php_version: string,
 
     errors: Errors & ErrorBag;
 }

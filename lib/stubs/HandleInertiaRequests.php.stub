@@ -42,6 +42,7 @@ class HandleInertiaRequests extends ArgHandleInertiaRequests
                 return $info;
             },
             'navStats' => $navStats,
+            'app_version' => 'ArgPanel v1.0.0',
         ];
     }
 }
