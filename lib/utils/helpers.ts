@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 // import DayjsTimezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import "dayjs/locale/de";
-import {reactive, Ref, ref, UnwrapRef} from "vue";
+import {reactive} from "vue";
 import latinizeFn from "latinize";
 import {ConfirmModalConfigurable, confirmModalState} from "../Components";
 import {initGlobalSearch} from "./useGlobalSearch";
@@ -19,8 +19,8 @@ type ArgVueInitializeConfig = {
         useForm: typeof window.useForm;
         router: typeof window.router;
     },
-    confirmModalState?: ConfirmModalConfigurable,
-    globalSearch?: Parameters<typeof initGlobalSearch>[0]
+    confirmModalState?: () => ConfirmModalConfigurable,
+    globalSearch?: () => Parameters<typeof initGlobalSearch>[0]
 }
 
 export function argVueInitializer(config: ArgVueInitializeConfig) {
@@ -30,13 +30,14 @@ export function argVueInitializer(config: ArgVueInitializeConfig) {
     window.router = config.windowOverrides.router;
 
     if (config.confirmModalState) {
-        confirmModalState.defaultTitle ??= config.confirmModalState.defaultTitle;
-        confirmModalState.defaultTextConfirm ??= config.confirmModalState.defaultTextConfirm;
-        confirmModalState.defaultTextCancel ??= config.confirmModalState.defaultTextCancel;
+        const state = config.confirmModalState();
+        confirmModalState.defaultTitle ??= state.defaultTitle;
+        confirmModalState.defaultTextConfirm ??= state.defaultTextConfirm;
+        confirmModalState.defaultTextCancel ??= state.defaultTextCancel;
     }
 
     if (config.globalSearch) {
-        initGlobalSearch(config.globalSearch);
+        initGlobalSearch(config.globalSearch());
     }
 }
 

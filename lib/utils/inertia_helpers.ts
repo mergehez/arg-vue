@@ -2,10 +2,10 @@ import type {Page as InertiaPage} from "@inertiajs/core";
 import {computed} from "vue";
 import {TArgVueTrKeys} from "./required_tr_keys";
 
-let page: TInertiaPage;
+let page: TInertiaPage<any>;
 
 export function changeLanguage(langKey: string) {
-    usePage().props.localization.locale = langKey;
+    window.usePage().props.localization.locale = langKey;
 }
 
 const __getByLocale: (locale: string) => Record<string, string> = (window as any).__getByLocale;
@@ -18,7 +18,7 @@ export function __base<T extends string>(
     key: EnsureAllTypes<T> extends T ? EnsureAllTypes<T> & T : EnsureAllTypes<T>,
     replace?: Record<string, string> | undefined,
 ): string {
-    page ??= usePage()
+    page ??= window.usePage()
 
     if (!key) return '';
 
