@@ -1,8 +1,8 @@
-@import "arg-vue/lib/sass/app.scss";
+@import "arg-vue/lib/sass/app.css";
 
 @import "colors";
 @import "components";
-@import "../../storage/app/generated-icons.scss";
+@import "../../storage/app/generated-icons.css";
 
 :root, * {
   scroll-behavior: smooth !important;
@@ -19,4 +19,4 @@
   }
 }
 
-@import "arg-vue/lib/sass/tw-extend.scss";
+@import "arg-vue/lib/sass/tw-extend.css";

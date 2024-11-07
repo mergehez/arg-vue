@@ -1,7 +1,7 @@
 @layer components{
   .btn{
     @apply inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md font-semibold text-sm focus:outline-none focus-visible:ring-2 dark:focus-visible:ring-offset-gray-800 transition ease-in-out duration-150;
-    //@apply focus:outline-none focus-visible:ring-2 dark:focus-visible:ring-offset-gray-800;
+    /*@apply focus:outline-none focus-visible:ring-2 dark:focus-visible:ring-offset-gray-800;*/
   }
   .btn-primary{
     @apply text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-indigo-300 dark:bg-indigo-800/70 dark:hover:bg-indigo-800/90 dark:focus:ring-indigo-700
@@ -41,7 +41,7 @@
   }
   .btn-link{
     @apply text-indigo-800 dark:text-indigo-300;
-    //color: rgb(131 175 255);
+    /*color: rgb(131 175 255);*/
   }
   .btn-link:not(.nohover){
     @apply hover:text-indigo-500 dark:hover:text-indigo-400;
@@ -58,7 +58,7 @@
   }
   .btn-link-light,
   .btn-link{
-    //user-select: none;
+    /*user-select: none;*/
     display: inline-flex;
     align-items: center;
   }

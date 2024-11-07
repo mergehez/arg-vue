@@ -26,9 +26,9 @@
       "require": "./lib/utils/index.js",
       "types": "./lib/utils/index.d.ts"
     },
-    "./lib/sass/*.scss": {
-      "import": "./lib/sass/*.scss",
-      "require": "./lib/sass/*.scss"
+    "./lib/sass/*.css": {
+      "import": "./lib/sass/*.css",
+      "require": "./lib/sass/*.css"
     },
     "./theme_setup": {
       "import": "./lib/theme_setup.js",
@@ -57,7 +57,6 @@
     "test": "exit 0",
     "publishX": "npm publish --access public"
   },
-  "dependencies": {},
   "peerDependencies": {
     "@fontsource/roboto": "^5.1.0",
     "@formkit/auto-animate": "^0.8.2",
@@ -65,35 +64,37 @@
     "@iconify/tailwind": "^1.1.3",
     "@inertiajs/vue3": "^1.2.0",
     "@popperjs/core": "^2.11.8",
-    "@vueuse/components": "^11.1.0",
-    "@vueuse/core": "^11.1.0",
-    "axios": "^1.7.7",
-    "laravel-vite-plugin": "^1.0.5",
-    "dayjs": "^1.11.13",
-    "idb-keyval": "^6.2.1",
-    "latinize": "^2.0.0",
-    "pinia": "^2.2.4",
-    "tailwind-merge": "^2.5.4",
-    "tailwindcss": "^3.4.13",
-    "vue": "^3.5.12",
-    "vue-advanced-cropper": "^2.8.9",
-    "ziggy-js": "^2.3.0",
     "@types/latinize": "^0.2.18",
     "@types/node": "^22.7.5",
     "@vitejs/plugin-vue": "^5.1.4",
+    "@vueuse/components": "^11.1.0",
+    "@vueuse/core": "^11.1.0",
     "autoprefixer": "^10.4.20",
+    "axios": "^1.7.7",
+    "dayjs": "^1.11.13",
+    "idb-keyval": "^6.2.1",
+    "laravel-vite-plugin": "^1.0.5",
+    "latinize": "^2.0.0",
     "path": "^0.12.7",
+    "pinia": "^2.2.4",
     "postcss": "^8.4.47",
+    "postcss-nesting": "^13.0.1",
     "rollup-plugin-typescript2": "^0.36.0",
-    "sass": "^1.79.5",
+    "tailwind-merge": "^2.5.4",
+    "tailwindcss": "^3.4.14",
     "typescript": "^5.6.3",
     "vite": "^5.4.9",
     "vite-plugin-dts": "^4.2.4",
     "vite-plugin-sass-dts": "^1.3.29",
     "vite-plugin-static-copy": "^2.0.0",
-    "vue-tsc": "^2.1.6"
+    "vue": "^3.5.12",
+    "vue-advanced-cropper": "^2.8.9",
+    "vue-tsc": "^2.1.6",
+    "ziggy-js": "^2.3.0"
   },
   "bugs": {
     "url": "https://github.com/mergehez/arg-vue/issues"
+  },
+  "devDependencies": {
   }
 }

@@ -8,7 +8,7 @@ export default defineConfig({
     plugins: [
         mdi.vitePlugin([
             {
-                target: 'storage/app/generated-icons.scss',
+                target: 'storage/app/generated-icons.css',
                 mdiIcons: [], // don't include any icons (obsolete)
                 watch: {
                     directory: 'resources/svg', // svg files will be converted to css classes
@@ -28,6 +28,13 @@ export default defineConfig({
         }),
         vue(),
     ],
+    css: {
+        preprocessorOptions: {
+            scss: {
+                api: 'modern-compiler', // ignores "the legacy js api is deprecated and will be removed in dart sass 2.0.0"
+            },
+        },
+    },
 
     resolve: {
         alias: {

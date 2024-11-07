@@ -2,7 +2,7 @@
 .h-screen{
   max-height: 100vh;
   max-height: 100dvh;
-  //max-height: -webkit-fill-available;
+  /*max-height: -webkit-fill-available;*/
 }
 
 .text-2xs {

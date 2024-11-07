@@ -1,5 +1,5 @@
-@import "arg-vue/lib/sass/buttons.scss";
-@import "arg-vue/lib/sass/alerts.scss";
+@import "arg-vue/lib/sass/buttons.css";
+@import "arg-vue/lib/sass/alerts.css";
 
 @layer components{
     .divide-light{
