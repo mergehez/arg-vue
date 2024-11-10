@@ -7,7 +7,7 @@ import {overlayState} from "./overlay_utils";
 const navSize = ref(60);
 onMounted(() => {
     const nav = document.getElementById('nav') as HTMLElement;
-    navSize.value = nav.clientHeight;
+    navSize.value = nav?.clientHeight;
 })
 </script>
 
@@ -31,32 +31,32 @@ onMounted(() => {
              v-html="state.message || state.show"
         ></div>
         <!--'top': -(navSize - state.contentHeight/2) + 'px',-->
-                <!--'min-height': (navSize-24)+'px' ,-->
+        <!--'min-height': (navSize-24)+'px' ,-->
     </Teleport>
 </template>
 
 <style>
-    #nav-notif{
-        transform: translate(-50%, 0);
-        transition: margin-top v-bind(durSlide + 'ms') ease-in-out;
-    }
+#nav-notif {
+    transform: translate(-50%, 0);
+    transition: margin-top v-bind(durSlide+ 'ms') ease-in-out;
+}
 
-    .animation-tilt{
-        -webkit-font-smoothing: antialiased;
-        animation: tilt v-bind(durTilt + 'ms') linear ;
-        animation-delay: v-bind(durSlide + 'ms');
-        animation-iteration-count: 2;
-    }
+.animation-tilt {
+    -webkit-font-smoothing: antialiased;
+    animation: tilt v-bind(durTilt+ 'ms') linear;
+    animation-delay: v-bind(durSlide+ 'ms');
+    animation-iteration-count: 2;
+}
 
-    @keyframes tilt {
-        0%, 50%, 100% {
-            transform: translate(-50%, 0%) rotate(0deg);
-        }
-        25% {
-            transform: translate(-50%, -1%) rotate(2deg);
-        }
-        75% {
-            transform: translate(-50%, -1%) rotate(-2deg);
-        }
+@keyframes tilt {
+    0%, 50%, 100% {
+        transform: translate(-50%, 0%) rotate(0deg);
     }
+    25% {
+        transform: translate(-50%, -1%) rotate(2deg);
+    }
+    75% {
+        transform: translate(-50%, -1%) rotate(-2deg);
+    }
+}
 </style>
