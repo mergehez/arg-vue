@@ -23,7 +23,7 @@ html,
 #app {
     /*noinspection CssInvalidPropertyValue*/
     height: -webkit-fill-available;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
 }
 
 
