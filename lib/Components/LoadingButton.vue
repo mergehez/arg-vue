@@ -6,7 +6,7 @@ withDefaults(defineProps<{
     loading: boolean,
     svgSize?: string,
     hideIcOnLoad?: boolean,
-    icClass?: string
+    icClass?: string,
 }>(), {
     hideIcOnLoad: true,
 })
@@ -17,13 +17,13 @@ withDefaults(defineProps<{
         <template v-if="icClass && hideIcOnLoad">
             <span class="relative inline-flex justify-center items-center">
                 <i v-if="icClass" :style="!hideIcOnLoad || !loading ? 'opacity:1' : 'opacity:0'" :class="icClass"></i>
-                <Spinner :loading="loading" :svg-size="svgSize" :class="loading ? 'absolute' : ''" />
+                <Spinner :loading="loading" :svg-size="svgSize" :class="loading ? 'absolute' : ''"/>
             </span>
         </template>
         <template v-else>
             <i v-if="icClass" :class="icClass"></i>
-            <Spinner v-else :loading="loading" :svg-size="svgSize" />
+            <Spinner v-else :loading="loading" :svg-size="svgSize"/>
         </template>
-        <slot />
+        <slot/>
     </button>
 </template>

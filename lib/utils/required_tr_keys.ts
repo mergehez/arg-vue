@@ -12,3 +12,5 @@ export type TArgVueTrKeys =
     | 'all'
     | 'upload'
     | 'cancel'
+    | 'save'
+    | 'saved_successfully'

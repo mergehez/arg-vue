@@ -58,13 +58,29 @@ export function search(str: string, q: string) {
     return latinize(str.toLowerCase()).includes(latinize(q.toLowerCase()));
 }
 
-export function arrToObj<T extends string | number, R>(arr: T[], map: (key: T) => R) {
+type TArrayItem<TArray> = TArray extends (infer T)[] ? T : never;
+
+export function arrToObj<TArr extends string[] | number[], R>(arr: TArr, map: (key: TArrayItem<TArr>) => R) {
     return arr?.reduce((obj, key) => {
         return {
             ...obj,
-            [key]: map(key)
+            [key]: map(key as TArrayItem<TArr>)
         };
-    }, {} as Record<T, R>);
+    }, {} as Record<TArrayItem<TArr>, R>);
+}
+
+export function objArrToObj<T extends Record<string, any>, TKey extends string | number, R>(
+    arr: T[],
+    keyGetter: (t: T) => TKey,
+    valueGetter: (t: T) => R
+) {
+    return arr?.reduce((obj, key) => {
+        const k = keyGetter(key);
+        return {
+            ...obj,
+            [k]: valueGetter(key)
+        };
+    }, {} as Record<TKey, R>);
 }
 
 export function revertObj<T extends string | number, R extends string | number>(obj: Record<T, R>) {

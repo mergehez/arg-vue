@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="TKey extends string | number">
 import {twMerge} from "tailwind-merge";
 import {ref, watch} from "vue";
 import {TArgVueTrKeys, usePage, arrToObj} from "../../utils";
@@ -12,16 +12,10 @@ const props = withDefaults(defineProps<{
     modelValue?: any
 } & ({
     options: number[],
-    numberKey: boolean
+    keyType: 'number'
 } | {
     options: string[],
-    numberKey?: false
-} | {
-    options: Record<number, string>,
-    numberKey: boolean
-} | {
-    options: Record<string, string>,
-    numberKey?: false
+    keyType?: 'string'
 })>(), {
     trPrefix: '',
     translate: true,
@@ -32,7 +26,7 @@ const emit = defineEmits(['update:modelValue'])
 
 function generateOptions() {
     return Array.isArray(props.options)
-        ? arrToObj(props.options, props.translate ? ((t: any) => props.trFunc(t)) : t => t.toString())
+        ? arrToObj(props.options, props.translate ? ((t: any) => props.trFunc(t)) : t => t)
         : props.translate
             ? arrToObj(Object.keys(props.options), (k: any) => props.trFunc((props.options as any)[k] as any))
             : props.options;
@@ -44,8 +38,8 @@ watch(() => page.props?.localization.locale, () => _options.value = generateOpti
 
 function onChange(event: Event) {
     let val: string | number = (event.target as HTMLSelectElement).value;
-    console.log(val, props.numberKey);
-    if (props.numberKey) {
+    console.log(val, _options.value[val], props.keyType);
+    if (props.keyType === 'number') {
         val = parseInt(val);
     }
     emit('update:modelValue', val);

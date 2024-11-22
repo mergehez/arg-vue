@@ -40,7 +40,7 @@ export function __base<T extends string>(
 }
 
 export interface TInertiaPagePropsAuth {
-    user?: TInertiaPagePropsAuthUser,
+    // user?: TInertiaPagePropsAuthUser,
 }
 
 export interface TInertiaPagePropsAuthUser {
