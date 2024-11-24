@@ -61,7 +61,7 @@ const trans = window.__;
                 class="z-10 bg-transparent dark:bg-transparent w-full text-base border-none rounded-none focus:ring-0"
                 style="--webkit-appearance: none"
                 :placeholder="trans('search')"/>
-            <i class="absolute right-2 ic ic-search ic-lg opacity-50" v-if="!state.query">
+            <i class="absolute right-2 icon icon-[mingcute--search-line] text-lg opacity-50" v-if="!state.query">
                 <span class="sr-only">Search</span>
             </i>
         </div>

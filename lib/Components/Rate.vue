@@ -4,7 +4,7 @@
 import {ref, watch, onBeforeMount, getCurrentInstance} from 'vue'
 
 // const emit = defineEmits(["before-rate", "after-rate"]);
-const modelVal = defineModel<number>('value',{ default: 0 });
+const modelVal = defineModel<number>('value', {default: 0});
 const props = withDefaults(defineProps<{
     max: number,
     showCount?: boolean,
@@ -25,21 +25,30 @@ const currRate = ref(0)
 function convertValue(val: number) {
     return Math.max(0, Math.min(val, props.max));
 }
-function onOver (index: number) { if (!props.readonly) currOver.value = index }
-function onOut () { if (!props.readonly) currOver.value = currRate.value }
+
+function onOver(index: number) {
+    if (!props.readonly) currOver.value = index
+}
+
+function onOut() {
+    if (!props.readonly) currOver.value = currRate.value
+}
+
 const thisInstance = getCurrentInstance();
-function setRate (index: number) {
+
+function setRate(index: number) {
     if (props.readonly) return false
-    if(thisInstance?.vnode.props && 'onRate' in thisInstance.vnode.props){
+    if (thisInstance?.vnode.props && 'onRate' in thisInstance.vnode.props) {
         emit('rate', index, () => {
-           currRate.value = index
-           modelVal.value = currRate.value;
+            currRate.value = index
+            modelVal.value = currRate.value;
         });
-    }else{
+    } else {
         currRate.value = index
         modelVal.value = currRate.value;
     }
 }
+
 watch(
     () => modelVal.value,
     (newVal) => {
@@ -55,18 +64,18 @@ onBeforeMount(() => {
     currOver.value = convertValue(modelVal.value)
 })
 
-function getStyle(i: number){ // 7.6
-    if(i > currRate.value)
+function getStyle(i: number) { // 7.6
+    if (i > currRate.value)
         return '--bg: var(--inactive);'
 
-    if(i == currRate.value)
+    if (i == currRate.value)
         return '--bg: var(--active);'
 
     let mod = currRate.value % 1;
-    if(i+mod > currRate.value)
+    if (i + mod > currRate.value)
         return '--bg: var(--inactive);'
 
-    if(i+mod < currRate.value)
+    if (i + mod < currRate.value)
         return '--bg: var(--active);'
 
     mod *= 100;
@@ -89,7 +98,7 @@ function getStyle(i: number){ // 7.6
                 @click="setRate(n)"
                 @keyup="onOver(n)"
                 @keyup.enter="setRate(n)">
-                <i class="ic ic-star" :class="size ? 'ic-'+size : ''"></i>
+                <i class="icon icon-[ic--round-star]" :class="size ? 'text-'+size : ''"></i>
             </button>
         </template>
         <div class="Rate__view">
@@ -101,18 +110,21 @@ function getStyle(i: number){ // 7.6
 
 <style>
 
-.Rate .Rate__star{
+.Rate .Rate__star {
     --inactive: theme('colors.gray.400');
     --active: theme('colors.amber.500');
 }
-.dark .Rate .Rate__star{
+
+.dark .Rate .Rate__star {
     --inactive: theme('colors.gray.500');
     --active: theme('colors.yellow.500');
 }
-.Rate__star > .ic:before{
+
+.Rate__star > .icon {
     background: var(--bg);
 }
-.Rate:hover .Rate__star.hover > .ic:before {
+
+.Rate:hover .Rate__star.hover > .icon {
     background: theme('colors.yellow.600');
 }
 

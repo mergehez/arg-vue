@@ -17,7 +17,7 @@ const zIndex = ref(50);
 
 watch(() => props.show, (nv) => {
     if (nv) {
-        zIndex.value = overlayState.modalZIndex += 1;
+        // zIndex.value = overlayState.modalZIndex += 1;
     }
 })
 
@@ -29,7 +29,7 @@ function updateShow(v: boolean) {
 }
 
 onMounted(() => {
-    zIndex.value = overlayState.modalZIndex += 1;
+    // zIndex.value = overlayState.modalZIndex += 1;
 })
 </script>
 
@@ -71,7 +71,12 @@ onMounted(() => {
                  }">
                     <div :class="twMerge('rounded-md ring-1 ring-x3 ring-opacity-5 py-1 bg-x0 max-h-[95vh] relative', contentClass)" :style="contentStyle">
                         <slot/>
-                        <button v-if="closeButton" class="btn btn-text-light absolute top-2 right-1" @click="updateShow(false)"><i class="ic ic-close"></i></button>
+                        <button
+                            v-if="closeButton"
+                            class="p-1 inline-flex border border-transparent hover:border-gray-100 dark:hover:border-gray-600 rounded-full absolute top-2 right-2"
+                            @click="updateShow(false)">
+                            <i class="icon icon-[mdi--close] font-bold"></i>
+                        </button>
                     </div>
                 </div>
             </transition>

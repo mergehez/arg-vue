@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {Directory} from "./media-library-types";
-import {openConfirmationDialog} from "../Overlays/overlay_utils";
-import  {vAutoAnimate} from "@formkit/auto-animate/vue";
+import {openConfirmationDialog} from "../Overlays";
+import {vAutoAnimate} from "@formkit/auto-animate/vue";
 import MenuPopper from "../Overlays/MenuPopper.vue";
 
 const props = defineProps<{
@@ -16,7 +16,7 @@ const emit = defineEmits([
 ])
 
 function askToDeleteFolder(dir: Directory) {
-    if(dir.id !== props.active.id) {
+    if (dir.id !== props.active.id) {
         return;
     }
     openConfirmationDialog({
@@ -36,7 +36,7 @@ function selectFolder(dir: Directory) {
 }
 
 function createSubfolder(dir: Directory) {
-    if(dir.id !== props.active.id) {
+    if (dir.id !== props.active.id) {
         return;
     }
     emit('createSubfolder', dir)
@@ -77,17 +77,20 @@ function createSubfolder(dir: Directory) {
                             <div class="flex flex-col items-stretch divide-y divide-x3">
                                 <button class="btn btn-light-borderless px-2.5 rounded-none py-1 text-sm"
                                         @click.prevent.stop="$emit('renameFolder', dir)"
-                                        aria-label="rename folder">Rename</button>
+                                        aria-label="rename folder">Rename
+                                </button>
                                 <button class="btn btn-light-borderless px-2.5 rounded-none py-1 text-sm"
                                         @click.prevent.stop="askToDeleteFolder(dir)"
-                                        aria-label="delete folder">Delete</button>
+                                        aria-label="delete folder">Delete
+                                </button>
                                 <button class="btn btn-light-borderless px-2.5 rounded-none py-1 text-sm"
                                         @click.prevent.stop="createSubfolder(dir)"
-                                        aria-label="add subfolder">Add Subfolder</button>
+                                        aria-label="add subfolder">Add Subfolder
+                                </button>
                             </div>
                         </template>
                     </MenuPopper>
-                    <span class="text-xs" :class="dir.id != active.id ? 'opacity-60' : ''">{{dir.fileCount || ''}}</span>
+                    <span class="text-xs" :class="dir.id != active.id ? 'opacity-60' : ''">{{ dir.fileCount || '' }}</span>
                 </div>
             </div>
         </template>

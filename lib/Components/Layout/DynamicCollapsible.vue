@@ -7,15 +7,15 @@ defineProps<{
     contentClass?: string,
     targetSelector?: string
 }>();
-defineEmits<{'toggle' : []}>()
+defineEmits<{ 'toggle': [] }>()
 
 </script>
 
 <template>
     <slot name="button" :toggle="() => $emit('toggle')">
-        <button class="btn-link whitespace-nowrap" @click="$emit('toggle')" data-ajax="1" role="button" :aria-expanded="show" aria-label="collapse expand button">
-            {{text}}
-            <i class="ic" :class="show ? 'ic-caret-up' : 'ic-caret-down'"></i>
+        <button class="btn-link whitespace-nowrap gap-1" @click="$emit('toggle')" data-ajax="1" role="button" :aria-expanded="show" aria-label="collapse expand button">
+            {{ text }}
+            <i class="mt-px icon" :class="show ? 'icon-[bi--caret-up-fill]' : 'icon-[bi--caret-down-fill]'"></i>
         </button>
     </slot>
     <DynamicCollapsibleContent v-if="!targetSelector" :show="show" :class="$attrs.class">

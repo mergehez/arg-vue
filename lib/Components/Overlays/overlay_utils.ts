@@ -1,6 +1,5 @@
 import {reactive} from "vue";
 import {Placement} from "@popperjs/core";
-export {openConfirmationDialog, confirmModalState} from "./confirm_modal_helpers";
 
 export const overlayState = reactive({
     modalZIndex: 50,

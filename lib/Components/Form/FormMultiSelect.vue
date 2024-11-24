@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import {onBeforeUnmount, onMounted, ref} from "vue";
-import { vOnClickOutside } from '@vueuse/components'
+import {vOnClickOutside} from '@vueuse/components'
 import {arrToObj, search} from "../../utils/helpers";
 import {twMerge} from "tailwind-merge";
-type TKey = string|number;
+
+type TKey = string | number;
 
 const selection = defineModel<TKey[]>({required: true});
 const props = withDefaults(defineProps<{
@@ -21,17 +22,19 @@ const props = withDefaults(defineProps<{
 })
 
 const _options = Array.isArray(props.options)
-                    ? arrToObj(props.options, (t: any) => props.translate === false ? t : props.trFunc(t))
-                    : arrToObj(Object.keys(props.options), (k: any) =>  props.translate === false ? props.options[k] : props.trFunc(props.options[k]));
+    ? arrToObj(props.options, (t: any) => props.translate === false ? t : props.trFunc(t))
+    : arrToObj(Object.keys(props.options), (k: any) => props.translate === false ? props.options[k] : props.trFunc(props.options[k]));
 
 const q = ref('');
 const focused = ref(false);
-function removeSelection(opt: TKey){
+
+function removeSelection(opt: TKey) {
     selection.value = selection.value.filter(t => t !== opt)
 }
-function addSelection(opt: TKey, keepFocus = false){
+
+function addSelection(opt: TKey, keepFocus = false) {
     selection.value.push(opt)
-    if(keepFocus)
+    if (keepFocus)
         refInput.value?.focus();
 }
 
@@ -50,39 +53,40 @@ onBeforeUnmount(() => {
     refInput.value.removeEventListener('keydown', onQueryKeyUp);
 })
 
-function onClickedOutside(){
+function onClickedOutside() {
     focused.value = false;
-    if(props.acceptInput && q.value.trim().length > 0){
+    if (props.acceptInput && q.value.trim().length > 0) {
         addSelection(q.value.trim());
         q.value = '';
     }
 }
 
 const lastPoppedSelections = ref([] as TKey[]);
-function onQueryKeyUp(e: KeyboardEvent){
-    if(e.code == 'Escape' || e.code == 'Tab'){
+
+function onQueryKeyUp(e: KeyboardEvent) {
+    if (e.code == 'Escape' || e.code == 'Tab') {
         focused.value = false;
-        if(e.code == 'Escape'){
+        if (e.code == 'Escape') {
             (document.activeElement as any).blur();
             q.value = '';
-        }else{
-            if(props.acceptInput && q.value.trim().length > 0){
+        } else {
+            if (props.acceptInput && q.value.trim().length > 0) {
                 addSelection(q.value.trim());
                 q.value = '';
-            }else if(!props.acceptInput){
+            } else if (!props.acceptInput) {
                 q.value = '';
             }
         }
     }
-    if(e.key == ','){
+    if (e.key == ',') {
         e.preventDefault()
-        if(props.acceptInput && q.value.trim().length > 0){
+        if (props.acceptInput && q.value.trim().length > 0) {
             e.preventDefault()
-            addSelection(q.value.trim().replace(',',''));
+            addSelection(q.value.trim().replace(',', ''));
             q.value = '';
         }
     }
-    if(e.code == 'Backspace' && q.value.length === 0){
+    if (e.code == 'Backspace' && q.value.length === 0) {
         lastPoppedSelections.value.push(selection.value.pop()!);
     }
 }
@@ -93,13 +97,13 @@ function onQueryKeyUp(e: KeyboardEvent){
     <div :class="twMerge('relative w-full text-xs', $attrs.class as any)"
          v-on-click-outside="onClickedOutside">
         <div :class="[{'ring-1': focused}, twMerge('flex items-center justify-start gap-0.5 flex-1 flex-wrap px-1.5 py-0 form-control', wrapperClass)]"
-            class="">
+             class="">
             <template v-for="(key) in selection">
                 <div class="alert alert-primary p-0 flex items-center cursor-pointer" @click="removeSelection(key)">
-                    <div class="pl-2 text-xs" >
+                    <div class="pl-2 text-xs">
                         {{ _options[key] ?? key }}
                     </div>
-                    <i class="ic ic-close scale-75"></i>
+                    <i class="icon icon-[mdi--close] text-xs mr-px dark:text-white"></i>
                 </div>
             </template>
             <div class="flex-1">
@@ -114,7 +118,7 @@ function onQueryKeyUp(e: KeyboardEvent){
                             <div v-if="!selection.includes(key) && search(text, q)">
                                 <div @click="addSelection(key, true)"
                                      class="list-group-item border-t px-2 py-1 border-light cursor-pointer rounded-none"
-                                     >
+                                >
                                     {{ text }}
                                 </div>
                             </div>
