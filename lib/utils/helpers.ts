@@ -14,6 +14,7 @@ dayjs.extend(utc)
 
 type ArgVueInitializeConfig = {
     windowOverrides: {
+        translations: typeof window.translations;
         __: typeof window.__;
         usePage: typeof window.usePage;
         useForm: typeof window.useForm;
@@ -24,6 +25,7 @@ type ArgVueInitializeConfig = {
 }
 
 export function argVueInitializer(config: ArgVueInitializeConfig) {
+    window.translations = config.windowOverrides.translations;
     window.__ = config.windowOverrides.__;
     window.usePage = config.windowOverrides.usePage;
     window.useForm = config.windowOverrides.useForm;

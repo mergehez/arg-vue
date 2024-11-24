@@ -8,8 +8,7 @@ export function changeLanguage(langKey: string) {
     usePage().props.localization.locale = langKey;
 }
 
-const __getByLocale: (locale: string) => Record<string, string> = (window as any).__getByLocale;
-const translations = computed(() => __getByLocale(page.props?.localization.locale ?? 'en'));
+console.log('inertia_helpers.ts');
 
 type EnsureAllTypes<T extends string> = Exclude<TArgVueTrKeys, T> extends never
     ? T
@@ -23,12 +22,14 @@ export function __base<T extends string>(
 
     if (!key) return '';
 
+    const translations = window.translations ?? {};
+
     const trimmedKey = (key as T).trim() as T;
-    if (!(trimmedKey in translations.value)) {
+    if (!(trimmedKey in translations)) {
         return trimmedKey;
     }
 
-    let translation = translations.value[trimmedKey] || trimmedKey;
+    let translation = translations[trimmedKey][page.props?.localization.locale] || trimmedKey;
 
     if (replace) {
         Object.keys(replace).forEach((replaceKey) => {
