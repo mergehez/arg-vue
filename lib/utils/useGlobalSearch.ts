@@ -96,7 +96,6 @@ export const useGlobalSearch = defineStore('globalSearch', () => {
         }
         // _state.key = uniqueId();
         _state.show = true;
-        console.log('openSearchPopup', _state, options);
     }
 
     const _state = reactive({
@@ -121,7 +120,6 @@ export const useGlobalSearch = defineStore('globalSearch', () => {
                         }, 500);
                     }
                 } else {
-                    console.log('show same');
                 }
             }
         }),
@@ -154,14 +152,17 @@ export const useGlobalSearch = defineStore('globalSearch', () => {
         showSelect: false,
         onSelected: defaultOnSelected,
     });
+
     function getSearchResultIcon(res: TSearchResult) {
         return Object.values(searchResultSpecifics.value)
             .find(t => t.match(res))?.ic ?? '';
     }
+
     function getSearchResultText(res: TSearchResult) {
         const val = res[Object.values(searchResultSpecifics.value).find(t => t.match(res))?.labelProp ?? 'title'];
         return 'tr' in res && res.tr ? window.__(val) : val;
     }
+
     return {
         state: _state,
         openSearchPopup,

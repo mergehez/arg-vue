@@ -18,10 +18,6 @@ const props = withDefaults(defineProps<{
 
 defineEmits(['update:modelValue'])
 
-
-console.log(props.options, props.modelValue)
-
-
 function generateOptions() {
     return props.translate
         ? arrToObj(Object.keys(props.options), (k: any) => props.trFunc(props.options[k] as any))

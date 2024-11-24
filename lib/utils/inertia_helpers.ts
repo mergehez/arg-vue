@@ -8,8 +8,6 @@ export function changeLanguage(langKey: string) {
     usePage().props.localization.locale = langKey;
 }
 
-console.log('inertia_helpers.ts');
-
 type EnsureAllTypes<T extends string> = Exclude<TArgVueTrKeys, T> extends never
     ? T
     : { error: `Missing types: ${Exclude<TArgVueTrKeys, T>}` };
@@ -22,7 +20,7 @@ export function __base<T extends string>(
 
     if (!key) return '';
 
-    const translations = window.translations ?? {};
+    const translations = (window.translations ?? {}) as Record<string, Record<string, string>>;
 
     const trimmedKey = (key as T).trim() as T;
     if (!(trimmedKey in translations)) {

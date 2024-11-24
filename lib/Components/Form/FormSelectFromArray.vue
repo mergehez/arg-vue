@@ -38,7 +38,6 @@ watch(() => page.props?.localization.locale, () => _options.value = generateOpti
 
 function onChange(event: Event) {
     let val: string | number = (event.target as HTMLSelectElement).value;
-    console.log(val, _options.value[val], props.keyType);
     if (props.keyType === 'number') {
         val = parseInt(val);
     }
