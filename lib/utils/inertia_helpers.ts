@@ -19,6 +19,12 @@ export function __base<T extends string>(
     page ??= usePage()
 
     if (!key) return '';
+    if(typeof key === 'number') key = (key as any).toString();
+    if(typeof key !== 'string') {
+        console.error('Key is not a string', key);
+        return '';
+    }
+
 
     const translations = (window.translations ?? {}) as Record<string, Record<string, string>>;
 

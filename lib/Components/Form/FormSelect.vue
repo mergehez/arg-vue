@@ -9,7 +9,8 @@ const props = withDefaults(defineProps<{
     // options: Record<TKey, string> | TKey[],
     trFunc?: (key: TArgVueTrKeys) => string,
     translate?: boolean,
-    modelValue?: any
+    modelValue?: any,
+    class?: string,
 } & ({
     options: number[],
     numberKey: boolean
@@ -54,7 +55,7 @@ function onChange(event: Event) {
 
 <template>
     <div class="relative flex items-center">
-        <select :class="twMerge('form-control pl-3 pr-7 w-full appearance-none', $attrs.class as any)"
+        <select :class="twMerge('form-control pl-3 pr-7 w-full appearance-none', props.class)"
                 :value="modelValue"
                 @change="onChange">
             <option v-for="(text, key) in _options" :value="key" :selected="modelValue == key">{{ text }}</option>
