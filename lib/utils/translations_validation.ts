@@ -1,4 +1,4 @@
-export default {
+export const translations_validation = {
     "accepted": {
         "en": "The :attribute field must be accepted.",
         "kmr": "Ev divê bê qebûlkirin.",
@@ -714,4 +714,4 @@ export default {
         "kmr": "Ev divê UUIDeke derbasdar be",
         "zza": "Ev divê UUIDeke derbasdar be"
     },
-}
+} as const;

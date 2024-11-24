@@ -1,4 +1,4 @@
-export default {
+export const translations_countries = {
     "afghanistan": {
         "en": "afghanistan",
         "kmr": "afganistan",
@@ -1249,4 +1249,4 @@ export default {
         "kmr": "",
         "zza": "",
     },
-}
+} as const;

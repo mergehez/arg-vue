@@ -1,4 +1,4 @@
-export default {
+export const translations_common = {
     "about": {
         "en": "About",
         "kmr": "Derbar",
@@ -499,4 +499,4 @@ export default {
         "kmr": "Têketin pêwîst e",
         "zza": ""
     }
-}
+} as const;

@@ -1,4 +1,4 @@
-export default {
+export const translations_languages = {
     "abkhazian": {
         "en": "abkhazian",
         "kmr": "Êbxazî",
@@ -964,4 +964,4 @@ export default {
         "kmr": "zûlûyî",
         "zza": "zûlûyî",
     },
-}
+} as const;
