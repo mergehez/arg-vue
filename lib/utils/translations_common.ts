@@ -39,6 +39,11 @@ export const translations_common = {
         "kmr": "Email Biguherîne",
         "zza": ""
     },
+    city: {
+        en: "City",
+        kmr: "Bajar",
+        zza: ""
+    },
     "contact": {
         "en": "Contact",
         "kmr": "Têkilî",
@@ -432,7 +437,7 @@ export const translations_common = {
     "website": {
         "en": "Website",
         "kmr": "Malper",
-        "zza": ""
+        "zza": "Keyepel"
     },
     "wrong_password": {
         "en": "Wrong password",
@@ -498,5 +503,20 @@ export const translations_common = {
         "en": "Unauthorized",
         "kmr": "Têketin pêwîst e",
         "zza": ""
-    }
+    },
+    size: {
+        en: "Size",
+        kmr: "Mezinahî",
+        zza: ""
+    },
+    height: {
+        en: "Height",
+        kmr: "Bilindahî",
+        zza: ""
+    },
+    width: {
+        en: "Width",
+        kmr: "Firehî",
+        zza: ""
+    },
 } as const;

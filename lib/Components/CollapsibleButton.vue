@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import {ref, watch} from "vue";
+
 type ClassF = ((open: boolean) => string);
 
 const show = defineModel<boolean>('show', {
@@ -9,37 +10,38 @@ const show = defineModel<boolean>('show', {
 
 const props = defineProps<{
     text?: string,
-    classes: string|ClassF|[string, ClassF],
+    // class: string | ClassF | [string, ClassF],
+    // class: string,
     beforeShow?: () => Promise<boolean>,
 }>();
 
 defineEmits<{
-    'toggle' : [],
+    'toggle': [],
 }>()
 
-watch(() => show.value, () => {
-    cls.value = generateCls();
-})
+// watch(() => show.value, () => {
+//     cls.value = generateCls();
+// })
 
-function generateCls(){
-    const cls = props.classes;
-    if(typeof cls === 'string'){
-        return cls;
-    }
-    if(!Array.isArray(cls)) {
-        return cls(show.value);
-    }
-    return cls[0] + ' ' + cls[1](show.value);
-}
+// function generateCls() {
+//     const cls = props.class;
+//     if (typeof cls === 'string') {
+//         return cls;
+//     }
+//     if (!Array.isArray(cls)) {
+//         return cls(show.value);
+//     }
+//     return cls[0] + ' ' + cls[1](show.value);
+// }
 
-const cls = ref(generateCls());
+// const cls = ref(generateCls());
 
-function toggle(){
-    if(show.value || !props.beforeShow){
+function toggle() {
+    if (show.value || !props.beforeShow) {
         show.value = !show.value;
-    }else{
+    } else {
         props.beforeShow().then((res) => {
-            if(res)
+            if (res)
                 show.value = !show.value;
         })
     }
@@ -49,9 +51,9 @@ function toggle(){
 </script>
 
 <template>
-    <button type="button" @click.prevent.stop="toggle" :class="cls">
+    <button type="button" @click.prevent.stop="toggle">
         <slot>
-            {{text}}
+            {{ text }}
         </slot>
     </button>
 </template>

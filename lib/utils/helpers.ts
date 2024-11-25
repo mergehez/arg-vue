@@ -71,6 +71,24 @@ export function arrToObj<TArr extends string[] | number[], R>(arr: TArr, map: (k
     }, {} as Record<TArrayItem<TArr>, R>);
 }
 
+export function enumToObj<T extends Record<string, string | number>>(
+    e: T,
+    reverse = false
+) {
+    return Object.entries(e)
+        .filter(([key, val]) => Number.isNaN(Number(key)))
+        .reduce((acc, [key, val]) => {
+            return {
+                ...acc,
+                [reverse ? val : key]: reverse ? key : val
+            }
+        }, {} as Record<keyof T, string>);
+}
+
+export function keyByValue<TKey extends string | number, TValue>(e: Record<TKey, TValue>, value: TValue) {
+    return Object.entries(e).find(([key, val]) => val === value)![0] as TKey;
+}
+
 export function objArrToObj<T extends Record<string, any>, TKey extends string | number, R>(
     arr: T[],
     keyGetter: (t: T) => TKey,

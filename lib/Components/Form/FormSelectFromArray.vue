@@ -1,21 +1,22 @@
-<script setup lang="ts" generic="TKey extends string | number">
+<script setup lang="ts">
 import {twMerge} from "tailwind-merge";
 import {ref, watch} from "vue";
-import {TArgVueTrKeys, usePage, arrToObj} from "../../utils";
+import {TArgVueTrKeys, usePage, arrToObj, uniqueId} from "../../utils";
+import FormSelectBase from "./FormSelectBase.vue";
 
 // type TKey = string | number;
 
 const props = withDefaults(defineProps<{
-    // options: Record<TKey, string> | TKey[],
     trFunc?: (key: TArgVueTrKeys) => string,
     translate?: boolean,
-    modelValue?: any
+    modelValue?: any,
+    class?: string,
 } & ({
     options: number[],
-    keyType: 'number'
+    numberKey: boolean
 } | {
     options: string[],
-    keyType?: 'string'
+    numberKey?: false
 })>(), {
     trPrefix: '',
     translate: true,
@@ -25,34 +26,23 @@ const props = withDefaults(defineProps<{
 const emit = defineEmits(['update:modelValue'])
 
 function generateOptions() {
-    return Array.isArray(props.options)
-        ? arrToObj(props.options, props.translate ? ((t: any) => props.trFunc(t)) : t => t)
-        : props.translate
-            ? arrToObj(Object.keys(props.options), (k: any) => props.trFunc((props.options as any)[k] as any))
-            : props.options;
+    // return arrToObj(props.options, props.translate ? ((t: any) => props.trFunc(t)) : t => t.toString());
+    return arrToObj(props.options, t => t.toString());
 }
 
 const page = usePage();
 const _options = ref(generateOptions());
 watch(() => page.props?.localization.locale, () => _options.value = generateOptions())
 
-function onChange(event: Event) {
-    let val: string | number = (event.target as HTMLSelectElement).value;
-    if (props.keyType === 'number') {
-        val = parseInt(val);
-    }
-    emit('update:modelValue', val);
-}
-
 </script>
 
 <template>
-    <div class="relative flex items-center">
-        <select :class="twMerge('form-control pl-3 pr-7 w-full appearance-none', $attrs.class as any)"
-                :value="modelValue"
-                @change="onChange">
-            <option v-for="(text, key) in _options" :value="key" :selected="modelValue == key">{{ text }}</option>
-        </select>
-        <i class="icon icon-[mdi--chevron-down] right-2 text-lg absolute pointer-events-none select-none"></i>
-    </div>
+    <FormSelectBase
+        :model-value="modelValue"
+        @update:modelValue="val => emit('update:modelValue', val)"
+        :options="_options"
+        :numberKey="props.numberKey"
+        :trFunc="props.trFunc"
+        :translate="props.translate"
+        :class="props.class"/>
 </template>
