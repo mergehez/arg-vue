@@ -1,4 +1,4 @@
-import {KeyValueKey} from "@/Helpers/generated_enums";
+import {KeyValueKey} from "@/Models/generated_enums";
 import {InertiaForm} from "@inertiajs/vue3";
 
 export type TBaseModel = {

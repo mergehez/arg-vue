@@ -2,10 +2,11 @@ import dayjs from "dayjs";
 // import DayjsTimezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import "dayjs/locale/de";
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 import latinizeFn from "latinize";
 import {ConfirmModalConfigurable, confirmModalState} from "../Components";
 import {initGlobalSearch} from "./useGlobalSearch";
+import {defineStore} from "pinia";
 
 dayjs.extend(utc)
 // dayjs.extend(DayjsTimezone)
@@ -57,6 +58,8 @@ export function uniqueId(len = 10) {
 }
 
 export function search(str: string, q: string) {
+    if (typeof str === 'number') str = (str as any).toString();
+    if (typeof q === 'number') q = (q as any).toString();
     return latinize(str.toLowerCase()).includes(latinize(q.toLowerCase()));
 }
 
@@ -71,22 +74,85 @@ export function arrToObj<TArr extends string[] | number[], R>(arr: TArr, map: (k
     }, {} as Record<TArrayItem<TArr>, R>);
 }
 
-export function enumToObj<T extends Record<string, string | number>>(
+function abc<TKey extends string | number, T extends Record<TKey, string | number>>(e: T,): T;
+function abc<TKey extends string | number, T extends Record<TKey, string | number>, Filter extends (key: TKey, val: any) => boolean>(e: T, filter: Filter,): Partial<T>;
+function abc<
+    TKey extends string | number,
+    T extends Record<TKey, string | number>,
+    Filter extends ((key: TKey, val: any) => boolean) | undefined
+>(
     e: T,
-    reverse = false
+    filter?: Filter,
 ) {
-    return Object.entries(e)
-        .filter(([key, val]) => Number.isNaN(Number(key)))
+    const obj = {} as (Filter extends undefined ? T : Partial<T>);
+    let entries = Object.entries(e);
+    if (filter) {
+        entries = entries.filter(([key, val]) => filter(key as any, val));
+    }
+    return entries.reduce((acc, [key, val]) => {
+        return {
+            ...acc,
+            [key]: val,
+        };
+    }, obj);
+}
+
+enum TestEnum {
+    foo = 'bar',
+    xyz = 'abc'
+}
+
+export function objFlip<
+    TKey extends string | number,
+    TValue extends string | number,
+>(o: Record<TKey, TValue>) {
+    return Object.entries(o).reduce((acc, [key, value]) => {
+        return {
+            ...acc,
+            [value as TValue]: key
+        }
+    }, {} as Record<TValue, TKey>);
+}
+
+type TSort<TKey> = (a: { key: TKey, val: any }, b: { key: TKey, val: any }) => number
+
+export function enumToObj<
+    TKey extends string, TValue, ValueAsKey extends boolean = true,
+>(e: Record<TKey, TValue>, valueAsKey?: ValueAsKey, sort?: TSort<TKey>) {
+    return enumToObjFilter(e, valueAsKey, undefined, sort);
+}
+
+export function enumToObjFilter<TKey extends string, TValue, ValueAsKey extends boolean = true>(
+    e: Record<TKey, TValue>,
+    valueAsKey?: ValueAsKey,
+    filter?: ((key: TKey, val: TValue) => boolean),
+    sort?: TSort<TKey>
+) {
+    const obj = {};
+    let entries = Object.entries(e)
+        .filter(([key, val]) => Number.isNaN(Number(key)));
+
+    if (filter) {
+        entries = entries.filter(([key, val]) => filter(key as any, val as TValue));
+    }
+
+    if (sort) {
+        entries = entries.sort((a, b) => sort({key: a[0] as any, val: a[1]}, {key: b[0] as any, val: b[1]}));
+    }
+
+    return entries
         .reduce((acc, [key, val]) => {
             return {
                 ...acc,
-                [reverse ? val : key]: reverse ? key : val
+                [valueAsKey ? val as any : key]: valueAsKey ? key : val
             }
-        }, {} as Record<keyof T, string>);
+        }, obj) as ValueAsKey extends true
+        ? Record<TValue extends string ? string : number, TKey>
+        : Record<TKey, TValue>
 }
 
 export function keyByValue<TKey extends string | number, TValue>(e: Record<TKey, TValue>, value: TValue) {
-    return Object.entries(e).find(([key, val]) => val === value)![0] as TKey;
+    return Object.entries(e).find(([key, val]) => val === value)?.[0] as TKey;
 }
 
 export function objArrToObj<T extends Record<string, any>, TKey extends string | number, R>(
@@ -172,4 +238,21 @@ export function stripHTML(str: string, maxLength?: number) {
     }
 
     return text?.replace(/\n/g, ' ')?.substring(0, maxLength) || "";
+}
+
+
+export function useLoadingButton() {
+    return defineStore(uniqueId(), () => {
+        const isLoading = ref(false);
+
+        return {
+            isLoading,
+            startLoading() {
+                isLoading.value = true;
+            },
+            stopLoading() {
+                isLoading.value = false;
+            }
+        }
+    })();
 }

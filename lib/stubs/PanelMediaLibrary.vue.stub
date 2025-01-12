@@ -2,7 +2,7 @@
 
 import {defaultMediaLibraryConfigWithPdf, MediaLibrary} from "@argvue/Components";
 import AppLayoutPanel from "@/Components/AppLayoutPanel.vue";
-import IHead from "@argvue/Components/Layout/IHead.vue";
+import {IHead} from "@argvue/Components";
 import {__} from "@/Helpers/inertia_helpers";
 
 defineOptions({layout: AppLayoutPanel});

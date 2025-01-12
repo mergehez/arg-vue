@@ -1,4 +1,3 @@
-
 export type ConfigSize = {
     /**
      * key or name of the size. e.g. 'Small' or 'Original'
@@ -26,6 +25,7 @@ export type ConfigSize = {
     },
 }
 export type MediaLibraryConfig = {
+    forcedName?: () => string,
     baseDir: string,
     baseSize: ConfigSize,
     resizes: ConfigSize[],
@@ -80,7 +80,7 @@ export type SetupResponse = {
 }
 
 
-export const mediaLibraryDefaultSize = { name: 'Original', nameSuffix: '', aspectRatio: 1, scale: 100 };
+export const mediaLibraryDefaultSize = {name: 'Original', nameSuffix: '', aspectRatio: 1, scale: 100};
 
 export const defaultMediaLibraryConfig: MediaLibraryConfig = {
     baseDir: 'uploads',
@@ -98,9 +98,9 @@ export const defaultMediaLibraryConfigWithResizes: MediaLibraryConfig = {
     baseDir: 'uploads',
     baseSize: mediaLibraryDefaultSize,
     resizes: [
-        { name: 'Large', nameSuffix: '-xl', scale: 125 },
-        { name: 'Medium', nameSuffix: '-md', scale: 75 },
-        { name: 'Small', nameSuffix: '-sm', scale: 50 },
+        {name: 'Large', nameSuffix: '-xl', scale: 125},
+        {name: 'Medium', nameSuffix: '-md', scale: 75},
+        {name: 'Small', nameSuffix: '-sm', scale: 50},
     ],
     extensions: ['jpg', 'jpeg', 'png', 'gif', 'webp'],
 }

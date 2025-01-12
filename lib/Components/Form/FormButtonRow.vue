@@ -12,7 +12,7 @@ withDefaults(defineProps<{
 
 const __ = window.__;
 
-function aa(e) {
+function aa(e: any) {
     console.log(e)
 }
 </script>

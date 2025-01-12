@@ -254,6 +254,11 @@ export const translations_countries = {
         "kmr": "kongo",
         "zza": "kongo",
     },
+    "congo_cd": {
+        "en": "congo",
+        "kmr": "kongo",
+        "zza": "kongo",
+    },
     "cook islands": {
         "en": "cook islands",
         "kmr": "giravên cook",
@@ -426,8 +431,8 @@ export const translations_countries = {
     },
     "greece": {
         "en": "greece",
-        "kmr": "",
-        "zza": "",
+        "kmr": "yewnanîstan",
+        "zza": "yewnanîstan",
     },
     "greenland": {
         "en": "greenland",
@@ -1044,6 +1049,11 @@ export const translations_countries = {
         "kmr": "",
         "zza": "",
     },
+    "soviet union_suhh": {
+        "en": "soviet union",
+        "kmr": "",
+        "zza": "",
+    },
     "spain": {
         "en": "spain",
         "kmr": "",
@@ -1249,4 +1259,4 @@ export const translations_countries = {
         "kmr": "",
         "zza": "",
     },
-} as const;
+} as const satisfies Record<string, {en: string, kmr: string, zza: string}>

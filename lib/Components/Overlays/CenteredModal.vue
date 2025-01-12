@@ -1,25 +1,37 @@
 <script setup lang="ts">
 import {twMerge} from "tailwind-merge";
-import {overlayState} from "./overlay_utils";
-import {onMounted, ref, watch} from "vue";
+import {modalZIndexState} from "./overlay_utils";
+import {onUnmounted, watch} from "vue";
+import {uniqueId} from "../../utils";
 
-const props = defineProps({
-    show: {type: Boolean, default: false,},
-    contentClass: {type: String, default: '',},
-    contentStyle: {type: String, default: '',},
-    closeOnOutside: {type: Boolean, default: true,},
-    verticalCenter: {type: Boolean, default: true,},
-    closeButton: {type: Boolean, default: false,},
-    tag: {type: String, default: '',},
-});
-const emit = defineEmits(['update:show', 'close']);
-const zIndex = ref(50);
-
-watch(() => props.show, (nv) => {
-    if (nv) {
-        // zIndex.value = overlayState.modalZIndex += 1;
-    }
+const props = withDefaults(defineProps<{
+    show?: boolean
+    contentClass?: string
+    contentStyle?: string
+    closeOnOutside?: boolean
+    verticalCenter?: boolean
+    closeButton?: boolean
+    tag?: string
+}>(), {
+    show: false,
+    contentClass: '',
+    contentStyle: '',
+    closeOnOutside: true,
+    verticalCenter: true,
+    closeButton: false,
+    tag: () => uniqueId(11),
 })
+
+const id = uniqueId(11);
+const emit = defineEmits(['update:show', 'close']);
+
+watch(() => props.show, (nv, ov) => {
+    if (nv) {
+        modalZIndexState.increment(id);
+    } else {
+        modalZIndexState.decrement(id);
+    }
+}, {immediate: true})
 
 function updateShow(v: boolean) {
     emit('update:show', v)
@@ -28,8 +40,8 @@ function updateShow(v: boolean) {
     }
 }
 
-onMounted(() => {
-    // zIndex.value = overlayState.modalZIndex += 1;
+onUnmounted(() => {
+    modalZIndexState.remove(id);
 })
 </script>
 
@@ -38,7 +50,7 @@ onMounted(() => {
         <div
             :style="[
                 {
-                    'z-index': zIndex,
+                    'z-index': modalZIndexState._ids[id],
                     'visibility': show ? 'visible' : 'hidden',
                     'opacity': show ? '1' : '0',
                     'transition': 'visibility 0.3s linear,opacity 0.3s linear'
@@ -52,7 +64,7 @@ onMounted(() => {
                     'items-center':verticalCenter,
                     'items-start': !verticalCenter,
                 }
-        ]"
+            ]"
             aria-labelledby="modal-title" role="dialog" aria-modal="true">
             <div @click="() => closeOnOutside ? updateShow(false) : {}"
                  class="fixed inset-0 bg-gray-500/75 dark:bg-gray-700/75"></div>

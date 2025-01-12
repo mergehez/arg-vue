@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {TArgVueTrKeys, arrToObj} from "../../utils";
+import {arrToObj, TArgVueTrKeys} from "../../utils";
 import FormSelectBase from "./FormSelectBase.vue";
 
-const props = withDefaults(defineProps<{
+export type FormSelectProps = {
     trFunc?: (key: TArgVueTrKeys) => string,
     translate?: boolean,
     class?: string,
@@ -19,7 +19,9 @@ const props = withDefaults(defineProps<{
 } | {
     options: Record<string, string>,
     numberKey?: false
-})>(), {
+});
+
+const props = withDefaults(defineProps<FormSelectProps>(), {
     trPrefix: '',
     translate: true,
     trFunc: (t: any) => window.__(t),

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import DynamicCollapsibleContent from "./DynamicCollapsibleContent.vue";
 
+// TODO: NOTE: use Collapsible.vue instead of this!!!
 defineProps<{
     show: boolean,
     text: string,

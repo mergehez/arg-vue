@@ -3,7 +3,7 @@ import {onMounted, ref} from 'vue';
 import {twMerge} from "tailwind-merge";
 
 defineProps<{
-    modelValue: string | number,
+    modelValue: string | number | undefined,
     tag?: 'input' | 'textarea' | 'number' | 'password' | 'button',
     type?: 'button' | 'checkbox' | 'color' | 'date' | 'datetime' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week',
     placeholder?: string,

@@ -37,7 +37,7 @@
     @apply text-white bg-green-700 hover:bg-green-800 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800
   }
   .btn-hover{
-    @apply inline-flex items-center justify-center p-2 md:py-0 text-sm rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 h-6;
+    @apply inline-flex items-center justify-center p-2 md:py-0 text-sm rounded cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700;
   }
   .btn-link{
     @apply text-indigo-800 dark:text-indigo-300;
@@ -66,7 +66,7 @@
     @apply text-sm btn bg-x1 dark:text-white border border-x4 focus:ring-x4 focus:border-x4 font-normal;
   }
   .btn:disabled{
-    @apply border-opacity-70 opacity-90 cursor-not-allowed;
+    @apply border-opacity-70 opacity-70 cursor-not-allowed;
   }
 }
 

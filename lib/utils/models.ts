@@ -9,7 +9,7 @@ export type PaginatedData<T> = {
     current_page: number;
     last_page: number;
     first_page_url?: string;
-    prev_page_url?: null;
+    prev_page_url?: string | null;
     next_page_url?: string;
     last_page_url: string;
     links: {
@@ -19,6 +19,8 @@ export type PaginatedData<T> = {
     }[]
     path: string;
 }
+
+export type PaginationPropData = {}
 
 
 export type TApiResponse<T> = {
@@ -57,6 +59,15 @@ type AuditColumns = {
     deleted_by?: number,
 }
 
+export type TErrorLog = {
+    id: number;
+    url: string;
+    route: string;
+    message: string;
+    count: number;
+    created_at: number;
+    updated_at: number;
+}
 
 export type TUser = {
     created_at: number;
@@ -68,20 +79,22 @@ export type TUser = {
     readonly full_name: string;
     tenant?: object;
 }
-type Prettify<T> = {
+export type Prettify<T> = {
     [K in keyof T]: T[K];
 } & {};
 
 
 type IfEquals<X, Y, A = X, B = never> = (<T>() => T extends X ? 1 : 2) extends (<T>() => T extends Y ? 1 : 2) ? A : B;
-type OmitReadonly<T> = {
+export type OmitReadonly<T> = {
     [K in keyof T as IfEquals<{ -readonly [Q in K]: T[K] }, { [Q in K]: T[K] }, K, never>]: T[K]
 };
 
-export type TModelForm<TModel extends object> = Prettify<Omit<OmitReadonly<TModel>, keyof AuditColumns> & Partial<AuditColumns>>;
+export type TModelForm<TModel extends { id: number }> = Prettify<{ id: number } & Omit<OmitReadonly<TModel>, keyof AuditColumns> & Partial<AuditColumns>>;
 // type Aaa = Prettify<TModelForm<TUser>>;
-export type TModelFormHelpers<TModel extends object> = {
-    form: InertiaForm<TModelForm<TModel>>,
+export type TModelFormHelpers<TModel extends { id: number }, TForm extends { id: number } = TModelForm<TModel>> = {
+    form: InertiaForm<TForm>,
     submit: () => Promise<TModel | undefined>,
     isCreate?: boolean
+    iid: (key: keyof TForm) => string,
+    onSuccessListener?: (data: TModel) => void
 }

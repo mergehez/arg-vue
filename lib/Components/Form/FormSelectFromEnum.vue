@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="TEnumValue">
+<script setup lang="ts" generic="TEnumValue extends string|number">
 import {TArgVueTrKeys, enumToObj} from "../../utils";
 import FormSelectBase from "./FormSelectBase.vue";
 
@@ -8,7 +8,9 @@ const props = withDefaults(defineProps<{
     class?: string,
     wrapperClass?: string,
     options: Record<string, TEnumValue>
+    valueAsKey?: boolean
 }>(), {
+    valueAsKey: true,
     trPrefix: '',
     translate: true,
     trFunc: (t: any) => window.__(t),
@@ -16,7 +18,7 @@ const props = withDefaults(defineProps<{
 
 const modelValue = defineModel<TEnumValue>();
 
-const _options = enumToObj(props.options as any, true);
+const _options = enumToObj(props.options, props.valueAsKey);
 const numberKey = Object.keys(_options).every(k => !isNaN(Number(k)));
 </script>
 

@@ -1,9 +1,9 @@
+import {mkdirSync, readdirSync} from 'fs';
+import {readFileSync, writeFileSync} from "node:fs";
 
-import { readdirSync } from 'fs';
-import {readFileSync, rm, rmSync, writeFileSync} from "node:fs";
-
-function generateIndexForFolder(folderPath) {
-    let content = '';
+let utilsContent = '';
+function generateIndexForFolder(folderPath, jsContent = '', tsContent = ''){
+    // let jsContent = '', tsContent = '';
     const files = readdirSync(folderPath);
     const hasGInclude = files.includes('.g-include');
     const allowedFiles = !hasGInclude
@@ -21,11 +21,20 @@ function generateIndexForFolder(folderPath) {
         const fileWithoutExtension = file.split('.').slice(0, -1).join('.');
 
         if(file.endsWith('.ts') && (file === 'app.d.ts' || !file.endsWith('.d.ts'))){
-            content += `export * from './${fileWithoutExtension}';\n`;
+            jsContent += `export * from './${fileWithoutExtension}';\n`;
+            tsContent += `export * from './${fileWithoutExtension}';\n`;
+            if(folderPath.includes('/Components')){
+                let folder = folderPath.split('/Components')[1];
+                if(folder.startsWith('/')){
+                    folder = folder.slice(1);
+                }
+                utilsContent += `export * from '../Components/${folder}/${fileWithoutExtension}';\n`;
+            }
         // }else if(file.endsWith('.js')){
         //     content += `export * from './${file}';\n`;
         }else if(file.endsWith('.vue')){
-            content += `export { default as ${fileWithoutExtension} } from './${file}';\n`;
+            jsContent += `export { default as ${fileWithoutExtension} } from './${file}';\n`;
+            tsContent += `export { default as ${fileWithoutExtension} } from './${file}';\n`;
         }
     }
 
@@ -39,19 +48,51 @@ function generateIndexForFolder(folderPath) {
         if(dirContent.trim() === ''){
             continue;
         }
-        content += `export * from './${dir}';\n`;
+        jsContent += `export * from './${dir}';\n`;
+        tsContent += `export * from './${dir}';\n`;
     }
-    if(content.trim()){
+    if(jsContent.trim()){
         // rmSync(`${folderPath}/index.js`, content);
-        writeFileSync(`${folderPath}/index.js`, content);
-        writeFileSync(`${folderPath}/index.ts`, content);
+        writeFileSync(`${folderPath}/index.js`, jsContent);
+        writeFileSync(`${folderPath}/index.ts`, tsContent);
         writeFileSync(`${folderPath}/index.d.ts`, 'export * from "./index";');
     }
 
-    return content.trim();
+    return jsContent.trim();
 }
 
-generateIndexForFolder('./lib')
+generateIndexForFolder('./lib/Components')
+generateIndexForFolder('./lib/utils', utilsContent, utilsContent)
+
+
+// function moveIndexToDist(folder, ext){
+//     let content = readFileSync(`./lib/${folder}/index.${ext}`, 'utf8');
+//
+//     // replace all from './ to '../Components/
+//
+//     content = content.replaceAll('\'./', `'../lib/${folder}/`)
+//     writeFileSync(`./disto/${folder.toLowerCase()}.${ext}`, content);
+//
+//     if(ext === 'ts'){
+//         writeFileSync(`./disto/${folder.toLowerCase()}.d.${ext}`, content);
+//     }
+// }
+//
+//
+// mkdirSync('./disto', {recursive: true});
+// moveIndexToDist('Components', 'js')
+// moveIndexToDist('Components', 'ts')
+// moveIndexToDist('utils', 'js')
+// moveIndexToDist('utils', 'ts')
+// // writeFileSync(`./dist/index.d.ts`, `
+// //     declare module "arg-vue" {
+// //         export * from "arg-vue/dist/components";
+// //     }
+// //     declare module "arg-vue/utils" {
+// //         export * from "arg-vue/dist/utils";
+// //     }
+// // `);
+
 
 console.log('Index files generated')
 console.log()

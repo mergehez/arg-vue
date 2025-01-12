@@ -1,4 +1,6 @@
+export { default as ArgPanelLayout } from './ArgPanelLayout.vue';
 export { default as BottomNavBar } from './BottomNavBar.vue';
+export { default as Collapsible } from './Collapsible.vue';
 export { default as Draggable } from './Draggable.vue';
 export { default as DynamicCollapsible } from './DynamicCollapsible.vue';
 export { default as DynamicCollapsibleContent } from './DynamicCollapsibleContent.vue';

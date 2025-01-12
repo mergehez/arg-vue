@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {Link, router, useForm} from "@inertiajs/vue3";
 import {__} from "@/Helpers/inertia_helpers";
-import {api, handleFormValidationErrors} from "@argvue/utils/api_helpers";
+import {api, handleFormValidationErrors} from "@argvue/utils";
 import {TextInput, InputError} from "@argvue/Components";
 import {useUrlSearchParams} from "@vueuse/core";
 import {TUser} from "@/Types/Models";

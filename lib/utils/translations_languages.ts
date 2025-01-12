@@ -1,965 +1,1075 @@
 export const translations_languages = {
-    "abkhazian": {
+    aboriginal: {
+        en: "Aboriginal",
+        kmr: "Aborjînî",
+        zza: "Aborjînî",
+    },
+    abkhazian: {
         "en": "abkhazian",
         "kmr": "Êbxazî",
         "zza": "Êbxazî",
     },
-    "afaan oromo": {
+    'afaan oromo': {
         "en": "afaan oromo",
         "kmr": "oromoyî",
         "zza": "oromoyî",
     },
-    "afar": {
+    afar: {
         "en": "afar",
         "kmr": "afarî",
         "zza": "afarî",
     },
-    "afrikaans": {
+    afrikaans: {
         "en": "afrikaans",
         "kmr": "afrîkanî",
         "zza": "afrîkanî",
     },
-    "akan": {
+    akan: {
         "en": "akan",
         "kmr": "akanî",
         "zza": "akanî",
     },
-    "albanian": {
+    albanian: {
         "en": "albanian",
         "kmr": "arnavûtî",
         "zza": "arnavûtî",
     },
-    "amharic": {
+    amharic: {
         "en": "amharic",
         "kmr": "amharî",
         "zza": "amharî",
     },
-    "arabic": {
+    arabic: {
         "en": "arabic",
         "kmr": "erebî",
         "zza": "erebî",
     },
-    "aragonese": {
+    aragonese: {
         "en": "aragonese",
         "kmr": "aragonezî",
         "zza": "aragonezî",
     },
-    "armenian": {
+    aramaic: {
+        "en": "aramaic",
+        "kmr": "aramî",
+        "zza": "aramî",
+    },
+    armenian: {
         "en": "armenian",
         "kmr": "ermenî",
         "zza": "ermenî",
     },
-    "assamese": {
+    assamese: {
         "en": "assamese",
         "kmr": "asamezî",
         "zza": "asamezî",
     },
-    "avaric": {
+    'assyrian neo-aramaic': {
+        "en": 'assyrian neo-aramaic',
+        "kmr": "assyrian neo-aramaic",
+        "zza": "assyrian neo-aramaic"
+    },
+    avaric: {
         "en": "avaric",
         "kmr": "avarîkî",
         "zza": "avarîkî",
     },
-    "avestan": {
+    avestan: {
         "en": "avestan",
         "kmr": "avestayî",
         "zza": "avestayî",
     },
-    "aymara": {
+    aymara: {
         "en": "aymara",
         "kmr": "aymarayî",
         "zza": "aymarayî",
     },
-    "azerbaijani": {
+    azerbaijani: {
         "en": "azerbaijani",
         "kmr": "azerî",
         "zza": "azerî",
     },
-    "bambara": {
+    bambara: {
         "en": "bambara",
         "kmr": "bambarayî",
         "zza": "bambarayî",
     },
-    "bashkir": {
+    bashkir: {
         "en": "bashkir",
         "kmr": "başkîrî",
         "zza": "başkîrî",
     },
-    "basque": {
+    basque: {
         "en": "basque",
         "kmr": "baskî",
         "zza": "baskî",
     },
-    "belarusian": {
+    belarusian: {
         "en": "belarusian",
         "kmr": "belarûsî",
         "zza": "belarûsî",
     },
-    "bengali": {
+    bengali: {
         "en": "bengali",
         "kmr": "bengalî",
         "zza": "bengalî",
     },
-    "bihari": {
+    'berber languages': {
+        "en": "berber languages",
+        "kmr": "zimanên berberî",
+        "zza": "zimanên berberî",
+    },
+    bihari: {
         "en": "bihari",
         "kmr": "biharî",
         "zza": "biharî",
     },
-    "bislama": {
+    bislama: {
         "en": "bislama",
         "kmr": "bîslamayî",
         "zza": "bîslamayî",
     },
-    "bosnian": {
+    bosnian: {
         "en": "bosnian",
         "kmr": "bosnî",
         "zza": "bosnî",
     },
-    "breton": {
+    breton: {
         "en": "breton",
         "kmr": "breton",
         "zza": "breton",
     },
-    "bulgarian": {
+    bulgarian: {
         "en": "bulgarian",
         "kmr": "bûlgarî",
         "zza": "bûlgarî",
     },
-    "burmese": {
+    burmese: {
         "en": "burmese",
         "kmr": "bûrmezî",
         "zza": "bûrmezî",
     },
-    "catalan": {
+    catalan: {
         "en": "catalan",
         "kmr": "katalanî",
         "zza": "katalanî",
     },
-    "chamorro": {
+    chamorro: {
         "en": "chamorro",
         "kmr": "çamoroyî",
         "zza": "çamoroyî",
     },
-    "chechen": {
+    chechen: {
         "en": "chechen",
         "kmr": "çeçenî",
         "zza": "çeçenî",
     },
-    "chichewa_nyanja": {
+    chichewa_nyanja: {
         "en": "chichewa_nyanja",
         "kmr": "çîçewayî (njanja)",
         "zza": "çîçewayî (njanja)",
     },
-    "chinese": {
+    chinese: {
         "en": "chinese",
         "kmr": "çînî",
         "zza": "çînî",
     },
-    "chinese_simplified": {
+    chinese_simplified: {
         "en": "chinese_simplified",
         "kmr": "çînî (hêsankirî)",
         "zza": "çînî (hêsankirî)",
     },
-    "chinese_traditional": {
+    chinese_traditional: {
         "en": "chinese_traditional",
         "kmr": "çînî (kevn)",
         "zza": "çînî (kevn)",
     },
-    "chuvash": {
+    chuvash: {
         "en": "chuvash",
         "kmr": "çuvaşî",
         "zza": "çuvaşî",
     },
-    "cornish": {
+    cornish: {
         "en": "cornish",
         "kmr": "kornîşî",
         "zza": "kornîşî",
     },
-    "corsican": {
+    corsican: {
         "en": "corsican",
         "kmr": "korsîkanî",
         "zza": "korsîkanî",
     },
-    "cree": {
+    cree: {
         "en": "cree",
         "kmr": "krîyî",
         "zza": "krîyî",
     },
-    "croatian": {
+    croatian: {
         "en": "croatian",
         "kmr": "hirvatî",
         "zza": "hirvatî",
     },
-    "czech": {
+    czech: {
         "en": "czech",
         "kmr": "çekî",
         "zza": "çekî",
     },
-    "danish": {
+    dari: {
+        "en": "dari",
+        "kmr": "darî",
+        "zza": "darî",
+    },
+    danish: {
         "en": "danish",
         "kmr": "danîmarkayî",
         "zza": "danîmarkayî",
     },
-    "divehi_maldivian": {
+    divehi_maldivian: {
         "en": "divehi_maldivian",
         "kmr": "divehî (maldîv)",
         "zza": "divehî (maldîv)",
     },
-    "dutch": {
+    dutch: {
         "en": "dutch",
         "kmr": "holendayî",
         "zza": "holendayî",
     },
-    "dzongkha": {
+    dzongkha: {
         "en": "dzongkha",
         "kmr": "congkayî",
         "zza": "congkayî",
     },
-    "english": {
+    english: {
         "en": "english",
         "kmr": "îngilîzî",
         "zza": "îngilîzî",
     },
-    "esperanto": {
+    esperanto: {
         "en": "esperanto",
         "kmr": "esperanto",
         "zza": "esperanto",
     },
-    "estonian": {
+    estonian: {
         "en": "estonian",
         "kmr": "estonî",
         "zza": "estonî",
     },
-    "ewe": {
+    ewe: {
         "en": "ewe",
         "kmr": "eweyî",
         "zza": "eweyî",
     },
-    "faroese": {
+    faroese: {
         "en": "faroese",
         "kmr": "feroeyî",
         "zza": "feroeyî",
     },
-    "fijian": {
+    fijian: {
         "en": "fijian",
         "kmr": "fîjî",
         "zza": "fîjî",
     },
-    "finnish": {
+    filipino: {
+        "en": "filipino",
+        "kmr": "filîpînî",
+        "zza": "filîpînî",
+    },
+    flemish: {
+        "en": "flemish",
+        "kmr": "flamandî",
+        "zza": "flamandî",
+    },
+    finnish: {
         "en": "finnish",
         "kmr": "fînî",
         "zza": "fînî",
     },
-    "french": {
+    french: {
         "en": "french",
         "kmr": "fransî",
         "zza": "fransî",
     },
-    "fula": {
+    fula: {
         "en": "fula",
         "kmr": "fûlayî",
         "zza": "fûlayî",
     },
-    "gaelic": {
+    gaelic: {
         "en": "gaeilic",
         "kmr": "gaelî",
         "zza": "gaelî",
     },
-    "gaelic_manx": {
+    gaelic_gd: {
+        "en": "gaeilic",
+        "kmr": "gaelî",
+        "zza": "gaelî",
+    },
+    gaelic_gv: {
+        "en": "gaeilic",
+        "kmr": "gaelî",
+        "zza": "gaelî",
+    },
+    gaelic_manx: {
         "en": "gaelic_manx",
         "kmr": "gaelîka manksî",
         "zza": "gaelîka manksî",
     },
-    "gaelic_scottish": {
+    gaelic_scottish: {
         "en": "gaelic_scottish",
         "kmr": "gaelîka skotî",
         "zza": "gaelîka skotî",
     },
-    "galician": {
+    galician: {
         "en": "galician",
         "kmr": "galîcî",
         "zza": "galîcî",
     },
-    "georgian": {
+    georgian: {
         "en": "georgian",
         "kmr": "gurcî",
         "zza": "gurcî",
     },
-    "german": {
+    german: {
         "en": "german",
         "kmr": "elmanî",
         "zza": "elmanî",
     },
-    "greek": {
+    greek: {
         "en": "greek",
         "kmr": "yewnanî",
         "zza": "yewnanî",
     },
-    "greenlandic": {
+    greenlandic: {
         "en": "greenlandic",
         "kmr": "grînlendî",
         "zza": "grînlendî",
     },
-    "guarani": {
+    guarani: {
         "en": "guarani",
         "kmr": "guaranî",
         "zza": "guaranî",
     },
-    "gujarati": {
+    gujarati: {
         "en": "gujarati",
         "kmr": "gûjaratî",
         "zza": "gûjaratî",
     },
-    "haitian creole": {
+    'haitian creole': {
         "en": "haitian creole",
         "kmr": "kreolîya haîtîyê",
         "zza": "kreolîya haîtîyê",
     },
-    "hausa": {
+    hausa: {
         "en": "hausa",
         "kmr": "hewseyî",
         "zza": "hewseyî",
     },
-    "hebrew": {
+    hawaiian: {
+        "en": "hawaiian",
+        "kmr": "hawayî",
+        "zza": "hawayî",
+    },
+    hebrew: {
         "en": "hebrew",
         "kmr": "îbranî",
         "zza": "îbranî",
     },
-    "herero": {
+    herero: {
         "en": "herero",
         "kmr": "hereroyî",
         "zza": "hereroyî",
     },
-    "hindi": {
+    hindi: {
         "en": "hindi",
         "kmr": "îndî",
         "zza": "îndî",
     },
-    "hiri motu": {
+    'hiri motu': {
         "en": "hiri motu",
         "kmr": "hîrî motû",
         "zza": "hîrî motû",
     },
-    "hungarian": {
+    hungarian: {
         "en": "hungarian",
         "kmr": "macarî",
         "zza": "macarî",
     },
-    "icelandic": {
+    icelandic: {
         "en": "icelandic",
         "kmr": "îslendî",
         "zza": "îslendî",
     },
-    "ido": {
+    ido: {
         "en": "ido",
         "kmr": "îdoyî",
         "zza": "îdoyî",
     },
-    "igbo": {
+    igbo: {
         "en": "igbo",
         "kmr": "îgboyî",
         "zza": "îgboyî",
     },
-    "indonesian": {
+    indonesian: {
         "en": "indonesian",
         "kmr": "endonezyayî",
         "zza": "endonezyayî",
     },
-    "interlingua": {
+    interlingua: {
         "en": "interlingua",
         "kmr": "interlingua",
         "zza": "interlingua",
     },
-    "interlingue": {
+    interlingue: {
         "en": "interlingue",
         "kmr": "interlingue",
         "zza": "interlingue",
     },
-    "inuktitut": {
+    inuktitut: {
         "en": "inuktitut",
         "kmr": "înûktîtûtî",
         "zza": "înûktîtûtî",
     },
-    "inupiak": {
+    inupiak: {
         "en": "inupiak",
         "kmr": "înûpyakî",
         "zza": "înûpyakî",
     },
-    "irish": {
+    irish: {
         "en": "irish",
         "kmr": "îrlandayî",
         "zza": "îrlandayî",
     },
-    "italian": {
+    italian: {
         "en": "italian",
         "kmr": "îtalî",
         "zza": "îtalî",
     },
-    "japanese": {
+    japanese: {
         "en": "japanese",
         "kmr": "japonî",
         "zza": "japonî",
     },
-    "javanese": {
+    javanese: {
         "en": "javanese",
         "kmr": "javanezî",
         "zza": "javanezî",
     },
-    "kannada": {
+    kannada: {
         "en": "kannada",
         "kmr": "kannadayî",
         "zza": "kannadayî",
     },
-    "kanuri": {
+    kanuri: {
         "en": "kanuri",
         "kmr": "kanûrî",
         "zza": "kanûrî",
     },
-    "kashmiri": {
+    kashmiri: {
         "en": "kashmiri",
         "kmr": "kaşmîrî",
         "zza": "kaşmîrî",
     },
-    "kazakh": {
+    kazakh: {
         "en": "kazakh",
         "kmr": "qazaxî",
         "zza": "qazaxî",
     },
-    "khmer": {
+    khmer: {
         "en": "khmer",
         "kmr": "ximêrî",
         "zza": "ximêrî",
     },
-    "kikuyu": {
+    kikuyu: {
         "en": "kikuyu",
         "kmr": "kîkûyûyî",
         "zza": "kîkûyûyî",
     },
-    "kinyarwanda_rwanda": {
+    kinyarwanda_rwanda: {
         "en": "kinyarwanda_rwanda",
         "kmr": "kinyarwanda (rwanda)",
         "zza": "kinyarwanda (rwanda)",
     },
-    "kirundi": {
+    kirundi: {
         "en": "kirundi",
         "kmr": "kîrûndî",
         "zza": "kîrûndî",
     },
-    "komi": {
+    klingon: {
+        "en": "klingon",
+        "kmr": "klingon",
+        "zza": "klingon",
+    },
+    komi: {
         "en": "komi",
         "kmr": "komî",
         "zza": "komî",
     },
-    "kongo": {
+    kongo: {
         "en": "kongo",
         "kmr": "kongoyî",
         "zza": "kongoyî",
     },
-    "korean": {
+    korean: {
         "en": "korean",
         "kmr": "koreyî",
         "zza": "koreyî",
     },
-    "kurdish": {
+    kurdish: {
         "en": "kurdish",
         "kmr": "kurdî",
         "zza": "kurdî",
     },
-    "kurmanji": {
+    kurmanji: {
         "en": "kurmanji",
         "kmr": "kurmancî",
         "zza": "kurmancî",
     },
-    "kwanyama": {
+    kwanyama: {
         "en": "kwanyama",
         "kmr": "kwanyama",
         "zza": "kwanyama",
     },
-    "kyrgyz": {
+    kyrgyz: {
         "en": "kyrgyz",
         "kmr": "qirgizî",
         "zza": "qirgizî",
     },
-    "lao": {
+    ladino: {
+        "en": "ladino",
+        "kmr": "ladîno",
+        "zza": "ladîno",
+    },
+    lao: {
         "en": "lao",
         "kmr": "laoyî",
         "zza": "laoyî",
     },
-    "latin": {
+    latin: {
         "en": "latin",
         "kmr": "latînî",
         "zza": "latînî",
     },
-    "latvian": {
+    latvian: {
         "en": "latvian",
         "kmr": "latvî",
         "zza": "latvî",
     },
-    "limburgish": {
+    limburgish: {
         "en": "limburgish",
         "kmr": "lîmbûrgîşî",
         "zza": "lîmbûrgîşî",
     },
-    "lingala": {
+    lingala: {
         "en": "lingala",
         "kmr": "lîngala",
         "zza": "lîngala",
     },
-    "lithuanian": {
+    lithuanian: {
         "en": "lithuanian",
         "kmr": "litûanî",
         "zza": "litûanî",
     },
-    "luga-katanga": {
+    'luga-katanga': {
         "en": "luga-katanga",
         "kmr": "luga-katanga",
         "zza": "luga-katanga",
     },
-    "luganda, ganda": {
+    'luganda, ganda': {
         "en": "luganda, ganda",
         "kmr": "lugandayî, gandayî",
         "zza": "lugandayî, gandayî",
     },
-    "luxembourgish": {
+    luxembourgish: {
         "en": "luxembourgish",
         "kmr": "luksembûrgî",
         "zza": "luksembûrgî",
     },
-    "macedonian": {
+    macedonian: {
         "en": "macedonian",
         "kmr": "makedonî",
         "zza": "makedonî",
     },
-    "malagasy": {
+    malagasy: {
         "en": "malagasy",
         "kmr": "malagazî",
         "zza": "malagazî",
     },
-    "malay": {
+    malay: {
         "en": "malay",
         "kmr": "malayî",
         "zza": "malayî",
     },
-    "malayalam": {
+    malayalam: {
         "en": "malayalam",
         "kmr": "malayalamî",
         "zza": "malayalamî",
     },
-    "maltese": {
+    maltese: {
         "en": "maltese",
         "kmr": "maltî",
         "zza": "maltî",
     },
-    "mandarin": {
+    mandarin: {
         "en": "mandarin",
         "kmr": "mandarîn",
         "zza": "mandarîn",
     },
-    "maori": {
+    maori: {
         "en": "maori",
         "kmr": "maorî",
         "zza": "maorî",
     },
-    "marathi": {
+    mapudungun: {
+        "en": "mapudungun",
+        "kmr": "mapudungun",
+        "zza": "mapudungun",
+    },
+    marathi: {
         "en": "marathi",
         "kmr": "maratî",
         "zza": "maratî",
     },
-    "marshallese": {
+    marshallese: {
         "en": "marshallese",
         "kmr": "marşelezî",
         "zza": "marşelezî",
     },
-    "moldavian": {
+    maya: {
+        "en": "maya",
+        "kmr": "maya",
+        "zza": "maya",
+    },
+    micmac: {
+        "en": "micmac",
+        "kmr": "mîkmak",
+        "zza": "mîkmak",
+    },
+    mohawk: {
+        "en": "mohawk",
+        "kmr": "mohawk",
+        "zza": "mohawk",
+    },
+    moldavian: {
         "en": "moldavian",
         "kmr": "moldovî",
         "zza": "moldovî",
     },
-    "mongolian": {
+    mongolian: {
         "en": "mongolian",
         "kmr": "mongolî",
         "zza": "mongolî",
     },
-    "nauru": {
+    nauru: {
         "en": "nauru",
         "kmr": "naûrûyî",
         "zza": "naûrûyî",
     },
-    "navajo": {
+    navajo: {
         "en": "navajo",
         "kmr": "navajoyî",
         "zza": "navajoyî",
     },
-    "ndonga": {
+    ndonga: {
         "en": "ndonga",
         "kmr": "ndonga",
         "zza": "ndonga",
     },
-    "nepali": {
+    nepali: {
         "en": "nepali",
         "kmr": "nepalî",
         "zza": "nepalî",
     },
-    "northern ndebele": {
+    'northern ndebele': {
         "en": "northern ndebele",
         "kmr": "ndebeleyîya bakurî",
         "zza": "ndebeleyîya bakurî",
     },
-    "norwegian": {
+    norwegian: {
         "en": "norwegian",
         "kmr": "norveçî",
         "zza": "norveçî",
     },
-    "norwegian bokmål": {
+    'norwegian bokmal': {
         "en": "norwegian bokmål",
         "kmr": "norveçîya bokmal",
         "zza": "norveçîya bokmal",
     },
-    "norwegian nynorsk": {
+    'norwegian nynorsk': {
         "en": "norwegian nynorsk",
         "kmr": "norveçîya nînorsk",
         "zza": "norveçîya nînorsk",
     },
-    "occitan": {
+    occitan: {
         "en": "occitan",
         "kmr": "oksîtanî",
         "zza": "oksîtanî",
     },
-    "ojibwe": {
+    ojibwe: {
         "en": "ojibwe",
         "kmr": "ojîbvayî",
         "zza": "ojîbvayî",
     },
-    "old bulgarian": {
+    'old bulgarian': {
         "en": "old bulgarian",
         "kmr": "bulgariya kevn",
         "zza": "bulgariya kevn",
     },
-    "oriya": {
+    oriya: {
         "en": "oriya",
         "kmr": "oryayî",
         "zza": "oryayî",
     },
-    "ossetian": {
+    ossetian: {
         "en": "ossetian",
         "kmr": "ossetyanî",
         "zza": "ossetyanî",
     },
-    "pāli": {
+    pali: {
         "en": "pāli",
         "kmr": "palî",
         "zza": "palî",
     },
-    "pashto": {
+    pashto: {
         "en": "pashto",
         "kmr": "peştûyî",
         "zza": "peştûyî",
     },
-    "persian": {
+    pawni: {
+        "en": "pawni",
+        "kmr": "pawî",
+        "zza": "pawî",
+    },
+    persian: {
         "en": "persian",
         "kmr": "farsî",
         "zza": "farsî",
     },
-    "polish": {
+    polish: {
         "en": "polish",
         "kmr": "polî",
         "zza": "polî",
     },
-    "portuguese": {
+    portuguese: {
         "en": "portuguese",
         "kmr": "portekîzî",
         "zza": "portekîzî",
     },
-    "punjabi": {
+    punjabi: {
         "en": "punjabi",
         "kmr": "punjabî",
         "zza": "punjabî",
     },
-    "quechua": {
+    quechua: {
         "en": "quechua",
         "kmr": "keçûwayî",
         "zza": "keçûwayî",
     },
-    "romanian": {
+    quenya: {
+        "en": "quenya",
+        "kmr": "kwenya",
+        "zza": "kwenya",
+    },
+    romanian: {
         "en": "romanian",
         "kmr": "romanî",
         "zza": "romanî",
     },
-    "romansh": {
+    romansh: {
         "en": "romansh",
         "kmr": "romanşî",
         "zza": "romanşî",
     },
-    "russian": {
+    romany: {
+        "en": "romany",
+        "kmr": "romany",
+        "zza": "romany",
+    },
+    russian: {
         "en": "russian",
         "kmr": "rûsî",
         "zza": "rûsî",
     },
-    "sami": {
+    sami: {
         "en": "sami",
         "kmr": "samî",
         "zza": "samî",
     },
-    "samoan": {
+    samoan: {
         "en": "samoan",
         "kmr": "samoyî",
         "zza": "samoyî",
     },
-    "sango": {
+    sango: {
         "en": "sango",
         "kmr": "sangoyî",
         "zza": "sangoyî",
     },
-    "sanskrit": {
+    sanskrit: {
         "en": "sanskrit",
         "kmr": "sankrîtî",
         "zza": "sankrîtî",
     },
-    "serbian": {
+    serbian: {
         "en": "serbian",
         "kmr": "sirbî",
         "zza": "sirbî",
     },
-    "serbo-croatian": {
+    'serbo-croatian': {
         "en": "serbo-croatian",
         "kmr": "sirb-xirvatî",
         "zza": "sirb-xirvatî",
     },
-    "sesotho": {
+    sesotho: {
         "en": "sesotho",
         "kmr": "",
         "zza": "",
     },
-    "setswana": {
+    setswana: {
         "en": "setswana",
         "kmr": "",
         "zza": "",
     },
-    "shona": {
+    shona: {
         "en": "shona",
         "kmr": "",
         "zza": "",
     },
-    "sichuan yi": {
+    'sichuan yi': {
         "en": "sichuan yi",
         "kmr": "",
         "zza": "",
     },
-    "silent": {
+    silent: {
         "en": "silent",
         "kmr": "bêdeng",
         "zza": "bêdeng",
     },
-    "sindhi": {
+    sindarin: {
+        "en": "sindarin",
+        "kmr": "sindarîn",
+        "zza": "sindarîn",
+    },
+    sindhi: {
         "en": "sindhi",
         "kmr": "",
         "zza": "",
     },
-    "sinhalese": {
+    sinhalese: {
         "en": "sinhalese",
         "kmr": "",
         "zza": "",
     },
-    "slovak": {
+    slovak: {
         "en": "slovak",
         "kmr": "",
         "zza": "",
     },
-    "slovenian": {
+    slovenian: {
         "en": "slovenian",
         "kmr": "slovenî",
         "zza": "slovenî",
     },
-    "somali": {
+    somali: {
         "en": "somali",
         "kmr": "somalî",
         "zza": "somalî",
     },
-    "sorani": {
+    sorani: {
         "en": "sorani",
         "kmr": "soranî",
         "zza": "soranî",
     },
-    "southern ndebele": {
+    'southern ndebele': {
         "en": "southern ndebele",
         "kmr": "",
         "zza": "",
     },
-    "spanish": {
+    spanish: {
         "en": "spanish",
         "kmr": "spanî",
         "zza": "spanî",
     },
-    "sundanese": {
+    sundanese: {
         "en": "sundanese",
         "kmr": "",
         "zza": "",
     },
-    "swahili": {
+    swahili: {
         "en": "swahili",
         "kmr": "swahîlî",
         "zza": "swahîlî",
     },
-    "swati": {
+    swati: {
         "en": "swati",
         "kmr": "",
         "zza": "",
     },
-    "swedish": {
+    swedish: {
         "en": "swedish",
         "kmr": "swêdî",
         "zza": "swêdî",
     },
-    "tagalog": {
+    'swiss german': {
+        "en": "swiss german",
+        "kmr": "swîsrî",
+        "zza": "swîsrî",
+    },
+    syriac: {
+        "en": "syriac",
+        "kmr": "suryanî",
+        "zza": "suryanî",
+    },
+    tagalog: {
         "en": "tagalog",
         "kmr": "",
         "zza": "",
     },
-    "tahitian": {
+    tahitian: {
         "en": "tahitian",
         "kmr": "tahîtî",
         "zza": "tahîtî",
     },
-    "tajik": {
+    tajik: {
         "en": "tajik",
         "kmr": "tajîkî",
         "zza": "tajîkî",
     },
-    "tamil": {
+    tamil: {
         "en": "tamil",
         "kmr": "tamîlî",
         "zza": "tamîlî",
     },
-    "tatar": {
+    tatar: {
         "en": "tatar",
         "kmr": "tatarî",
         "zza": "tatarî",
     },
-    "telugu": {
+    telugu: {
         "en": "telugu",
         "kmr": "",
         "zza": "",
     },
-    "thai": {
+    thai: {
         "en": "thai",
         "kmr": "taîyî",
         "zza": "taîyî",
     },
-    "tibetan": {
+    tibetan: {
         "en": "tibetan",
         "kmr": "tîbetî",
         "zza": "tîbetî",
     },
-    "tigrinya": {
+    tigrinya: {
         "en": "tigrinya",
         "kmr": "tîgrînî",
         "zza": "tîgrînî",
     },
-    "tonga": {
+    tonga: {
         "en": "tonga",
         "kmr": "tongayî",
         "zza": "tongayî",
     },
-    "tsonga": {
+    tsonga: {
         "en": "tsonga",
         "kmr": "",
         "zza": "",
     },
-    "turkish": {
+    turkish: {
         "en": "turkish",
         "kmr": "tirkî",
         "zza": "tirkî",
     },
-    "turkmen": {
+    turkmen: {
         "en": "turkmen",
         "kmr": "tirkmenî",
         "zza": "tirkmenî",
     },
-    "twi": {
+    twi: {
         "en": "twi",
         "kmr": "twî",
         "zza": "twî",
     },
-    "ukrainian": {
+    ukrainian: {
         "en": "ukrainian",
         "kmr": "ûkranyayî",
         "zza": "ûkranyayî",
     },
-    "urdu": {
+    urdu: {
         "en": "urdu",
         "kmr": "urdî",
         "zza": "urdî",
     },
-    "uyghur": {
+    uyghur: {
         "en": "uyghur",
         "kmr": "ûyxûrî",
         "zza": "ûyxûrî",
     },
-    "uzbek": {
+    uzbek: {
         "en": "uzbek",
         "kmr": "uzbekî",
         "zza": "uzbekî",
     },
-    "venda": {
+    venda: {
         "en": "venda",
         "kmr": "",
         "zza": "",
     },
-    "vietnamese": {
+    vietnamese: {
         "en": "vietnamese",
         "kmr": "viyetnamî",
         "zza": "viyetnamî",
     },
-    "volapük": {
+    volapuk: {
         "en": "volapük",
         "kmr": "",
         "zza": "",
     },
-    "wallon": {
+    wallon: {
         "en": "wallon",
         "kmr": "",
         "zza": "",
     },
-    "welsh": {
+    welsh: {
         "en": "welsh",
         "kmr": "",
         "zza": "",
     },
-    "western frisian": {
+    'western frisian': {
         "en": "western frisian",
         "kmr": "frîsîya rojavayî",
         "zza": "frîsîya rojavayî",
     },
-    "wolof": {
+    wolof: {
         "en": "wolof",
         "kmr": "",
         "zza": "",
     },
-    "xhosa": {
+    xhosa: {
         "en": "xhosa",
         "kmr": "",
         "zza": "",
     },
-    "yiddish": {
+    yiddish: {
         "en": "yiddish",
         "kmr": "yîdîşî",
         "zza": "yîdîşî",
     },
-    "yoruba": {
+    yoruba: {
         "en": "yoruba",
         "kmr": "",
         "zza": "",
     },
-    "zazaki": {
+    zazaki: {
         "en": "zazaki",
         "kmr": "zazakî",
         "zza": "zazakî",
     },
-    "zhuang": {
+    zhuang: {
         "en": "zhuang",
         "kmr": "",
         "zza": "",
     },
-    "zulu": {
+    zulu: {
         "en": "zulu",
         "kmr": "zûlûyî",
         "zza": "zûlûyî",

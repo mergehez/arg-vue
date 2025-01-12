@@ -1,5 +1,4 @@
 import type {Page as InertiaPage} from "@inertiajs/core";
-import {computed} from "vue";
 import {TArgVueTrKeys} from "./required_tr_keys";
 
 let page: TInertiaPage<any>;
@@ -15,12 +14,13 @@ type EnsureAllTypes<T extends string> = Exclude<TArgVueTrKeys, T> extends never
 export function __base<T extends string>(
     key: EnsureAllTypes<T> extends T ? EnsureAllTypes<T> & T : EnsureAllTypes<T>,
     replace?: Record<string, string> | undefined,
+    fallbackLocale?: string,
 ): string {
     page ??= usePage()
 
-    if(typeof key === 'number') key = (key as any).toString();
+    if (typeof key === 'number') key = (key as any).toString();
     if (!key) return '';
-    if(typeof key !== 'string') {
+    if (typeof key !== 'string') {
         console.error('Key is not a string', key);
         return '';
     }
@@ -33,7 +33,7 @@ export function __base<T extends string>(
         return trimmedKey;
     }
 
-    let translation = translations[trimmedKey][page.props?.localization.locale] || trimmedKey;
+    let translation = translations[trimmedKey][page.props?.localization.locale] || (fallbackLocale && translations[trimmedKey][fallbackLocale]) || trimmedKey;
 
     if (replace) {
         Object.keys(replace).forEach((replaceKey) => {
@@ -70,6 +70,16 @@ export interface TInertiaPageProps {
 
 export interface TInertiaPage<TPageData = never> extends Omit<InertiaPage, 'props'> {
     props: TInertiaPageProps & {
+        seo?: {
+            title: string,
+            description: string,
+            keywords: string,
+            image_url: string,
+            url: string,
+            created_at?: number,
+            published_at?: number,
+            updated_at?: number,
+        },
         pageData: TPageData
     }
 }

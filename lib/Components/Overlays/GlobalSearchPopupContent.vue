@@ -4,6 +4,7 @@ import TextInput from "../../Components/Form/TextInput.vue";
 import FormSelect from "../Form/FormSelect.vue";
 import {refGlobalSearchInput, useGlobalSearch} from "../../utils";
 import {computed} from "vue";
+import {Link, router} from "@inertiajs/vue3";
 
 defineProps<{
     autoFocus?: boolean,
@@ -11,12 +12,20 @@ defineProps<{
 
 const globalSearch = useGlobalSearch();
 const state = computed(() => globalSearch.state);
-const { goToSearchResult, executeGlobalSearch, getSearchResultIcon, getSearchResultText } = globalSearch;
+const {goToSearchResult, executeGlobalSearch, getSearchResultIcon, getSearchResultText} = globalSearch;
 
 function navigate(e: KeyboardEvent) {
     if (e.key == 'Enter') {
-        if(e.type == 'keyup'){
-            globalSearch.goToSearchResult(state.value.resultsToShow[state.value.selectedRow])
+        if (e.type == 'keyup') {
+            if (state.value.searchPageUrl) {
+                router.visit(state.value.searchPageUrl(state.value.query), {
+                    replace: true,
+                    preserveScroll: true,
+                });
+                state.value.show = false;
+            } else {
+                globalSearch.goToSearchResult(state.value.resultsToShow[state.value.selectedRow])
+            }
         }
         return;
     }
@@ -88,13 +97,21 @@ const trans = window.__;
     </div>
     <div class="dark:bg-gray-800 rounded overflow-y-auto text-sm md:text-base border-t border-l border-card">
         <button v-for="(res, i) in state.resultsToShow"
-                class="list-group-item text-left gap-1 ic relative px-3 border-b border-r border-card hover:bg-gray-700/70 cursor-pointer"
-                :class="[{ 'bg-indigo-200 dark:bg-indigo-800': state.selectedRow == i}, getSearchResultIcon(res)]"
+                class="list-group-item text-left gap-1 relative px-3 border-b border-r border-card hover:bg-gray-200/70 dark:hover:bg-gray-700/70 cursor-pointer"
+                :class="[{ 'bg-indigo-200 dark:bg-indigo-800': state.selectedRow == i}]"
                 @click="goToSearchResult(res)"
         >
-                <span class="truncate pl-2 w-full">
-                    {{ getSearchResultText(res) }}
-                </span>
+            <i :class="getSearchResultIcon(res)" class="icon text-lg"></i>
+            <span class="truncate pl-2 w-full">
+                {{ getSearchResultText(res) }}
+            </span>
         </button>
+    </div>
+
+    <div v-if="state.searchPageUrl" class="flex justify-center mt-3">
+        <Link :href="state.searchPageUrl(state.query)" class="btn btn-secondary gap-1 px-5 py-1">
+            <i class="icon icon-[tabler--list-search] text-lg"></i>
+            bêtir bibîne
+        </Link>
     </div>
 </template>

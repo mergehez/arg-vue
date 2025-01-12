@@ -1,4 +1,4 @@
-import {__base, usePage as usePageBase} from "@argvue/utils/inertia_helpers";
+import {__base, usePage as usePageBase} from "@argvue/utils";
 import {TrKey as TrKeyOriginal} from "@/Helpers/tr_keys";
 
 const page = usePageBase();

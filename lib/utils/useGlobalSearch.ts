@@ -4,13 +4,15 @@ import TextInput from "../Components/Form/TextInput.vue";
 import {arrToObj, uniqueId} from "./helpers";
 import {api} from "./api_helpers";
 import {defineStore} from "pinia";
+import {IconifyIconPrefixed} from "./iconify-icon";
 
 type TSearchResult = Record<string, any>
 export type TSearchResultSpecifics = Record<string, {
     route: string | ((t: TSearchResult) => string);
     labelProp?: string;
-    ic: string;
+    ic: IconifyIconPrefixed | string;
     match: (t: TSearchResult) => boolean;
+    toText?: (t: TSearchResult) => string;
     selectLabel?: string;
 }>;
 
@@ -37,10 +39,11 @@ export const useGlobalSearch = defineStore('globalSearch', () => {
         _state.resultsToShow = val == null ? [..._state.recentVisits] : [...(_state.results ?? [])];
     }
 
-    const debouncedSearch = (ms?: number) => useDebounceFn(async () => {
+    async function searchInstant() {
         const q = _state.query;
-        if (!q.trim().length) {
+        if (q.trim().length < _state.minQueryLength) {
             // _state.warningText = __('peyvdivherikem3tipbe');
+            _state.warningText = window.__('type_at_least_X_characters').replace(':x', _state.minQueryLength.toString());
             return;
         }
         _state.warningText = '';
@@ -49,9 +52,9 @@ export const useGlobalSearch = defineStore('globalSearch', () => {
             include: _state.include,
         })).then((res) => {
             setSearchResults(res.data || []);
-            _state.selectedRow = 0;
+            _state.selectedRow = _state.searchPageUrl ? -1 : 0;
         }).catch(_ => [] as TSearchResult[]);
-    }, ms)();
+    }
 
     async function executeGlobalSearch() {
         const q = _state.query;
@@ -60,7 +63,11 @@ export const useGlobalSearch = defineStore('globalSearch', () => {
             setSearchResults(undefined);
             return;
         }
-        await debouncedSearch(q.length < 3 ? undefined : 500);
+        if (q.length < 3) {
+            await searchInstant();
+        } else {
+            await debouncedSearch();
+        }
     }
 
     function goToSearchResult(res: TSearchResult) {
@@ -150,8 +157,15 @@ export const useGlobalSearch = defineStore('globalSearch', () => {
         }),
         readonlyInclude: false,
         showSelect: false,
+        minQueryLength: 1,
+        searchDebounce: 500,
+        searchPageUrl: undefined as undefined | ((query: string) => string),
         onSelected: defaultOnSelected,
     });
+
+    const debouncedSearch = useDebounceFn(async () => {
+        searchInstant()
+    }, _state.searchDebounce);
 
     function getSearchResultIcon(res: TSearchResult) {
         return Object.values(searchResultSpecifics.value)
@@ -159,7 +173,11 @@ export const useGlobalSearch = defineStore('globalSearch', () => {
     }
 
     function getSearchResultText(res: TSearchResult) {
-        const val = res[Object.values(searchResultSpecifics.value).find(t => t.match(res))?.labelProp ?? 'title'];
+        const spec = Object.values(searchResultSpecifics.value).find(t => t.match(res))
+        if (spec?.toText) {
+            return spec.toText(res);
+        }
+        const val = res[spec?.labelProp ?? 'title'];
         return 'tr' in res && res.tr ? window.__(val) : val;
     }
 
@@ -177,7 +195,13 @@ export const useGlobalSearch = defineStore('globalSearch', () => {
     };
 });
 
-export function initGlobalSearch(opts: { searchResultSpecifics: TSearchResultSpecifics, dropdown: boolean }) {
+export function initGlobalSearch(opts: {
+    searchResultSpecifics: TSearchResultSpecifics,
+    dropdown: boolean,
+    minQueryLength: number,
+    searchDebounce?: number,
+    searchPageUrl?: (query: string) => string,
+}) {
     const globalSearch = useGlobalSearch((window as any).pinia);
     globalSearch.searchResultSpecifics = opts.searchResultSpecifics;
     globalSearch.selectOptions = {
@@ -185,6 +209,9 @@ export function initGlobalSearch(opts: { searchResultSpecifics: TSearchResultSpe
         ...arrToObj(Object.keys(globalSearch.searchResultSpecifics), t => globalSearch.searchResultSpecifics[t].selectLabel ?? t)
     };
     globalSearch.state.showSelect = opts.dropdown;
+    globalSearch.state.minQueryLength = opts.minQueryLength;
+    globalSearch.state.searchDebounce = opts.searchDebounce ?? 500;
+    globalSearch.state.searchPageUrl = opts.searchPageUrl;
 
     globalSearch.allRecentVisits = JSON.parse(localStorage.getItem('search_recent_visits') ?? '[]') as TSearchResult[];
     // state.recentVisits = allRecentVisits.value.splice(0, 9)

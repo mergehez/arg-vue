@@ -3,7 +3,7 @@ import {CircleStencil, Cropper, RectangleStencil} from 'vue-advanced-cropper';
 import {computed} from "vue";
 import 'vue-advanced-cropper/dist/style.css';
 
-const props = withDefaults(defineProps<{
+export type TCropperProps = {
     image: string,
     height: number,
     width: number,
@@ -11,10 +11,11 @@ const props = withDefaults(defineProps<{
     minHeight?: number,
     minWidth?: number,
     aspectRatio?: number,
-    circle?:boolean,
+    circle?: boolean,
     noTransparency?: boolean,
     defaultFull?: boolean,
-}>(), {
+}
+const props = withDefaults(defineProps<TCropperProps>(), {
     circle: true,
     minHeight: 200,
     minWidth: 200,
@@ -24,6 +25,7 @@ const props = withDefaults(defineProps<{
 const emit = defineEmits(['update:modelValue']);
 
 function change(vals: { canvas: HTMLCanvasElement }) {
+    console.log(vals)
     emit('update:modelValue', vals.canvas.toDataURL());
 }
 
@@ -32,7 +34,7 @@ const stencilProps = computed(() => ({
     previewClass: props.circle ? 'border !border-white bg-white' : '',
 }))
 
-function defaultSize(data: {imageSize: {width: number, height: number}, visibleArea: {width: number, height: number}}){
+function defaultSize(data: { imageSize: { width: number, height: number }, visibleArea: { width: number, height: number } }) {
     return {
         width: ((props.defaultFull ? data.visibleArea : undefined) || data.imageSize).width,
         height: ((props.defaultFull ? data.visibleArea : undefined) || data.imageSize).height,

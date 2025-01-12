@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import {onBeforeUnmount, onMounted} from "vue";
-import {ref} from "vue";
+import {onBeforeUnmount, onMounted, ref} from "vue";
 import {Head} from "@inertiajs/vue3";
 import {globalKeyDownListener} from "../../utils";
 import GlobalSearchPopup from "../Overlays/GlobalSearchPopup.vue";
@@ -22,13 +21,13 @@ let timeout: any = undefined;
 window.router.on('start', () => {
     timeout = setTimeout(() => isLoading.value = true, 1000)
 })
-const currUrl = ref(window.location.href.replace('www.',''));
+const currUrl = ref(window.location.href.replace('www.', ''));
 window.router.on('finish', () => {
     clearTimeout(timeout)
     isLoading.value = false;
     emit('routeChanged', route().current() as string);
 
-    currUrl.value = window.location.href.replace('www.','');
+    currUrl.value = window.location.href.replace('www.', '');
 })
 
 onMounted(globalKeyDownListener.onLayoutMounted)
@@ -40,15 +39,15 @@ onBeforeUnmount(globalKeyDownListener.onLayoutUnmounted)
 <template>
     <div :class="contentClass ?? 'w-screen h-screen flex flex-col'">
         <Head>
-            <link rel="canonical" :href="currUrl" />
+            <!--<link rel="canonical" :href="currUrl" />-->
         </Head>
 
-        <slot />
+        <slot/>
     </div>
 
-    <GlobalSearchPopup />
-    <NotificationToast />
-    <ConfirmationModal />
+    <GlobalSearchPopup/>
+    <NotificationToast/>
+    <ConfirmationModal/>
 
     <div class="absolute inset-0 flex items-center justify-center bg-x0 z-[1000] !bg-opacity-30" v-if="isLoading"></div>
 </template>

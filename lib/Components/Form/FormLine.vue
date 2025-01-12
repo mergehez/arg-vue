@@ -26,7 +26,7 @@ const emit = defineEmits(['update:modelValue'])
         <slot>
             <TextInput
                 :tag="$attrs.tag as any ?? 'input'"
-                :type="$attrs.type ?? 'text'"
+                :type="$attrs.type as any ?? 'text'"
                 :required="$attrs.required ?? false"
                 :model-value="modelValue ?? ''"
                 :rows="$attrs.rows"
@@ -34,21 +34,21 @@ const emit = defineEmits(['update:modelValue'])
                 :class="twMerge('flex-1', $props.class)"
                 :id="inputId"/>
         </slot>
-<!--        <label v-if="label && smFloat" :class="floatingLabelClass" :for="inputId">{{ label }}</label>-->
+        <!--        <label v-if="label && smFloat" :class="floatingLabelClass" :for="inputId">{{ label }}</label>-->
         <slot name="after-input"></slot>
     </div>
-    <InputError :message="error" html :label-class="labelClass" />
+    <InputError :message="error" html :label-class="labelClass"/>
 </template>
 
 
 <style lang="scss">
-    @media screen and (max-width: theme('screens.sm')) {
-        .floating-label{
-            flex-direction: column;
-        }
-        .floating-label .flex-1{
-            //background: red !important;
-            width: 100%;
-        }
+@media screen and (max-width: theme('screens.sm')) {
+    .floating-label {
+        flex-direction: column;
     }
+    .floating-label .flex-1 {
+        //background: red !important;
+        width: 100%;
+    }
+}
 </style>

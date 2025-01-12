@@ -1,88 +1,80 @@
 <script setup lang="ts">
-import {computed, ref, watch} from "vue";
 import CenteredModal from "../Overlays/CenteredModal.vue";
 import {InputError, TextInput} from "../Form";
+import ImageCropper from "../ImageCropper.vue";
+import {TUploadState} from "./media_library_utils";
 
-const visible = defineModel('visible', {
-    default: false,
-})
-
-const props = defineProps<{
-    file?: File,
-    fileAsStr: string,
-    size: {width: number, height: number},
-}>()
-
-const originalName = computed(() => props.file?.name.substring(0, props.file.name.lastIndexOf('.')) ?? '')
-// const ext = computed(() => props.file.name.substring(props.file.name.lastIndexOf('.') + 1))
-// const isImage = computed(() => ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext.value.toLowerCase()))
-
-const emit = defineEmits<{
-    'submit': [name: string],
-}>();
-
-const form = window.useForm({
-    name: originalName.value,
-    image: props.fileAsStr,
-})
-
-watch(() => props.file, (nv) => {
-    form.image = props.fileAsStr
-    form.name = originalName.value
-})
-
-function submit(){
-    console.log('submit', form.data())
-    emit('submit', form.name)
-
-}
+const props = defineProps<{ state: TUploadState }>()
 
 const __ = window.__;
+
+function onCropped(img: any) {
+    props.state.form.image = img;
+    props.state.form.errors.image = '';
+}
 </script>
 
 <template>
     <CenteredModal
-        v-model:show="visible"
+        v-model:show="state.isVisible"
         content-class="flex flex-col w-10/12 lg:w-6/12"
         content-style="min-width: 400px"
         title="Select the size"
         :close-on-outside="false"
+        :tag="'upload-modal-' + state.id"
+        :key="'upload-modal-' + state.id"
+        :id="'upload-modal-' + state.id"
     >
-        <header class="flex p-5">
-            <h3 class="text-xl">Upload File</h3>
+        <form @submit.prevent="state.submit" class="flex flex-col">
+            <header class="flex p-5">
+                <h3 class="text-xl">Upload File {{ state.id }}</h3>
 
-            <button class="btn btn-secondary rounded-full p-1 ml-auto" @click="visible = false">
-                <span class="icon icon-[mdi--remove]"></span>
-            </button>
-        </header>
+                <button class="btn btn-secondary rounded-full p-1 ml-auto" @click="state.close()">
+                    <span class="icon icon-[mdi--remove]"></span>
+                </button>
+            </header>
 
-        <div v-if="file">
-            <div v-if="fileAsStr" style="max-width: 95vw;" class="px-5 flex justify-center mb-4">
-                <img
-                    :src="fileAsStr"
-                    style="max-height: 40vh; max-width: 100%;"
-                    alt="...">
-            </div>
-            <div class="px-5">
-                <div class="text-sm">
-                    Original name of the file is: <b>{{ originalName }}</b>. You can change it here:
+            <div v-if="state.hasFile">
+                <div v-if="state.fileAsStr" style="max-width: 95vw;" class="px-5 flex flex-col items-center mb-4 gap-1">
+                    <ImageCropper
+                        v-if="state.cropperProps"
+                        v-bind="state.cropperProps"
+                        :image="state.form.unrefFileAsStr"
+                        :width="state.size.width"
+                        :height="state.size.height"
+                        :model-value="state.form.image"
+                        @update:model-value="onCropped"
+                    />
+                    <img
+                        v-else
+                        :src="state.fileAsStr"
+                        style="max-height: 40vh; max-width: 100%;"
+                        alt="...">
+                    <InputError :message="state.form.errors.image"/>
                 </div>
+                <div class="px-5">
+                    <div class="text-sm" v-if="state.canEditName">
+                        Original name of the file is: <b>{{ state.originalName }}</b>. You can change it here:
+                    </div>
 
-                <TextInput
-                    class="w-full mt-1"
-                    v-model="form.name"
-                />
-                <InputError :message="form.errors.name" />
+                    <TextInput
+                        :disabled="!state.canEditName"
+                        :readonly="!state.canEditName"
+                        class="w-full mt-1"
+                        v-model="state.form.name"
+                    />
+                    <InputError :message="state.form.errors.name"/>
+                </div>
             </div>
-        </div>
 
-        <footer class="dialog-footer flex justify-end gap-3 px-5 py-3">
-            <button class="btn btn-light py-0.5 rounded text-sm font-normal lowercase" @click="visible = false">
-                {{ __('cancel') }}
-            </button>
-            <button class="btn btn-primary py-0.5 rounded text-sm font-normal lowercase" @click="submit">
-                {{ __('upload') }}
-            </button>
-        </footer>
+            <footer class="dialog-footer flex justify-end gap-3 px-5 py-3">
+                <button class="btn btn-light py-0.5 rounded text-sm font-normal lowercase" @click.prevent="state.close()">
+                    {{ __('cancel') }}
+                </button>
+                <button class="btn btn-primary py-0.5 rounded text-sm font-normal lowercase" type="submit">
+                    {{ __('upload') }}
+                </button>
+            </footer>
+        </form>
     </CenteredModal>
 </template>

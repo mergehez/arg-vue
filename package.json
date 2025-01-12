@@ -11,12 +11,18 @@
     "url": "git+https://github.com/mergehez/arg-vue.git"
   },
   "files": [
-    "lib/*",
+    "lib/Components/*",
+    "lib/utils/*",
+    "lib/sass/*",
+    "lib/theme_setup.js",
+    "lib/tailwind-config.js",
     "laravel/*"
   ],
-  "types": "./lib/index.d.ts",
+  "main": "./lib/Components/index.js",
+  "module": "./lib/Components/index.js",
+  "types": "./lib/Components/index.d.ts",
   "exports": {
-    "./Components": {
+    ".": {
       "import": "./lib/Components/index.js",
       "require": "./lib/Components/index.js",
       "types": "./lib/Components/index.d.ts"
@@ -27,6 +33,10 @@
       "types": "./lib/utils/index.d.ts"
     },
     "./lib/sass/*.css": {
+      "import": "./lib/sass/*.css",
+      "require": "./lib/sass/*.css"
+    },
+    "./sass/*.css": {
       "import": "./lib/sass/*.css",
       "require": "./lib/sass/*.css"
     },
@@ -45,7 +55,7 @@
   "scripts": {
     "buildy": "rimraf dist/ && vite build && vue-tsc --emitDeclarationOnly",
     "buildx": "node g.mjs && rimraf dist && cp -R lib/ dist && cp -R public/ dist && vue-tsc --emitDeclarationOnly ",
-    "build": "node g.mjs && rimraf dist ",
+    "build": "rimraf disto && node g.mjs",
     "dev": "vite",
     "build3": "node g.mjs && vite build && vue-tsc --emitDeclarationOnly -p tsconfig.build-dts.json",
     "build2": "node g.mjs && vite build && vue-tsc --emitDeclarationOnly -p tsconfig.build-dts.json",
@@ -58,42 +68,41 @@
     "publishX": "npm publish --access public"
   },
   "peerDependencies": {
-    "@fontsource/roboto": "^5.1.0",
+    "@fontsource/roboto": "^5.1.1",
     "@formkit/auto-animate": "^0.8.2",
-    "@iconify/json": "^2.2.272",
-    "@iconify/tailwind": "^1.1.3",
-    "@inertiajs/vue3": "^1.2.0",
+    "@iconify/json": "^2.2.294",
+    "@iconify/tailwind": "^1.2.0",
+    "@inertiajs/vue3": "^2.0.0",
     "@popperjs/core": "^2.11.8",
     "@types/latinize": "^0.2.18",
-    "@types/node": "^22.9.0",
-    "@vitejs/plugin-vue": "^5.2.0",
-    "@vueuse/components": "^11.2.0",
-    "@vueuse/core": "^11.2.0",
+    "@types/node": "^22.10.5",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vueuse/components": "^11.3.0",
+    "@vueuse/core": "^12.4.0",
     "autoprefixer": "^10.4.20",
-    "axios": "^1.7.7",
+    "axios": "^1.7.9",
     "dayjs": "^1.11.13",
     "idb-keyval": "^6.2.1",
-    "laravel-vite-plugin": "^1.0.6",
+    "laravel-vite-plugin": "^1.1.1",
     "latinize": "^2.0.0",
     "path": "^0.12.7",
-    "pinia": "^2.2.6",
+    "pinia": "^2.3.0",
     "postcss": "^8.4.49",
     "postcss-nesting": "^13.0.1",
     "rollup-plugin-typescript2": "^0.36.0",
-    "tailwind-merge": "^2.5.4",
-    "tailwindcss": "^3.4.14",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.11",
-    "vite-plugin-dts": "^4.3.0",
-    "vite-plugin-sass-dts": "^1.3.29",
-    "vite-plugin-static-copy": "^2.1.0",
-    "vue": "^3.5.12",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss": "^3.4.17",
+    "typescript": "5.7.2",
+    "vite": "^6.0.7",
+    "vite-plugin-dts": "^4.5.0",
+    "vite-plugin-sass-dts": "^1.3.30",
+    "vite-plugin-static-copy": "^2.2.0",
+    "vue": "^3.5.13",
     "vue-advanced-cropper": "^2.8.9",
-    "vue-tsc": "^2.1.10",
-    "ziggy-js": "^2.4.0"
+    "vue-tsc": "2.2.0",
+    "ziggy-js": "^2.4.2"
   },
   "bugs": {
     "url": "https://github.com/mergehez/arg-vue/issues"
-  },
-  "devDependencies": { "@vue/language-server": "^2.1.10" }
+  }
 }

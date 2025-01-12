@@ -6,7 +6,7 @@ import {IHead} from "@argvue/Components";
 import {FormSelect, TextInput, InputError} from '@argvue/Components'
 import {TModelForm, usePage} from "@argvue/utils";
 import {_createForm, _formSubmitFn} from "@/Helpers/form_helpers";
-import {KeyValueKey} from "@/Helpers/generated_enums";
+import {KeyValueKey} from "@/Models/generated_enums";
 
 defineOptions({layout: AppLayoutPanel});
 

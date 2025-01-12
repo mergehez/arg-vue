@@ -1,8 +1,7 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
 // import globalState from "@/Helpers/globalState";
 import type {InertiaForm} from "@inertiajs/vue3";
-import type {Router} from "@inertiajs/core";
-import type {VisitOptions} from "@inertiajs/core";
+import type {Router, VisitOptions} from "@inertiajs/core";
 import type {TApiResponse, TAxiosError} from "./models";
 import {changeLanguage, usePage} from "./inertia_helpers";
 
@@ -24,7 +23,7 @@ export const api = {
     logout: async (then?: any) => {
         await api.post2(route('auth.logout'));
         // globalState.activity.stopListeners();
-        usePage().props.auth.user = undefined;
+        (usePage().props.auth as any).user = undefined;
         if (then) then();
     },
     changeLanguage: (langKey: string) => {
@@ -58,25 +57,24 @@ export const apiInertia = {
     }
 }
 
-export function handleFormValidationErrors<T extends object>(form: InertiaForm<T>, err: TApiError) {
+export function handleFormValidationErrors<T extends object>(form: { errors: any }, err: TApiError) {
     const errors = err.response?.data.errors;
     form.errors = {};
     if (errors) {
         // setTimeout(() => {
-            for (const key in errors) {
-                if (!Array.isArray(errors[key]))
-                    (form.errors as any)[key] = errors[key];
-                else if (errors[key].length === 0)
-                    (form.errors as any)[key] = window.__('something_went_wrong');
-                else if (errors[key].length === 1)
-                    (form.errors as any)[key] = errors[key][0];
-                else
-                    (form.errors as any)[key] = '- ' + errors[key].join('<br/>- ');
-                // form.errors[key] = Array.isArray(errors[key]) ? '- ' +errors[key].join('<br/>- ') : errors[key];
-            }
+        for (const key in errors) {
+            if (!Array.isArray(errors[key]))
+                (form.errors as any)[key] = errors[key];
+            else if (errors[key].length === 0)
+                (form.errors as any)[key] = window.__('something_went_wrong');
+            else if (errors[key].length === 1)
+                (form.errors as any)[key] = errors[key][0];
+            else
+                (form.errors as any)[key] = '- ' + errors[key].join('<br/>- ');
+            // form.errors[key] = Array.isArray(errors[key]) ? '- ' +errors[key].join('<br/>- ') : errors[key];
+        }
         // }, 200);
     } else {
         console.error(err);
     }
-
 }
